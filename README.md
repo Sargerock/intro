@@ -6,7 +6,7 @@ To install it globaly:
 
 ### `npm install -g json-server`
 
-## Commants to start project
+## Commands to start project
 
 In the project directory, run:
 
