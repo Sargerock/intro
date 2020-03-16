@@ -1,26 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import MessagesList from "./components/messagesList/MessagesList";
+import GlobalStyle from "./globalStyle";
+import SendMessageForm from "./components/sendMessageForm/SendMessageForm";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<>
+			<GlobalStyle />
+			<div className="container">
+				<SendMessageForm />
+				<MessagesList />
+			</div>
+		</>
+	);
 }
 
 export default App;
