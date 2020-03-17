@@ -1,25 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import InfiniteScroll from "react-infinite-scroller";
 
 import Message from "./message/Message";
 
-const MessagesList = ({ messages }) => {
-	useEffect(() => {}, []);
-
+const MessagesList = ({ messages, getMessages, hasMore }) => {
+	const mapMessages = messages.map(({ id, author, message }) => (
+		<Message key={id} author={author} messageText={message} />
+	));
 	return (
 		<div>
-			<Message
-				author="author"
-				messageText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, est!"
-			/>
-			<Message
-				author="author"
-				messageText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, est!"
-			/>
-			<Message
-				author="author"
-				messageText="Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, est!"
-			/>
+			<InfiniteScroll
+				pageStart={0}
+				loadMore={getMessages}
+				hasMore={hasMore}
+				loader={<div key={0}>Loading ...</div>}
+			>
+				{mapMessages}
+			</InfiniteScroll>
 		</div>
 	);
 };

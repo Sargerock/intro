@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import PropTypes from "prop-types";
+
 import Avatar from "../common/avatar/Avatar";
 
 import Div from "./SendMessageFormStyled";
 
-const SendMessageForm = props => {
+const SendMessageForm = ({ sendMessage }) => {
 	const [author, setAuthor] = useState("");
 	const [message, setMessage] = useState("");
 	const [error, setError] = useState("");
@@ -17,6 +17,8 @@ const SendMessageForm = props => {
 			case "message":
 				setMessage(value);
 				break;
+			default:
+				return;
 		}
 	};
 
@@ -31,6 +33,10 @@ const SendMessageForm = props => {
 			return;
 		}
 		setError("");
+		const timestamp = Math.floor(Date.now() / 1000);
+		sendMessage({ author, message, timestamp });
+
+		setMessage("");
 	};
 
 	return (
@@ -57,7 +63,5 @@ const SendMessageForm = props => {
 		</Div>
 	);
 };
-
-SendMessageForm.propTypes = {};
 
 export default SendMessageForm;

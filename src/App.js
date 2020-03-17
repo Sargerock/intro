@@ -1,18 +1,21 @@
 import React from "react";
-import MessagesList from "./components/messagesList/MessagesList";
+import MessageListContainer from "./components/messagesList/MessageListContainer";
 import GlobalStyle from "./globalStyle";
-import SendMessageForm from "./components/sendMessageForm/SendMessageForm";
+import SendMessageFormContainer from "./components/sendMessageForm/SendMessageFormContainer";
+import { MessagesContext } from "./contexts/MessagesContext";
 
 function App() {
-	return (
-		<>
-			<GlobalStyle />
-			<div className="container">
-				<SendMessageForm />
-				<MessagesList />
-			</div>
-		</>
-	);
+  return (
+    <>
+      <GlobalStyle />
+      <div className="container">
+        <MessagesContext>
+          <SendMessageFormContainer />
+          <MessageListContainer />
+        </MessagesContext>
+      </div>
+    </>
+  );
 }
 
 export default App;

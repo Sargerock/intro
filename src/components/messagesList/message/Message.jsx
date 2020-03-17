@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Div from "./MessageStyled";
 import Avatar from "../../common/avatar/Avatar";
 
-const Message = ({ author, messageText }) => {
+import Div from "./MessageStyled";
+
+const Message = ({ id, author, messageText }) => {
 	return (
 		<Div>
 			<div>
