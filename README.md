@@ -1,11 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Json Server is required!
-
-To install it globaly:
-
-### `npm install -g json-server`
-
 ## Commands to start project
 
 In the project directory, run:
