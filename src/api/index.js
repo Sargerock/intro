@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:3001";
+const url = "http://localhost:8000";
 const itemsPerFetch = 5;
 
 export const Api = {

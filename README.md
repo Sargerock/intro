@@ -10,7 +10,7 @@ To install it globaly:
 
 In the project directory, run:
 
-### `npm run server`
+### `node json-server/server.js`
 
 ### `npm start`
 

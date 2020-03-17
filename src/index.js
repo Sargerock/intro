@@ -1,8 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+import App from "./App";
+import { Provider } from "react-redux";
+import store from "./store";
+
+import GlobalStyle from "./globalStyle";
+
+ReactDOM.render(
+	<Provider store={store}>
+		<GlobalStyle />
+		<App />
+	</Provider>,
+	document.getElementById("root")
+);
 
 serviceWorker.unregister();

@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 
 import Avatar from "../../common/avatar/Avatar";
 
-import Div from "./MessageStyled";
+import Div from "./PostStyled";
 
-const Message = ({ id, author, messageText }) => {
+const Post = ({ id, author, messageText }) => {
 	return (
 		<Div>
 			<div>
@@ -19,9 +19,9 @@ const Message = ({ id, author, messageText }) => {
 	);
 };
 
-Message.propTypes = {
+Post.propTypes = {
 	author: PropTypes.string.isRequired,
 	messageText: PropTypes.string.isRequired
 };
 
-export default Message;
+export default Post;

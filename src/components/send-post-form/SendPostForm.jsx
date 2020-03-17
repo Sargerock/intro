@@ -2,9 +2,9 @@ import React, { useState } from "react";
 
 import Avatar from "../common/avatar/Avatar";
 
-import Div from "./SendMessageFormStyled";
+import Div from "./SendPostFormStyled";
 
-const SendMessageForm = ({ sendMessage }) => {
+const SendPostForm = ({ createPost }) => {
 	const [author, setAuthor] = useState("");
 	const [message, setMessage] = useState("");
 	const [error, setError] = useState("");
@@ -22,7 +22,7 @@ const SendMessageForm = ({ sendMessage }) => {
 		}
 	};
 
-	const onMessageFormSubmit = e => {
+	const onSendPostFormSubmit = e => {
 		e.preventDefault();
 		if (author.length < 3) {
 			setError("Author name must be at least 3 chars long.");
@@ -34,7 +34,7 @@ const SendMessageForm = ({ sendMessage }) => {
 		}
 		setError("");
 		const timestamp = Math.floor(Date.now() / 1000);
-		sendMessage({ author, message, timestamp });
+		createPost({ author, message, timestamp });
 
 		setMessage("");
 	};
@@ -42,7 +42,7 @@ const SendMessageForm = ({ sendMessage }) => {
 	return (
 		<Div>
 			<Avatar src="https://via.placeholder.com/100" alt="avatar" size="50" />
-			<form onSubmit={onMessageFormSubmit}>
+			<form onSubmit={onSendPostFormSubmit}>
 				<input
 					name="author"
 					type="text"
@@ -64,4 +64,4 @@ const SendMessageForm = ({ sendMessage }) => {
 	);
 };
 
-export default SendMessageForm;
+export default SendPostForm;
