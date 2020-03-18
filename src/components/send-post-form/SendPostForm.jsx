@@ -1,67 +1,41 @@
-import React, { useState } from "react";
+import React from "react";
+import PropTypes from "prop-types";
+import { ErrorMessage } from "formik";
 
 import Avatar from "../common/avatar/Avatar";
 
-import Div from "./SendPostFormStyled";
+import {
+	WrapperSendPost,
+	FormSendPost,
+	InputSendPost,
+	TextAreaSendPost,
+	ButtonSendPost
+} from "./SendPostFormStyled";
 
-const SendPostForm = ({ createPost }) => {
-	const [author, setAuthor] = useState("");
-	const [message, setMessage] = useState("");
-	const [error, setError] = useState("");
-
-	const onHandleChange = ({ target: { name, value } }) => {
-		switch (name) {
-			case "author":
-				setAuthor(value);
-				break;
-			case "message":
-				setMessage(value);
-				break;
-			default:
-				return;
-		}
-	};
-
-	const onSendPostFormSubmit = e => {
-		e.preventDefault();
-		if (author.length < 3) {
-			setError("Author name must be at least 3 chars long.");
-			return;
-		}
-		if (message.length < 10) {
-			setError("Message is too short.");
-			return;
-		}
-		setError("");
-		const timestamp = Math.floor(Date.now() / 1000);
-		createPost({ author, message, timestamp });
-
-		setMessage("");
-	};
-
+const SendPostForm = ({ dirty, isValid }) => {
 	return (
-		<Div>
+		<WrapperSendPost>
 			<Avatar src="https://via.placeholder.com/100" alt="avatar" size="50" />
-			<form onSubmit={onSendPostFormSubmit}>
-				<input
-					name="author"
-					type="text"
-					placeholder="Your name"
-					value={author}
-					onChange={onHandleChange}
-				/>
-				<textarea
-					name="message"
-					type="text"
+			<FormSendPost>
+				<ErrorMessage name="authorName" />
+				<InputSendPost type="text" name="authorName" placeholder="Your name" />
+				<ErrorMessage name="postMessage" />
+				<TextAreaSendPost
+					name="postMessage"
+					component="textarea"
 					placeholder="What you think ?"
-					value={message}
-					onChange={onHandleChange}
 				/>
-				{error && <div>{error}</div>}
-				<button type="submit">Send</button>
-			</form>
-		</Div>
+				<ButtonSendPost type="submit" disabled={!dirty || !isValid}>
+					Send
+				</ButtonSendPost>
+			</FormSendPost>
+		</WrapperSendPost>
 	);
+};
+
+SendPostForm.propTypes = {
+	dirty: PropTypes.bool.isRequired,
+	isValid: PropTypes.bool.isRequired
 };
 
 export default SendPostForm;

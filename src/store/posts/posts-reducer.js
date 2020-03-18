@@ -11,9 +11,10 @@ export default (state = initialState, action) => {
 		case "GET_POSTS_SUCCESS":
 			return {
 				...state,
-				posts: [...state.messages, ...action.payload.posts],
+				posts: [...state.posts, ...action.payload.posts],
 				totalPostsCount: action.payload.totalPostsCount,
-				cursor: state.cursor + action.payload.posts.length
+				cursor: state.cursor + action.payload.posts.length,
+				isFirstFetch: false
 			};
 		case "CREATE_POST_SUCCESS":
 			return {

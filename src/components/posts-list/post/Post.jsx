@@ -3,19 +3,21 @@ import PropTypes from "prop-types";
 
 import Avatar from "../../common/avatar/Avatar";
 
-import Div from "./PostStyled";
+import { WrapperPost, PostMessage } from "./PostStyled";
 
-const Post = ({ id, author, messageText }) => {
+const Post = ({ author, messageText }) => {
 	return (
-		<Div>
+		<WrapperPost>
 			<div>
 				<Avatar src="https://via.placeholder.com/100" alt="avatar" />
 			</div>
 			<div>
-				<p className="author">{author}</p>
-				<p className="message">{messageText}</p>
+				<p>
+					<strong>{author}</strong>
+				</p>
+				<PostMessage>{messageText}</PostMessage>
 			</div>
-		</Div>
+		</WrapperPost>
 	);
 };
 

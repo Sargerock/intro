@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
-export default styled.div`
+export const WrapperPost = styled.div`
 	display: flex;
 	background-color: #fff;
 	border: 1px solid #e6ecf0;
+`;
 
-	.author {
-		font-weight: bold;
-	}
+export const PostMessage = styled.p`
+	word-break: break-word;
 `;

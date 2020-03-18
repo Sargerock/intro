@@ -1,6 +1,7 @@
+const path = require("path");
 const jsonServer = require("json-server");
 const server = jsonServer.create();
-const router = jsonServer.router("./posts.json");
+const router = jsonServer.router(path.join(__dirname, "posts.json"));
 const middlewares = jsonServer.defaults();
 const port = process.env.PORT || 8000;
 

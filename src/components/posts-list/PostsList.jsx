@@ -5,13 +5,14 @@ import InfiniteScroll from "react-infinite-scroller";
 import Post from "./post/Post";
 
 const PostsList = props => {
-	const { posts, getPosts, hasMore } = props;
+	const { posts, isMorePostsAvaible, getPosts } = props;
+
 	return (
 		<div>
 			<InfiniteScroll
 				pageStart={0}
 				loadMore={getPosts}
-				hasMore={hasMore}
+				hasMore={isMorePostsAvaible}
 				loader={<div key={0}>Loading ...</div>}
 			>
 				{posts.map(({ id, author, message }) => (
