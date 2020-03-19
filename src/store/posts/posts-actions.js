@@ -34,17 +34,19 @@ export const createPostFailed = message => ({
 	}
 });
 
+export const GET_POSTS = "GET_POSTS";
 export const getPosts = () => async (dispatch, getState) => {
-	const { cursor, postsPerFetch } = getState();
-
-	try {
-		const result = await axios.get(
-			`posts?_sort=timestamp&_order=desc&_start=${cursor}&_limit=${postsPerFetch}`
-		);
-		dispatch(getPostsSuccess(result.data, result.headers["x-total-count"]));
-	} catch (error) {
-		dispatch(getPostsFailed(error.message));
-	}
+	const {
+		posts: { cursor, postsPerFetch }
+	} = getState();
+	dispatch({
+		type: GET_POSTS,
+		payload: {
+			request: {
+				url: `posts?_sort=timestamp&_order=desc&_start=${cursor}&_limit=${postsPerFetch}`
+			}
+		}
+	});
 };
 
 export const createPost = data => async dispatch => {

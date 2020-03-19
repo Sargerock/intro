@@ -17,11 +17,12 @@ const initialState = {
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case GET_POSTS_SUCCESS:
+			const { payload } = action;
 			return {
 				...state,
-				posts: [...state.posts, ...action.payload.posts],
-				totalPostsCount: action.payload.totalPostsCount,
-				cursor: state.cursor + action.payload.posts.length,
+				posts: [...state.posts, ...payload.data],
+				totalPostsCount: payload.response.headers["x-total-count"],
+				cursor: state.cursor + payload.data.length,
 				isFirstFetch: false,
 				error: ""
 			};
