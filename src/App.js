@@ -1,15 +1,15 @@
 import React from "react";
 
-import PostsListContainer from "./components/posts-list/PostsListContainer";
-import SendPostFormContainer from "./components/send-post-form/SendPostFormContainer";
+import PostsList from "./components/posts-list/PostsList";
+import CreatePost from "./components/create-post/CreatePost";
 import { DivContainer } from "./components/common/styles";
 
 function App() {
 	return (
 		<>
 			<DivContainer>
-				<SendPostFormContainer />
-				<PostsListContainer />
+				<CreatePost />
+				<PostsList />
 			</DivContainer>
 		</>
 	);

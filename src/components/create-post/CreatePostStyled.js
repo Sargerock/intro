@@ -3,14 +3,14 @@ import { Form, Field } from "formik";
 
 import { ButtonStyled } from "../common/styles";
 
-export const WrapperSendPost = styled.div`
+export const WrapperCreatePost = styled.div`
 	display: flex;
 	background-color: #e7f5fd;
 	padding: 10px;
 	border: 1px solid #e6ecf0;
 `;
 
-export const FormSendPost = styled(Form)`
+export const FormCreatePost = styled(Form)`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
@@ -24,17 +24,20 @@ export const FieldStyled = styled(Field)`
 	border-radius: 15px;
 `;
 
-export const TextAreaSendPost = styled(FieldStyled)`
-	height: 70px;
+export const TextAreaCreatePost = styled(FieldStyled)`
+	min-height: 90px;
+	scroll-padding: 10px;
 	resize: none;
+	overflow-y: auto;
 `;
 
-export const InputSendPost = styled(FieldStyled)`
+export const InputCreatePost = styled(FieldStyled)`
 	width: 200px;
 `;
 
-export const ButtonSendPost = styled(ButtonStyled)`
+export const ButtonCreatePost = styled(ButtonStyled)`
 	align-self: flex-end;
+	cursor: pointer;
 
 	&:disabled {
 		background-color: #98cff9;

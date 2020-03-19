@@ -4,6 +4,8 @@ const GlobalStyle = createGlobalStyle`
 
     * {
         box-sizing: border-box;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
     }
     body {
         background-color: #e6ecf0;
