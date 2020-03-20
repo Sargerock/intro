@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Form, Field } from "formik";
+import { Form } from "formik";
 
-import { ButtonStyled } from "../common/styles";
+import { ButtonStyled, FieldStyled } from "../common/styles";
 
 export const WrapperCreatePost = styled.div`
 	display: flex;
@@ -14,14 +14,6 @@ export const FormCreatePost = styled(Form)`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-`;
-
-export const FieldStyled = styled(Field)`
-	display: block;
-	margin: 5px 0;
-	padding: 10px;
-	border: 2px solid #bae0f9;
-	border-radius: 15px;
 `;
 
 export const TextAreaCreatePost = styled(FieldStyled)`
@@ -37,10 +29,4 @@ export const InputCreatePost = styled(FieldStyled)`
 
 export const ButtonCreatePost = styled(ButtonStyled)`
 	align-self: flex-end;
-	cursor: pointer;
-
-	&:disabled {
-		background-color: #98cff9;
-		border: 2px solid #98cff9;
-	}
 `;

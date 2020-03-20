@@ -1,4 +1,11 @@
 {
+  "users": [
+    {
+      "email": "testdrive@mail.com",
+      "password": "$2a$10$ychcte6g/2aS48x.Iz8pQeLFeJwlXoCxK1MSGtlPSTTDvbucdKRaS",
+      "id": 1
+    }
+  ],
   "posts": [
     {
       "id": 1,
@@ -353,6 +360,18 @@
       "message": "dsasdsadsadadasdasd\ndasdsadsa",
       "timestamp": 1584616911,
       "id": 65
+    },
+    {
+      "author": "dsfsdfsdfds",
+      "message": "sdasadsadsad",
+      "timestamp": 1584688230,
+      "id": 66
+    },
+    {
+      "author": "dsfsdfsdfds",
+      "message": "11111111111111111111111",
+      "timestamp": 1584688237,
+      "id": 67
     }
   ]
 }

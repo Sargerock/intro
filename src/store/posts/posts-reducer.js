@@ -1,44 +1,48 @@
-import {
-	GET_POSTS_SUCCESS,
-	CREATE_POST_SUCCESS,
-	GET_POSTS_FAILED,
-	CREATE_POST_FAILED
-} from "./posts-actions";
+import { GET_POSTS, CREATE_POST } from "./posts-actions";
+import { success, error } from "redux-saga-requests";
 
 const initialState = {
 	posts: [],
-	totalPostsCount: 0,
 	cursor: 0,
-	isFirstFetch: true,
+	hasMore: true,
 	postsPerFetch: 5,
-	error: ""
+	error: "",
+	isLoading: false
 };
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case GET_POSTS_SUCCESS:
+		case GET_POSTS:
+		case CREATE_POST:
+			return {
+				...state,
+				isLoading: true,
+				error: ""
+			};
+
+		case success(GET_POSTS):
 			const { payload } = action;
+			const cursor = state.cursor + payload.data.length;
 			return {
 				...state,
 				posts: [...state.posts, ...payload.data],
-				totalPostsCount: payload.response.headers["x-total-count"],
-				cursor: state.cursor + payload.data.length,
-				isFirstFetch: false,
-				error: ""
+				cursor,
+				hasMore: cursor < payload.response.headers["x-total-count"],
+				isLoading: false
 			};
-		case CREATE_POST_SUCCESS:
+		case success(CREATE_POST):
 			return {
 				...state,
-				posts: [action.payload.post, ...state.posts],
+				posts: [action.payload.data, ...state.posts],
 				totalPostsCount: state.totalPostsCount + 1,
 				cursor: state.cursor + 1,
-				error: ""
+				isLoading: false
 			};
-		case GET_POSTS_FAILED:
-		case CREATE_POST_FAILED:
+		case error(GET_POSTS):
+		case error(CREATE_POST):
 			return {
 				...state,
-				error: action.payload.message
+				error: action.payload.data
 			};
 		default:
 			return state;

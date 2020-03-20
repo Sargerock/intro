@@ -2,25 +2,18 @@ import axios from "axios";
 import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
-import {
-	createRequestInstance,
-	requestsPromiseMiddleware,
-	watchRequests
-} from "redux-saga-requests";
-import { createDriver } from "redux-saga-requests-axios";
+import { requestsPromiseMiddleware } from "redux-saga-requests";
 
-import postsReducer from "./posts/posts-reducer";
+import posts from "./posts/posts-reducer";
+import auth from "./auth/auth-reducer";
+import rootSaga from "./root-saga";
 
-axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = "http://localhost:8000";
 
 const reducers = combineReducers({
-	posts: postsReducer
+	posts,
+	auth
 });
-
-function* rootSaga() {
-	yield createRequestInstance({ driver: createDriver(axios) });
-	yield watchRequests();
-}
 
 const sagaMiddleware = createSagaMiddleware();
 
