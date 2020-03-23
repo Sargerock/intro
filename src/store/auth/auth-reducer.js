@@ -24,6 +24,7 @@ export default (state = initialState, action) => {
 			};
 		case success(SIGN_IN):
 		case success(SIGN_UP):
+			debugger;
 			const token = action.payload.data.accessToken;
 			authHelper.saveToken(token);
 			return {
@@ -41,6 +42,7 @@ export default (state = initialState, action) => {
 				}
 			};
 		}
+		// TODO request status 400 as success
 		case error(SIGN_IN):
 		case error(SIGN_UP):
 			return {

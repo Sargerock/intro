@@ -13,7 +13,8 @@ server.db = router.db;
 server.use(middlewares);
 server.get("/user", (req, res) => {
 	const token = req.headers.authorization.split(" ")[1];
-	const { sub } = decodeJwt(token);
+	let { sub } = decodeJwt(token);
+	sub = parseInt(sub);
 	const { users } = require("./db.json");
 	const user = users.filter(user => user.id == sub)[0];
 	if (!user) res.status(404).send();

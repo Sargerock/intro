@@ -48,6 +48,8 @@ const initialValues = {
 const Authorization = () => {
 	const isSignUp = useHistory().location.pathname === "/signup";
 	const dispatch = useDispatch();
+	const token = useSelector(state => state.auth.token);
+	const error = useSelector(state => state.auth.error);
 
 	const signHandleSubmit = ({ email, password, userName }, { resetForm }) => {
 		dispatch(
@@ -58,7 +60,7 @@ const Authorization = () => {
 			dispatch(getUser());
 		});
 	};
-	const token = useSelector(state => state.auth.token);
+
 	if (token) return <Redirect to="/posts" />;
 	return (
 		<WrapperAuth>
@@ -111,6 +113,7 @@ const Authorization = () => {
 						<ButtonStyled type="submit" alignSelf={"flex-end"} margin="10px 0">
 							{isSignUp ? "Sign Up" : "Sign In"}
 						</ButtonStyled>
+						{error}
 					</FormAuth>
 				)}
 			</Formik>

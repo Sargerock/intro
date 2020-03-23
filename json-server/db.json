@@ -183,18 +183,11 @@
       "id": 38
     },
     {
-      "message": "dsadassadasd",
-      "timestamp": 1584971429,
+      "message": "dsaasdasddsaasdas",
+      "timestamp": 1584973806,
       "author": "TestDriveUser",
-      "userId": "1",
-      "id": 40
-    },
-    {
-      "message": "dsds\nsaddsadsa",
-      "timestamp": 1584971431,
-      "author": "TestDriveUser",
-      "userId": "1",
-      "id": 41
+      "userId": 1,
+      "id": 39
     }
   ]
 }

@@ -22,9 +22,7 @@ function App() {
 			<Switch>
 				<Route path={["/signin", "/signup"]} component={Authorization} />
 				<PrivateRoute path="/posts" component={Posts} />
-				<Route exact path="/">
-					<Redirect to="/posts" />
-				</Route>
+				<Redirect to="/posts" />
 			</Switch>
 		</>
 	);
