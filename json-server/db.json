@@ -2,17 +2,18 @@
   "users": [
     {
       "email": "testdrive@mail.com",
-      "password": "$2a$10$ychcte6g/2aS48x.Iz8pQeLFeJwlXoCxK1MSGtlPSTTDvbucdKRaS",
+      "password": "$2a$10$N0LHEAJVAHHPzHTXR9bwHemloTVst4yKUilFCZWUquBsxfprnmMWu",
+      "userName": "TestDriveUser",
       "id": 1
+    },
+    {
+      "email": "test2@mail.com",
+      "password": "$2a$10$9NMZjUOTBTbp83bH4/b0rel6N2eqI2lBTVpU1rqjvO324ND75Dd86",
+      "userName": "TestUser",
+      "id": 2
     }
   ],
   "posts": [
-    {
-      "id": 1,
-      "author": "Anett",
-      "message": "Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.",
-      "timestamp": 1584434480
-    },
     {
       "id": 2,
       "author": "Andriette",
@@ -24,12 +25,6 @@
       "author": "Kellsie",
       "message": "Curabitur gravida nisi at nibh. In hac habitasse platea dictumst. Aliquam augue quam, sollicitudin vitae, consectetuer eget, rutrum at, lorem.\n\nInteger tincidunt ante vel ipsum. Praesent blandit lacinia erat. Vestibulum sed magna at nunc commodo placerat.",
       "timestamp": 1584432957
-    },
-    {
-      "id": 4,
-      "author": "Cristy",
-      "message": "Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.",
-      "timestamp": 1584434844
     },
     {
       "id": 5,
@@ -152,12 +147,6 @@
       "timestamp": 1584433124
     },
     {
-      "id": 25,
-      "author": "Starlene",
-      "message": "Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla. Sed vel enim sit amet nunc viverra dapibus. Nulla suscipit ligula in lacus.",
-      "timestamp": 1584435500
-    },
-    {
       "id": 26,
       "author": "Harlie",
       "message": "Nullam sit amet turpis elementum ligula vehicula consequat. Morbi a ipsum. Integer a nibh.",
@@ -170,208 +159,42 @@
       "timestamp": 1584432671
     },
     {
-      "id": 28,
-      "author": "Elden",
-      "message": "Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
-      "timestamp": 1584435385
-    },
-    {
       "id": 29,
       "author": "Jerald",
       "message": "Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.\n\nQuisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros.",
       "timestamp": 1584433670
     },
     {
-      "id": 30,
-      "author": "Ogdan",
-      "message": "Morbi porttitor lorem id ligula. Suspendisse ornare consequat lectus. In est risus, auctor sed, tristique in, tempus sit amet, sem.\n\nFusce consequat. Nulla nisl. Nunc nisl.",
-      "timestamp": 1584434624
+      "author": "TestDriveUser",
+      "message": "dsadasdsadas",
+      "timestamp": 1584960927,
+      "id": 36
     },
     {
-      "author": "fsdfds",
-      "message": "dasdasdsadsa",
-      "timestamp": 1584443229,
-      "id": 31
+      "author": "TestDriveUser",
+      "message": "dsfsdfsdfsdfdsf\nfdsfsd",
+      "timestamp": 1584960930,
+      "id": 37
     },
     {
-      "author": "gdfg",
-      "message": "fdgfdgdfgfdgfdg",
-      "timestamp": 1584521889,
+      "author": "TestDriveUser",
+      "message": "fssddsadfdsfdsfd",
+      "timestamp": 1584960948,
       "id": 38
     },
     {
-      "author": "fdsfdsfdsfds",
-      "message": "sfdaadsfsdfsd",
-      "timestamp": 1584533407,
-      "id": 39
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "dfssdfsdfsdfsdfsdf",
-      "timestamp": 1584533506,
+      "message": "dsadassadasd",
+      "timestamp": 1584971429,
+      "author": "TestDriveUser",
+      "userId": "1",
       "id": 40
     },
     {
-      "author": "fdsfdsfdsfds",
-      "message": "fsdfsdafsdfds",
-      "timestamp": 1584533564,
+      "message": "dsds\nsaddsadsa",
+      "timestamp": 1584971431,
+      "author": "TestDriveUser",
+      "userId": "1",
       "id": 41
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "dassadsadsadsad",
-      "timestamp": 1584533795,
-      "id": 42
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "dfsdsfdsfdsfdsfds",
-      "timestamp": 1584533824,
-      "id": 43
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "dsasadasdsadsadsa",
-      "timestamp": 1584534307,
-      "id": 44
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "dsadsadsadsa",
-      "timestamp": 1584534353,
-      "id": 45
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "adsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffadsfffffffffv",
-      "timestamp": 1584534539,
-      "id": 46
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "sdfasdfasdfsadf",
-      "timestamp": 1584534765,
-      "id": 47
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "dsfdsfsdfsdfds",
-      "timestamp": 1584538021,
-      "id": 48
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "dasdasdasdasdasdsadasd",
-      "timestamp": 1584538057,
-      "id": 49
-    },
-    {
-      "author": "dsfsdfsdfds",
-      "message": "f\nf\nf\nf\nf\nf\nf\nw\nw\nw\nw\nw\nw\nw\nwx\nx\nx\nx\nx\nx\nx\nx\nx\ndsf\ndsf\nfd\nsfds\nsdff\ndsd\nd\nd\nd\nd\nd\ndd\nd\nd\ndsa\nd\nasd\nsad\nsa\nda\ns",
-      "timestamp": 1584607262,
-      "id": 50
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "fdsfsdfsdfsd\ndsfds\n",
-      "timestamp": 1584607282,
-      "id": 51
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "dsadsadsa\ndsadsada",
-      "timestamp": 1584607306,
-      "id": 52
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "dsad\ndas\ndas\nsda\n\n\n",
-      "timestamp": 1584607471,
-      "id": 53
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "dassadasdsa",
-      "timestamp": 1584607761,
-      "id": 54
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "sdfdsfdsfdsfsdfds",
-      "timestamp": 1584607980,
-      "id": 55
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "sadsadsadsadsad",
-      "timestamp": 1584608011,
-      "id": 56
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "dasdsadasdsadsa",
-      "timestamp": 1584608051,
-      "id": 57
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "sdasadsadsadsa",
-      "timestamp": 1584608224,
-      "id": 58
-    },
-    {
-      "author": "fdsfdsfdsfds",
-      "message": "fdsfdsfsdfsdfsdf",
-      "timestamp": 1584608258,
-      "id": 59
-    },
-    {
-      "author": "dsfsdfsdfds",
-      "message": "dfssdfdsfdsfdsfds",
-      "timestamp": 1584612555,
-      "id": 60
-    },
-    {
-      "author": "dsfsdfsdfds",
-      "message": "dsadsadsadsa",
-      "timestamp": 1584612922,
-      "id": 61
-    },
-    {
-      "author": "dsfdsfdfdss",
-      "message": "fdsdfsdfsdfsdf",
-      "timestamp": 1584615121,
-      "id": 62
-    },
-    {
-      "author": "dsfsdfsdfds",
-      "message": "rewrewrewr\nrewrewrewrewrwerewrwerewrewrewwerewrewr",
-      "timestamp": 1584616884,
-      "id": 63
-    },
-    {
-      "author": "dsfsdfsdfds",
-      "message": "asdsadsadsad",
-      "timestamp": 1584616903,
-      "id": 64
-    },
-    {
-      "author": "dsfdsfdfdss",
-      "message": "dsasdsadsadadasdasd\ndasdsadsa",
-      "timestamp": 1584616911,
-      "id": 65
-    },
-    {
-      "author": "dsfsdfsdfds",
-      "message": "sdasadsadsad",
-      "timestamp": 1584688230,
-      "id": 66
-    },
-    {
-      "author": "dsfsdfsdfds",
-      "message": "11111111111111111111111",
-      "timestamp": 1584688237,
-      "id": 67
     }
   ]
 }

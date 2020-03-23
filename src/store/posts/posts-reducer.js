@@ -1,4 +1,4 @@
-import { GET_POSTS, CREATE_POST } from "./posts-actions";
+import { GET_POSTS, CREATE_POST, DELETE_POST } from "./posts-actions";
 import { success, error } from "redux-saga-requests";
 
 const initialState = {
@@ -37,6 +37,11 @@ export default (state = initialState, action) => {
 				totalPostsCount: state.totalPostsCount + 1,
 				cursor: state.cursor + 1,
 				isLoading: false
+			};
+		case success(DELETE_POST):
+			return {
+				...state,
+				posts: state.posts.filter(post => post.id !== action.meta.id)
 			};
 		case error(GET_POSTS):
 		case error(CREATE_POST):

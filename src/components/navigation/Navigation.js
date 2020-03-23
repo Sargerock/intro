@@ -1,19 +1,26 @@
 import React from "react";
-import { WrapperNavigation, FlexWrapper, Logo } from "./NavigationStyled";
-import { ButtonStyled } from "../common/styles";
 import { useHistory, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+
+import { useProfile } from "../../store/auth/auth-hooks";
 import { signOut } from "../../store/auth/auth-actions";
+
+import { WrapperNavigation, FlexMainWrapper, Logo } from "./NavigationStyled";
+import { ButtonStyled, FlexWrapper } from "../common/styles";
 
 const Navigation = () => {
 	const isSignUp = useHistory().location.pathname === "/signup";
 	const token = useSelector(state => state.auth.token);
 	const dispatch = useDispatch();
+	const { userName } = useProfile();
 
 	return (
 		<WrapperNavigation>
-			<FlexWrapper>
-				<Logo src="/assets/twitter.svg" alt="logo" />
+			<FlexMainWrapper>
+				<FlexWrapper>
+					<Logo src="/assets/twitter.svg" alt="logo" />
+					<span>{userName}</span>
+				</FlexWrapper>
 				{token ? (
 					<ButtonStyled onClick={() => dispatch(signOut())}>
 						Sign Out
@@ -30,7 +37,7 @@ const Navigation = () => {
 						</NavLink>
 					</div>
 				)}
-			</FlexWrapper>
+			</FlexMainWrapper>
 		</WrapperNavigation>
 	);
 };

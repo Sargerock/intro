@@ -47,6 +47,7 @@
 	"devDependencies": {
 		"json-server": "^0.16.1",
 		"json-server-auth": "^1.2.1",
+		"jwt-decode": "^2.2.0",
 		"prop-types": "^15.7.2"
 	}
 }

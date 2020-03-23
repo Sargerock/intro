@@ -9,23 +9,11 @@ import { createPost } from "../../store/posts/posts-actions";
 import {
 	WrapperCreatePost,
 	FormCreatePost,
-	InputCreatePost,
 	TextAreaCreatePost,
 	ButtonCreatePost
 } from "./CreatePostStyled";
-import moment from "moment";
-
-const createPostInitialValues = {
-	authorName: "ds",
-	postMessage: ""
-};
 
 const createPostValidationSchema = yup.object().shape({
-	authorName: yup
-		.string()
-		.required("Name is required.")
-		.min(3, "Name is too short.")
-		.max(30, "Name is too long."),
 	postMessage: yup
 		.string()
 		.required("Enter you message.")
@@ -40,12 +28,12 @@ const CreatePost = () => {
 		{ authorName, postMessage },
 		{ resetForm }
 	) => {
-		const timestamp = moment().unix();
-
-		dispatch(
-			createPost({ author: authorName, message: postMessage, timestamp })
-		);
+		dispatch(createPost({ message: postMessage }));
 		resetForm({ authorName });
+	};
+
+	const createPostInitialValues = {
+		postMessage: ""
 	};
 
 	return (
@@ -56,21 +44,23 @@ const CreatePost = () => {
 				validationSchema={createPostValidationSchema}
 				onSubmit={createPostHandleSubmit}
 			>
-				{({ dirty, isValid }) => (
+				{({ dirty, isValid, submitForm }) => (
 					<FormCreatePost>
 						<ErrorMessage name="authorName" />
-						<InputCreatePost
-							type="text"
-							name="authorName"
-							placeholder="Your name"
-						/>
 						<ErrorMessage name="postMessage" />
 						<TextAreaCreatePost
 							name="postMessage"
 							component="textarea"
 							placeholder="What you think ?"
+							onKeyDown={e => {
+								if (e.ctrlKey && e.key === "Enter") submitForm();
+							}}
 						/>
-						<ButtonCreatePost type="submit" disabled={!dirty || !isValid}>
+						<ButtonCreatePost
+							title="Ctrl + Enter"
+							type="submit"
+							disabled={!dirty || !isValid}
+						>
 							Send
 						</ButtonCreatePost>
 					</FormCreatePost>

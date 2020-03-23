@@ -55,3 +55,8 @@ FieldStyled.propTypes = {
 FieldStyled.defaultProps = {
 	width: "auto"
 };
+
+export const FlexWrapper = styled.div`
+	display: flex;
+	align-items: center;
+`;

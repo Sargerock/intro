@@ -9,7 +9,7 @@ export const WrapperNavigation = styled.div`
 	border-bottom: 1px solid #c4c9cc;
 `;
 
-export const FlexWrapper = styled(MainWrapper)`
+export const FlexMainWrapper = styled(MainWrapper)`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
