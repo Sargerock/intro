@@ -4,18 +4,25 @@ import { createRequestInstance, watchRequests } from "redux-saga-requests";
 
 import { GET_POSTS } from "./posts/posts-actions";
 import { authHelper } from "../utils";
+import { SIGN_IN } from "./auth/auth-actions";
 
 // eslint-disable-next-line
-function* onErrorSaga(response, action) {
+function* onErrorSaga(error, action) {
 	switch (action.type) {
 		case GET_POSTS:
-			if (response.status === 401) {
+			if (error.response.status === 401) {
 				authHelper.saveToken("");
 			}
-			return response;
+			break;
+		case SIGN_IN:
+			debugger;
+			if (error.response.status === 400)
+				return { error: new Error("Wrong email or password.") };
+			break;
 		default:
-			return response;
+			return { error };
 	}
+	return { error };
 }
 
 function* rootSaga() {

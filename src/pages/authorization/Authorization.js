@@ -72,7 +72,7 @@ const Authorization = () => {
 					isSignUp ? signUpValidationSchema : signInValidationSchema
 				}
 			>
-				{({ errors }) => (
+				{({ dirty, isValid }) => (
 					<FormAuth>
 						<FieldStyled
 							type="email"
@@ -110,10 +110,15 @@ const Authorization = () => {
 								<ErrorMessage name="passwordConfirm" />
 							</>
 						)}
-						<ButtonStyled type="submit" alignSelf={"flex-end"} margin="10px 0">
+						<span>{error}</span>
+						<ButtonStyled
+							type="submit"
+							alignSelf={"flex-end"}
+							margin="10px 0"
+							disabled={!dirty || !isValid}
+						>
 							{isSignUp ? "Sign Up" : "Sign In"}
 						</ButtonStyled>
-						{error}
 					</FormAuth>
 				)}
 			</Formik>

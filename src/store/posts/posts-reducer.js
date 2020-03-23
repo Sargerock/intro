@@ -47,7 +47,7 @@ export default (state = initialState, action) => {
 		case error(CREATE_POST):
 			return {
 				...state,
-				error: action.payload.data
+				error: action.payload.message
 			};
 		default:
 			return state;
