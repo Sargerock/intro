@@ -28,7 +28,7 @@ const CreatePost = () => {
 		{ authorName, postMessage },
 		{ resetForm }
 	) => {
-		dispatch(createPost({ message: postMessage }));
+		dispatch(createPost({ text: postMessage }));
 		resetForm({ authorName });
 	};
 

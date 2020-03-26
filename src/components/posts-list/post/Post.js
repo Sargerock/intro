@@ -8,9 +8,10 @@ import { deletePost } from "../../../store/posts/posts-actions";
 
 import { WrapperPost, PostMessage, ButtonPost } from "./PostStyled";
 
-const Post = ({ id, author, messageText, authorId }) => {
+const Post = props => {
 	const dispatch = useDispatch();
 	const { userId } = useProfile();
+	const { id, text, authorId, authorName } = props;
 	return (
 		<WrapperPost>
 			<div>
@@ -18,16 +19,14 @@ const Post = ({ id, author, messageText, authorId }) => {
 			</div>
 			<div>
 				<p>
-					<strong>{author}</strong>
+					<strong>{authorName}</strong>
 				</p>
-				<PostMessage>{messageText}</PostMessage>
+				<PostMessage>{text}</PostMessage>
 				{authorId === userId ? (
 					<ButtonPost onClick={() => dispatch(deletePost(id))}>
 						&times;
 					</ButtonPost>
-				) : (
-					undefined
-				)}
+				) : null}
 			</div>
 		</WrapperPost>
 	);
@@ -35,8 +34,8 @@ const Post = ({ id, author, messageText, authorId }) => {
 
 Post.propTypes = {
 	id: PropTypes.number.isRequired,
-	author: PropTypes.string.isRequired,
-	messageText: PropTypes.string.isRequired,
+	authorName: PropTypes.string.isRequired,
+	text: PropTypes.string.isRequired,
 	authorId: PropTypes.number.isRequired
 };
 

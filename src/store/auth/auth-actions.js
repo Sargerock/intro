@@ -2,24 +2,22 @@ import { createRequestAction, loadTokens, removeTokens } from "../../utils";
 
 export const SIGN_IN = "SIGN_IN";
 export const signIn = data => dispatch =>
-	dispatch(createRequestAction(SIGN_IN, "post", "/signin", data));
+	dispatch(createRequestAction(SIGN_IN, "post", "/auth/sign-in", data));
 
 export const SIGN_UP = "SIGN_UP";
 export const signUp = data => dispatch =>
-	dispatch(createRequestAction(SIGN_UP, "post", "/signup", data));
+	dispatch(createRequestAction(SIGN_UP, "post", "/auth/sign-up", data));
 
 export const SIGN_OUT = "SIGN_OUT";
-export const signOut = () => {
+export const signOut = () => dispatch => {
+	dispatch(createRequestAction(SIGN_OUT, "post", "/auth/sign-out"));
 	removeTokens();
-	return { type: SIGN_OUT };
 };
 
 export const GET_USER = "GET_USER";
 export const getUser = () => (dispatch, getState) => {
-	if (getState().auth.token) {
-		console.log(getState().auth.token);
-
-		dispatch(createRequestAction(GET_USER, "get", `/user`));
+	if (getState().auth.accessToken) {
+		dispatch(createRequestAction(GET_USER, "get", `/auth/user`));
 	}
 };
 

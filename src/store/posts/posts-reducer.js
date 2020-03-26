@@ -5,7 +5,7 @@ const initialState = {
 	posts: [],
 	cursor: 0,
 	hasMore: true,
-	postsPerFetch: 5,
+	postsPerFetch: 3,
 	error: "",
 	isLoading: false
 };
@@ -21,20 +21,18 @@ export default (state = initialState, action) => {
 			};
 
 		case success(FETCH_POSTS):
-			const { payload } = action;
-			const cursor = state.cursor + payload.data.length;
+			const cursor = state.cursor + action.payload.data.posts.length;
 			return {
 				...state,
-				posts: [...state.posts, ...payload.data],
+				posts: [...state.posts, ...action.payload.data.posts],
 				cursor,
-				hasMore: cursor < payload.response.headers["x-total-count"],
+				hasMore: cursor < action.payload.data.totalCount,
 				isLoading: false
 			};
 		case success(CREATE_POST):
 			return {
 				...state,
 				posts: [action.payload.data, ...state.posts],
-				totalPostsCount: state.totalPostsCount + 1,
 				cursor: state.cursor + 1,
 				isLoading: false
 			};

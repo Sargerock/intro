@@ -1,5 +1,3 @@
-import moment from "moment";
-
 import { createRequestAction } from "../../utils";
 
 export const FETCH_POSTS = "FETCH_POSTS";
@@ -11,28 +9,19 @@ export const fetchPosts = () => async (dispatch, getState) => {
 		createRequestAction(
 			FETCH_POSTS,
 			"get",
-			`/660/posts?_sort=timestamp&_order=desc&_start=${cursor}&_limit=${postsPerFetch}`
+			`/posts?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch}`
 		)
 	);
 };
 
 export const CREATE_POST = "CREATE_POST";
-export const createPost = data => (dispatch, getState) => {
-	const timestamp = moment().unix();
-	const { userId, userName } = getState().auth.profile;
-	dispatch(
-		createRequestAction(CREATE_POST, "post", "/660/posts", {
-			...data,
-			timestamp,
-			author: userName,
-			userId
-		})
-	);
+export const createPost = data => dispatch => {
+	dispatch(createRequestAction(CREATE_POST, "post", "/posts", data));
 };
 
 export const DELETE_POST = "DELETE_POST";
 export const deletePost = id => dispatch => {
 	dispatch(
-		createRequestAction(DELETE_POST, "delete", `/660/posts/${id}`, {}, { id })
+		createRequestAction(DELETE_POST, "delete", `/posts/${id}`, {}, { id })
 	);
 };

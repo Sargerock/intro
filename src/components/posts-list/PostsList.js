@@ -21,13 +21,13 @@ const PostsList = () => {
 				hasMore={hasMore}
 				loader={<div key={0}>Loading ...</div>}
 			>
-				{posts.map(({ id, author, message, userId }) => (
+				{posts.map(({ id, text, userId, user }) => (
 					<Post
 						key={id}
 						id={id}
-						author={author}
-						messageText={message}
+						text={text}
 						authorId={userId}
+						authorName={user.userName}
 					/>
 				))}
 			</InfiniteScroll>

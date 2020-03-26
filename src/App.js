@@ -18,7 +18,7 @@ function App() {
 
 	return (
 		<Switch>
-			<Route path={["/signin", "/signup"]} component={Authorization} />
+			<Route path={["/sign-in", "/sign-up"]} component={Authorization} />
 			<PrivateRoute path="/posts" component={Posts} />
 			<Redirect to="/posts" />
 		</Switch>

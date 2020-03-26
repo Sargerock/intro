@@ -9,8 +9,8 @@ import SignIn from "../../components/sign-in/SignIn";
 import { WrapperAuth } from "./AuthorizationStyled";
 
 const Authorization = () => {
-	const isSignUp = useHistory().location.pathname === "/signup";
-	const token = useSelector(state => state.auth.token);
+	const isSignUp = useHistory().location.pathname === "/sign-up";
+	const token = useSelector(state => state.auth.accessToken);
 
 	if (token) return <Redirect to="/posts" />;
 	return (

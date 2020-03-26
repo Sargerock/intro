@@ -9,7 +9,8 @@ import { success, error } from "redux-saga-requests";
 
 const initialState = {
 	profile: {},
-	token: "",
+	accessToken: "",
+	refreshToken: "",
 	isLoading: false,
 	error: ""
 };
@@ -26,15 +27,13 @@ export default (state = initialState, action) => {
 			};
 		case success(SIGN_IN):
 		case success(SIGN_UP):
-			const token = action.payload.data.accessToken;
 			return {
 				...state,
-				token,
-				profile: { ...state.profile, userId: action.payload.data.userId },
+				accessToken: action.payload.data.accessToken,
+				refreshToken: action.payload.data.refreshToken,
 				isLoading: false
 			};
 		case success(GET_USER): {
-			debugger;
 			return {
 				...state,
 				profile: {
@@ -53,13 +52,15 @@ export default (state = initialState, action) => {
 		case SIGN_OUT:
 			return {
 				...state,
-				token: "",
+				accessToken: "",
+				refreshToken: "",
 				profile: {}
 			};
 		case GET_TOKENS:
 			return {
 				...state,
-				token: action.payload.accessToken
+				accessToken: action.payload.accessToken,
+				refreshToken: action.payload.refreshToken
 			};
 
 		default:

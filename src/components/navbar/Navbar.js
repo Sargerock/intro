@@ -9,9 +9,9 @@ import { WrapperNavbar, FlexMainWrapper, Logo } from "./NavbarStyled";
 import { ButtonStyled, FlexWrapper } from "../common/styles";
 
 const Navbar = () => {
-	const isSignUp = useHistory().location.pathname === "/signup";
-	const token = useSelector(state => state.auth.token);
 	const dispatch = useDispatch();
+	const isSignUp = useHistory().location.pathname === "/sign-up";
+	const token = useSelector(state => state.auth.accessToken);
 	const { userName } = useProfile();
 
 	return (
@@ -27,12 +27,12 @@ const Navbar = () => {
 					</ButtonStyled>
 				) : (
 					<div>
-						<NavLink to="/signin">
+						<NavLink to="/sign-in">
 							<ButtonStyled margin="10px" disabled={!isSignUp}>
 								Sign In
 							</ButtonStyled>
 						</NavLink>
-						<NavLink to="/signup">
+						<NavLink to="/sign-up">
 							<ButtonStyled disabled={isSignUp}>Sign Up</ButtonStyled>
 						</NavLink>
 					</div>
