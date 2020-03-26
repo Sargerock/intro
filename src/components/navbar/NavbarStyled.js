@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { MainWrapper } from "../common/styles";
 
-export const WrapperNavigation = styled.div`
+export const WrapperNavbar = styled.div`
 	display: flex;
 	align-items: center;
 	height: 80px;

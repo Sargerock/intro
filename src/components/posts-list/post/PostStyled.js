@@ -24,6 +24,7 @@ export const ButtonPost = styled.button`
 	background-color: #fff;
 
 	&:hover {
+		cursor: pointer;
 		background-color: #bae0f9;
 	}
 `;

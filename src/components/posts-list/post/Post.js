@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 
 import Avatar from "../../common/avatar/Avatar";
+import { useProfile } from "../../../store/auth/auth-selectors";
+import { deletePost } from "../../../store/posts/posts-actions";
 
 import { WrapperPost, PostMessage, ButtonPost } from "./PostStyled";
-import { useProfile } from "../../../store/auth/auth-hooks";
-import { useDispatch } from "react-redux";
-import { deletePost } from "../../../store/posts/posts-actions";
 
 const Post = ({ id, author, messageText, authorId }) => {
 	const dispatch = useDispatch();

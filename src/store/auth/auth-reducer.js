@@ -1,13 +1,15 @@
-import { SIGN_IN, SIGN_UP, SIGN_OUT, GET_USER } from "./auth-actions";
+import {
+	SIGN_IN,
+	SIGN_UP,
+	SIGN_OUT,
+	GET_USER,
+	GET_TOKENS
+} from "./auth-actions";
 import { success, error } from "redux-saga-requests";
-import { authHelper } from "../../utils";
 
 const initialState = {
-	profile: {
-		userId: undefined,
-		userName: ""
-	},
-	token: authHelper.loadToken(),
+	profile: {},
+	token: "",
 	isLoading: false,
 	error: ""
 };
@@ -25,7 +27,6 @@ export default (state = initialState, action) => {
 		case success(SIGN_IN):
 		case success(SIGN_UP):
 			const token = action.payload.data.accessToken;
-			authHelper.saveToken(token);
 			return {
 				...state,
 				token,
@@ -33,6 +34,7 @@ export default (state = initialState, action) => {
 				isLoading: false
 			};
 		case success(GET_USER): {
+			debugger;
 			return {
 				...state,
 				profile: {
@@ -49,10 +51,15 @@ export default (state = initialState, action) => {
 				error: action.payload.message
 			};
 		case SIGN_OUT:
-			authHelper.saveToken("");
 			return {
 				...state,
-				token: ""
+				token: "",
+				profile: {}
+			};
+		case GET_TOKENS:
+			return {
+				...state,
+				token: action.payload.accessToken
 			};
 
 		default:

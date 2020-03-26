@@ -2,20 +2,20 @@ import React from "react";
 import { useHistory, NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { useProfile } from "../../store/auth/auth-hooks";
+import { useProfile } from "../../store/auth/auth-selectors";
 import { signOut } from "../../store/auth/auth-actions";
 
-import { WrapperNavigation, FlexMainWrapper, Logo } from "./NavigationStyled";
+import { WrapperNavbar, FlexMainWrapper, Logo } from "./NavbarStyled";
 import { ButtonStyled, FlexWrapper } from "../common/styles";
 
-const Navigation = () => {
+const Navbar = () => {
 	const isSignUp = useHistory().location.pathname === "/signup";
 	const token = useSelector(state => state.auth.token);
 	const dispatch = useDispatch();
 	const { userName } = useProfile();
 
 	return (
-		<WrapperNavigation>
+		<WrapperNavbar>
 			<FlexMainWrapper>
 				<FlexWrapper>
 					<Logo src="/assets/twitter.svg" alt="logo" />
@@ -38,8 +38,8 @@ const Navigation = () => {
 					</div>
 				)}
 			</FlexMainWrapper>
-		</WrapperNavigation>
+		</WrapperNavbar>
 	);
 };
 
-export default Navigation;
+export default Navbar;

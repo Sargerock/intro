@@ -2,14 +2,14 @@ import moment from "moment";
 
 import { createRequestAction } from "../../utils";
 
-export const GET_POSTS = "GET_POSTS";
-export const getPosts = () => async (dispatch, getState) => {
+export const FETCH_POSTS = "FETCH_POSTS";
+export const fetchPosts = () => async (dispatch, getState) => {
 	const {
 		posts: { cursor, postsPerFetch }
 	} = getState();
 	dispatch(
 		createRequestAction(
-			GET_POSTS,
+			FETCH_POSTS,
 			"get",
 			`/660/posts?_sort=timestamp&_order=desc&_start=${cursor}&_limit=${postsPerFetch}`
 		)

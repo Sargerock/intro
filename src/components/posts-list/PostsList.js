@@ -4,20 +4,20 @@ import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch } from "react-redux";
 
 import Post from "./post/Post";
-import { usePosts } from "../../store/posts/posts-hooks";
-import { getPosts } from "../../store/posts/posts-actions";
+import { usePosts } from "../../store/posts/posts-selectors";
+import { fetchPosts } from "../../store/posts/posts-actions";
 import ErrorMessage from "../common/error-message/ErrorMessage";
 
 const PostsList = () => {
-	const { posts, error, hasMore } = usePosts();
 	const dispatch = useDispatch();
+	const { posts, error, hasMore, isLoading } = usePosts();
 
 	if (error) return <ErrorMessage message={error} withBorder />;
 	return (
 		<div>
 			<InfiniteScroll
 				pageStart={0}
-				loadMore={() => dispatch(getPosts())}
+				loadMore={() => isLoading || error || dispatch(fetchPosts())}
 				hasMore={hasMore}
 				loader={<div key={0}>Loading ...</div>}
 			>

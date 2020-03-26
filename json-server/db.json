@@ -11,6 +11,12 @@
       "password": "$2a$10$9NMZjUOTBTbp83bH4/b0rel6N2eqI2lBTVpU1rqjvO324ND75Dd86",
       "userName": "TestUser",
       "id": 2
+    },
+    {
+      "email": "user1@gmail.com",
+      "password": "$2a$10$FCu1jl6PcYG5dFjyCQRed.ppynVTU6cITSAw1ZekalfTCiAUQ1dYK",
+      "userName": "User1",
+      "id": 3
     }
   ],
   "posts": [
@@ -105,12 +111,6 @@
       "timestamp": 1584434169
     },
     {
-      "id": 18,
-      "author": "Georgianne",
-      "message": "Sed ante. Vivamus tortor. Duis mattis egestas metus.\n\nAenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh.",
-      "timestamp": 1584434191
-    },
-    {
       "id": 19,
       "author": "Abeu",
       "message": "Duis bibendum. Morbi non quam nec dui luctus rutrum. Nulla tellus.",
@@ -183,11 +183,23 @@
       "id": 38
     },
     {
-      "message": "dsdsadasdasdsa",
-      "timestamp": 1584980800,
+      "message": "dasdasdas\nsdasdas",
+      "timestamp": 1585213514,
       "author": "TestDriveUser",
       "userId": 1,
       "id": 40
+    },
+    {
+      "message": "dsadsadsadas",
+      "timestamp": 1585215967,
+      "id": 41
+    },
+    {
+      "message": "sadsadasdsa",
+      "timestamp": 1585216367,
+      "author": "User1",
+      "userId": 3,
+      "id": 42
     }
   ]
 }
