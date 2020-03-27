@@ -59,4 +59,15 @@ FieldStyled.defaultProps = {
 export const FlexWrapper = styled.div`
 	display: flex;
 	align-items: center;
+	width: ${({ width }) => width};
+	justify-content: ${({ justifyContent }) => justifyContent};
 `;
+
+FlexWrapper.propTypes = {
+	width: PropTypes.string,
+	justifyContent: PropTypes.string
+};
+FlexWrapper.defaultProps = {
+	width: "auto",
+	justifyContent: "flex-start"
+};

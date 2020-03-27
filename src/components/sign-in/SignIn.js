@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
 
 import { signIn, getUser } from "../../store/auth/auth-actions";
+import Checkbox from "../common/checkbox/Checkbox";
 
-import { FieldStyled, ButtonStyled } from "../common/styles";
+import { FieldStyled, ButtonStyled, FlexWrapper } from "../common/styles";
 import { FormAuth } from "../../pages/authorization/AuthorizationStyled";
 
 const signInValidationSchema = yup.object().shape({
@@ -18,15 +19,17 @@ const signInValidationSchema = yup.object().shape({
 
 const initialValues = {
 	email: "",
-	password: ""
+	password: "",
+	sign: []
 };
 
 const SignIn = () => {
 	const dispatch = useDispatch();
 	const error = useSelector(state => state.auth.error);
 
-	const signInHandleSubmit = ({ email, password }) => {
-		dispatch(signIn({ email, password })).then(() => {
+	const signInHandleSubmit = ({ email, password, sign }) => {
+		const remember = !!sign[0];
+		dispatch(signIn({ email, password }, { remember })).then(() => {
 			dispatch(getUser());
 		});
 	};
@@ -38,7 +41,7 @@ const SignIn = () => {
 				onSubmit={signInHandleSubmit}
 				validationSchema={signInValidationSchema}
 			>
-				{({ dirty, isValid }) => (
+				{({ dirty, isValid, values }) => (
 					<FormAuth>
 						<FieldStyled
 							type="email"
@@ -55,14 +58,16 @@ const SignIn = () => {
 						/>
 						<ErrorMessage name="password" />
 						<span>{error}</span>
-						<ButtonStyled
-							type="submit"
-							alignSelf={"flex-end"}
-							margin="10px 0"
-							disabled={!dirty || !isValid}
-						>
-							Sign In
-						</ButtonStyled>
+						<FlexWrapper width="100%" justifyContent="space-between">
+							<Checkbox name="sign" value="Remember me" />
+							<ButtonStyled
+								type="submit"
+								margin="10px 0"
+								disabled={!dirty || !isValid}
+							>
+								Sign In
+							</ButtonStyled>
+						</FlexWrapper>
 					</FormAuth>
 				)}
 			</Formik>

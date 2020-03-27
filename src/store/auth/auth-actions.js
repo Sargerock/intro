@@ -6,12 +6,12 @@ import {
 } from "../../utils";
 
 export const SIGN_IN = "SIGN_IN";
-export const signIn = data =>
-	createDispatchRequestAction(SIGN_IN, "post", "/auth/sign-in", data);
+export const signIn = (data, meta) =>
+	createDispatchRequestAction(SIGN_IN, "post", "/auth/sign-in", data, meta);
 
 export const SIGN_UP = "SIGN_UP";
-export const signUp = data =>
-	createDispatchRequestAction(SIGN_UP, "post", "/auth/sign-up", data);
+export const signUp = (data, meta) =>
+	createDispatchRequestAction(SIGN_UP, "post", "/auth/sign-up", data, meta);
 
 export const SIGN_OUT = "SIGN_OUT";
 export const signOut = () => dispatch => {

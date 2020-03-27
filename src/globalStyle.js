@@ -18,6 +18,10 @@ const GlobalStyle = createGlobalStyle`
 				outline: none;
 			}
     }
+
+    input[type="checkbox"]:hover {
+        cursor: pointer;
+    }
 `;
 
 export default GlobalStyle;
