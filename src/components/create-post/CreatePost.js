@@ -17,19 +17,16 @@ const createPostValidationSchema = yup.object().shape({
 	postMessage: yup
 		.string()
 		.required("Enter you message.")
-		.min(10, "Message is too short")
-		.max(500, "Message is too long.")
+		.min(8, "Message must contain at least 8 characters")
+		.max(512, "Message is too long.")
 });
 
 const CreatePost = () => {
 	const dispatch = useDispatch();
 
-	const createPostHandleSubmit = (
-		{ authorName, postMessage },
-		{ resetForm }
-	) => {
+	const createPostHandleSubmit = ({ postMessage }, { resetForm }) => {
 		dispatch(createPost({ text: postMessage }));
-		resetForm({ authorName });
+		resetForm();
 	};
 
 	const createPostInitialValues = {
@@ -46,8 +43,6 @@ const CreatePost = () => {
 			>
 				{({ dirty, isValid, submitForm }) => (
 					<FormCreatePost>
-						<ErrorMessage name="authorName" />
-						<ErrorMessage name="postMessage" />
 						<TextAreaCreatePost
 							name="postMessage"
 							component="textarea"
@@ -56,6 +51,7 @@ const CreatePost = () => {
 								if (e.ctrlKey && e.key === "Enter") submitForm();
 							}}
 						/>
+						<ErrorMessage name="postMessage" />
 						<ButtonCreatePost
 							title="Ctrl + Enter"
 							type="submit"

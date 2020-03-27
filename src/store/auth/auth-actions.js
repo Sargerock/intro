@@ -1,12 +1,17 @@
-import { createRequestAction, loadTokens, removeTokens } from "../../utils";
+import {
+	createRequestAction,
+	createDispatchRequestAction,
+	loadTokens,
+	removeTokens
+} from "../../utils";
 
 export const SIGN_IN = "SIGN_IN";
-export const signIn = data => dispatch =>
-	dispatch(createRequestAction(SIGN_IN, "post", "/auth/sign-in", data));
+export const signIn = data =>
+	createDispatchRequestAction(SIGN_IN, "post", "/auth/sign-in", data);
 
 export const SIGN_UP = "SIGN_UP";
-export const signUp = data => dispatch =>
-	dispatch(createRequestAction(SIGN_UP, "post", "/auth/sign-up", data));
+export const signUp = data =>
+	createDispatchRequestAction(SIGN_UP, "post", "/auth/sign-up", data);
 
 export const SIGN_OUT = "SIGN_OUT";
 export const signOut = () => dispatch => {
@@ -16,7 +21,7 @@ export const signOut = () => dispatch => {
 
 export const GET_USER = "GET_USER";
 export const getUser = () => (dispatch, getState) => {
-	if (getState().auth.accessToken) {
+	if (getState().auth.isAuthorized) {
 		dispatch(createRequestAction(GET_USER, "get", `/auth/user`));
 	}
 };

@@ -10,9 +10,9 @@ import { WrapperAuth } from "./AuthorizationStyled";
 
 const Authorization = () => {
 	const isSignUp = useHistory().location.pathname === "/sign-up";
-	const token = useSelector(state => state.auth.accessToken);
+	const isAuthorized = useSelector(state => state.auth.isAuthorized);
 
-	if (token) return <Redirect to="/posts" />;
+	if (isAuthorized) return <Redirect to="/posts" />;
 	return (
 		<>
 			<Navbar />

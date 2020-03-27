@@ -12,7 +12,7 @@ const PostsList = () => {
 	const dispatch = useDispatch();
 	const { posts, error, hasMore, isLoading } = usePosts();
 
-	if (error) return <ErrorMessage message={error} withBorder />;
+	if (error) return <ErrorMessage message={error} />;
 	return (
 		<div>
 			<InfiniteScroll

@@ -12,17 +12,19 @@ const signUpValidationSchema = yup.object().shape({
 	email: yup
 		.string()
 		.required("Enter your email.")
+		.max(64, "Max email length is 64")
 		.email("Email is incorrect."),
 	userName: yup
 		.string()
 		.required("Enter your name.")
 		.min(3, "Name is too short.")
-		.max(64, "Name is too long."),
+		.max(32, "Name is too long."),
 	password: yup
 		.string()
 		.required("Password is required.")
 		.required("Password is required.")
-		.min(7, "Min password length is 7"),
+		.min(7, "Min password length is 7.")
+		.max(64, "Max password length is 64."),
 	passwordConfirm: yup
 		.string()
 		.oneOf([yup.ref("password")], "Passwords didn't match.")

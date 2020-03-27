@@ -11,7 +11,7 @@ import { ButtonStyled, FlexWrapper } from "../common/styles";
 const Navbar = () => {
 	const dispatch = useDispatch();
 	const isSignUp = useHistory().location.pathname === "/sign-up";
-	const token = useSelector(state => state.auth.accessToken);
+	const isAuthorized = useSelector(state => state.auth.isAuthorized);
 	const { userName } = useProfile();
 
 	return (
@@ -21,7 +21,7 @@ const Navbar = () => {
 					<Logo src="/assets/twitter.svg" alt="logo" />
 					<span>{userName}</span>
 				</FlexWrapper>
-				{token ? (
+				{isAuthorized ? (
 					<ButtonStyled onClick={() => dispatch(signOut())}>
 						Sign Out
 					</ButtonStyled>

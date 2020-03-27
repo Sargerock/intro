@@ -11,7 +11,7 @@ import { saveTokens, loadTokens, removeTokens } from "../utils";
 import { SIGN_IN, SIGN_UP, SIGN_OUT } from "./auth/auth-actions";
 
 function* onErrorSaga(error, action) {
-	if (error.response.status === 401) {
+	if (error.response?.status === 401) {
 		try {
 			const { refreshToken } = loadTokens();
 			const response = yield call(
