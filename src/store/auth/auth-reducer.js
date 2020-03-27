@@ -47,6 +47,7 @@ export default (state = initialState, action) => {
 				isLoading: false,
 				error: action.payload.message
 			};
+
 		case SIGN_OUT:
 			return {
 				...state,

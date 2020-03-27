@@ -6,7 +6,8 @@ import { saveTokens, loadTokens, removeTokens } from "../../utils";
 import { SIGN_OUT } from "../auth/auth-actions";
 
 export default function* onErrorSaga(error, action) {
-	if (error.response?.status === 401) {
+	if (!error.response) return { error };
+	if (error.response.status === 401) {
 		try {
 			const { refreshToken } = loadTokens();
 			const response = yield call(
@@ -22,5 +23,7 @@ export default function* onErrorSaga(error, action) {
 			yield call({ type: SIGN_OUT });
 		}
 	}
-	return { error };
+	return error.response.data?.message
+		? { error: error.response.data }
+		: { error };
 }

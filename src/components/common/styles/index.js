@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Field } from "formik";
 
 export const MainWrapper = styled.div`
-	width: 1200px;
+	max-width: 1200px;
 	margin: 0 auto;
 `;
 

@@ -29,9 +29,11 @@ const SignIn = () => {
 
 	const signInHandleSubmit = ({ email, password, sign }) => {
 		const remember = !!sign[0];
-		dispatch(signIn({ email, password }, { remember })).then(() => {
-			dispatch(getUser());
-		});
+		dispatch(signIn({ email, password }, { remember }))
+			.then(() => {
+				dispatch(getUser());
+			})
+			.catch(() => {});
 	};
 	return (
 		<>

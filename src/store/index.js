@@ -19,11 +19,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
 	reducers,
-	applyMiddleware(
-		thunk,
-		requestsPromiseMiddleware({ auto: true }),
-		sagaMiddleware
-	)
+	applyMiddleware(thunk, requestsPromiseMiddleware(), sagaMiddleware)
 );
 
 sagaMiddleware.run(rootSaga);

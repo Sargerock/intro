@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useProfile } from "../../store/auth/auth-selectors";
 import { signOut } from "../../store/auth/auth-actions";
 
-import { WrapperNavbar, FlexMainWrapper, Logo } from "./NavbarStyled";
+import { WrapperNavbar, Logo } from "./NavbarStyled";
 import { ButtonStyled, FlexWrapper } from "../common/styles";
 
 const Navbar = () => {
@@ -16,28 +16,26 @@ const Navbar = () => {
 
 	return (
 		<WrapperNavbar>
-			<FlexMainWrapper>
-				<FlexWrapper>
-					<Logo src="/assets/twitter.svg" alt="logo" />
-					<span>{userName}</span>
-				</FlexWrapper>
-				{isAuthorized ? (
-					<ButtonStyled onClick={() => dispatch(signOut())}>
-						Sign Out
-					</ButtonStyled>
-				) : (
-					<div>
-						<NavLink to="/sign-in">
-							<ButtonStyled margin="10px" disabled={!isSignUp}>
-								Sign In
-							</ButtonStyled>
-						</NavLink>
-						<NavLink to="/sign-up">
-							<ButtonStyled disabled={isSignUp}>Sign Up</ButtonStyled>
-						</NavLink>
-					</div>
-				)}
-			</FlexMainWrapper>
+			<FlexWrapper>
+				<Logo src="/assets/twitter.svg" alt="logo" />
+				<span>{userName}</span>
+			</FlexWrapper>
+			{isAuthorized ? (
+				<ButtonStyled onClick={() => dispatch(signOut())}>
+					Sign Out
+				</ButtonStyled>
+			) : (
+				<div>
+					<NavLink to="/sign-in">
+						<ButtonStyled margin="10px" disabled={!isSignUp}>
+							Sign In
+						</ButtonStyled>
+					</NavLink>
+					<NavLink to="/sign-up">
+						<ButtonStyled disabled={isSignUp}>Sign Up</ButtonStyled>
+					</NavLink>
+				</div>
+			)}
 		</WrapperNavbar>
 	);
 };

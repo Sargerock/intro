@@ -43,9 +43,11 @@ const SignUp = () => {
 	const error = useSelector(state => state.auth.error);
 
 	const signUpHandleSubmit = ({ email, password, userName }) => {
-		dispatch(signUp({ email, password, userName })).then(() => {
-			dispatch(getUser());
-		});
+		dispatch(signUp({ email, password, userName }))
+			.then(() => {
+				dispatch(getUser());
+			})
+			.catch(() => {});
 	};
 
 	return (
