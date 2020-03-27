@@ -6,7 +6,7 @@ import { requestsPromiseMiddleware } from "redux-saga-requests";
 
 import posts from "./posts/posts-reducer";
 import auth from "./auth/auth-reducer";
-import rootSaga from "./root-saga";
+import rootSaga from "./sagas/root-saga";
 
 axios.defaults.baseURL = "http://localhost:8000/api";
 
