@@ -25,10 +25,10 @@ export const signOut = () => dispatch => {
 	removeTokens();
 };
 
-export const GET_USER = "GET_USER";
-export const getUser = () => (dispatch, getState) => {
+export const FETCH_USER = "FETCH_USER";
+export const fetchUser = () => (dispatch, getState) => {
 	if (getState().auth.isAuthorized) {
-		dispatch(createRequestAction(GET_USER, "get", `/auth/user`));
+		dispatch(createRequestAction(FETCH_USER, "get", `/auth/user`));
 	}
 };
 

@@ -27,3 +27,7 @@ export const deletePost = id =>
 		{},
 		{ id }
 	);
+
+export const EDIT_POST = "EDIT_POST";
+export const editPost = (id, data, meta) =>
+	createDispatchRequestAction(EDIT_POST, "put", `/posts/${id}`, data, meta);

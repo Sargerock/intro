@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import ContentEditable from "react-contenteditable";
 
 export const WrapperPost = styled.div`
 	display: flex;
@@ -7,12 +8,20 @@ export const WrapperPost = styled.div`
 	position: relative;
 `;
 
-export const PostMessage = styled.p`
+export const EditablePostMessage = styled(ContentEditable)`
 	word-break: break-word;
 	white-space: pre-wrap;
+	border-radius: 15px;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: ${({ disabled }) => (disabled ? "none" : "2px dashed #bae0f9")};
+
+	&:focus {
+		outline: none;
+	}
 `;
 
-export const ButtonPost = styled.button`
+export const ButtonDeletePost = styled.button`
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -26,5 +35,18 @@ export const ButtonPost = styled.button`
 	&:hover {
 		cursor: pointer;
 		background-color: #bae0f9;
+	}
+`;
+
+export const ButtonEditPost = styled.span`
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	color: gray;
+	margin: 5px;
+	cursor: pointer;
+
+	> span {
+		margin-left: 10px;
 	}
 `;

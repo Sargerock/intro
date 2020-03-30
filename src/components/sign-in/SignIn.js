@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
 
-import { signIn, getUser } from "../../store/auth/auth-actions";
+import { signIn, fetchUser } from "../../store/auth/auth-actions";
 import Checkbox from "../common/checkbox/Checkbox";
 
 import { FieldStyled, ButtonStyled, FlexWrapper } from "../common/styles";
@@ -31,7 +31,7 @@ const SignIn = () => {
 		const remember = !!sign[0];
 		dispatch(signIn({ email, password }, { remember }))
 			.then(() => {
-				dispatch(getUser());
+				dispatch(fetchUser());
 			})
 			.catch(() => {});
 	};

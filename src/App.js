@@ -6,13 +6,13 @@ import { useEffect } from "react";
 import Posts from "./pages/posts/Posts";
 import Authorization from "./pages/authorization/Authorization";
 import PrivateRoute from "./hoc/private-route/PrivateRoute";
-import { getUser, getTokens } from "./store/auth/auth-actions";
+import { fetchUser, getTokens } from "./store/auth/auth-actions";
 
 function App() {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(getTokens());
-		dispatch(getUser());
+		dispatch(fetchUser());
 		// eslint-disable-next-line
 	}, []);
 

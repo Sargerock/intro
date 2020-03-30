@@ -1,4 +1,9 @@
-import { FETCH_POSTS, CREATE_POST, DELETE_POST } from "./posts-actions";
+import {
+	FETCH_POSTS,
+	CREATE_POST,
+	DELETE_POST,
+	EDIT_POST
+} from "./posts-actions";
 import { success, error } from "redux-saga-requests";
 
 const initialState = {
@@ -40,6 +45,15 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				posts: state.posts.filter(post => post.id !== action.meta.id)
+			};
+		case success(EDIT_POST):
+			return {
+				...state,
+				posts: state.posts.map(post =>
+					post.id === action.payload.data.id
+						? { ...post, text: action.payload.data.text }
+						: post
+				)
 			};
 		case error(FETCH_POSTS):
 		case error(CREATE_POST):

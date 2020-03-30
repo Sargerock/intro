@@ -3,7 +3,7 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
 
-import { signUp, getUser } from "../../store/auth/auth-actions";
+import { signUp, fetchUser } from "../../store/auth/auth-actions";
 
 import { FieldStyled, ButtonStyled } from "../common/styles";
 import { FormAuth } from "../../pages/authorization/AuthorizationStyled";
@@ -45,7 +45,7 @@ const SignUp = () => {
 	const signUpHandleSubmit = ({ email, password, userName }) => {
 		dispatch(signUp({ email, password, userName }))
 			.then(() => {
-				dispatch(getUser());
+				dispatch(fetchUser());
 			})
 			.catch(() => {});
 	};

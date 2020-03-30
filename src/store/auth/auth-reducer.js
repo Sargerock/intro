@@ -2,7 +2,7 @@ import {
 	SIGN_IN,
 	SIGN_UP,
 	SIGN_OUT,
-	GET_USER,
+	FETCH_USER,
 	GET_TOKENS
 } from "./auth-actions";
 import { success, error } from "redux-saga-requests";
@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
 	switch (action.type) {
 		case SIGN_IN:
 		case SIGN_UP:
-		case GET_USER:
+		case FETCH_USER:
 			return {
 				...state,
 				isLoading: true,
@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
 				isAuthorized: true,
 				isLoading: false
 			};
-		case success(GET_USER): {
+		case success(FETCH_USER): {
 			return {
 				...state,
 				profile: {

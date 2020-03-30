@@ -31,13 +31,24 @@ export const createDispatchRequestAction = (
 		meta
 	});
 
-export const saveTokens = (accessToken, refreshToken, { remember }) => {
+export const saveTokens = (accessToken, refreshToken, options) => {
 	if (!accessToken) return;
+	const remember = options && options.remember;
 	axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 	const storage = remember ? localStorage : sessionStorage;
 	storage.setItem("accessToken", accessToken);
-	if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
+	if (refreshToken) storage.setItem("refreshToken", refreshToken);
 };
+
+export const refreshTokens = accessToken => {
+	if (!accessToken) return;
+	const storage = localStorage.getItem("accessToken")
+		? localStorage
+		: sessionStorage;
+	axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+	storage.setItem("accessToken", accessToken);
+};
+
 export const loadTokens = () => {
 	const accessToken =
 		localStorage.getItem("accessToken") ||
