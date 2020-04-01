@@ -16,7 +16,9 @@ export const fetchPosts = () => async (dispatch, getState) => {
 
 export const CREATE_POST = "CREATE_POST";
 export const createPost = data =>
-	createDispatchRequestAction(CREATE_POST, "post", "/posts", data);
+	createDispatchRequestAction(CREATE_POST, "post", "/posts", data, {
+		asPromise: true
+	});
 
 export const DELETE_POST = "DELETE_POST";
 export const deletePost = id =>

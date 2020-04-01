@@ -21,7 +21,12 @@ const Navbar = () => {
 				<span>{userName}</span>
 			</FlexWrapper>
 			{isAuthorized ? (
-				<ButtonStyled onClick={() => dispatch(signOut())}>
+				<ButtonStyled
+					onClick={() => {
+						dispatch(signOut());
+						window.location.reload(); //reinitialize store
+					}}
+				>
 					Sign Out
 				</ButtonStyled>
 			) : (

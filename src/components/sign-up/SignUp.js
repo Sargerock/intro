@@ -40,7 +40,7 @@ const initialValues = {
 
 const SignUp = () => {
 	const dispatch = useDispatch();
-	const error = useSelector(state => state.auth.error);
+	const errors = useSelector(state => state.auth.validationErrors);
 
 	const signUpHandleSubmit = ({ email, password, userName }) => {
 		dispatch(signUp({ email, password, userName }))
@@ -55,10 +55,12 @@ const SignUp = () => {
 			<h2>Sign Up</h2>
 			<Formik
 				initialValues={initialValues}
+				initialErrors={errors}
 				onSubmit={signUpHandleSubmit}
 				validationSchema={signUpValidationSchema}
+				enableReinitialize={true}
 			>
-				{({ dirty, isValid }) => (
+				{({ dirty, isValid, errors: err }) => (
 					<FormAuth>
 						<FieldStyled
 							type="email"
@@ -88,7 +90,6 @@ const SignUp = () => {
 							width="100%"
 						/>
 						<ErrorMessage name="passwordConfirm" />
-						<span>{error}</span>
 						<ButtonStyled
 							type="submit"
 							alignSelf={"flex-end"}
@@ -97,6 +98,7 @@ const SignUp = () => {
 						>
 							Sign Up
 						</ButtonStyled>
+						<pre>{JSON.stringify(err)}</pre>
 					</FormAuth>
 				)}
 			</Formik>

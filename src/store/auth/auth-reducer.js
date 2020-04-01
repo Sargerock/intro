@@ -8,10 +8,12 @@ import {
 import { success, error } from "redux-saga-requests";
 
 const initialState = {
-	profile: {},
+	profile: null,
 	isAuthorized: false,
 	isLoading: false,
-	error: ""
+	error: "",
+	validationErrors: null,
+	refreshToken: ""
 };
 
 export default (state = initialState, action) => {
@@ -22,13 +24,15 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				isLoading: true,
-				error: ""
+				error: "",
+				validationErrors: null
 			};
 		case success(SIGN_IN):
 		case success(SIGN_UP):
 			return {
 				...state,
 				isAuthorized: true,
+				refreshToken: action.payload.data.refreshToken,
 				isLoading: false
 			};
 		case success(FETCH_USER): {
@@ -37,15 +41,18 @@ export default (state = initialState, action) => {
 				profile: {
 					userId: action.payload.data.id,
 					userName: action.payload.data.userName
-				}
+				},
+				isLoading: false
 			};
 		}
 		case error(SIGN_IN):
 		case error(SIGN_UP):
+		case error(FETCH_USER):
 			return {
 				...state,
 				isLoading: false,
-				error: action.payload.message
+				error: action.payload.message,
+				validationErrors: action.payload.errors
 			};
 
 		case SIGN_OUT:
@@ -57,7 +64,8 @@ export default (state = initialState, action) => {
 		case GET_TOKENS:
 			return {
 				...state,
-				isAuthorized: !!action.payload.accessToken
+				isAuthorized: action.payload.isAuthorized,
+				refreshToken: action.payload.refreshToken
 			};
 
 		default:

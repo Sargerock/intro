@@ -8,7 +8,7 @@ import posts from "./posts/posts-reducer";
 import auth from "./auth/auth-reducer";
 import rootSaga from "./sagas/root-saga";
 
-axios.defaults.baseURL = "http://localhost:8000/api";
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 const reducers = combineReducers({
 	posts,

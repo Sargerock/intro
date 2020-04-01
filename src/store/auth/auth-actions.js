@@ -34,6 +34,9 @@ export const fetchUser = () => (dispatch, getState) => {
 
 export const GET_TOKENS = "GET_TOKENS";
 export const getTokens = () => {
-	const tokens = loadTokens();
-	return { type: GET_TOKENS, payload: tokens };
+	const { accessToken, refreshToken } = loadTokens();
+	return {
+		type: GET_TOKENS,
+		payload: { isAuthorized: !!accessToken, refreshToken }
+	};
 };

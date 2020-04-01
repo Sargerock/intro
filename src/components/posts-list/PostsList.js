@@ -2,17 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch } from "react-redux";
+import toaster from "toasted-notes";
 
 import Post from "./post/Post";
 import { usePosts } from "../../store/posts/posts-selectors";
 import { fetchPosts } from "../../store/posts/posts-actions";
-import ErrorMessage from "../common/error-message/ErrorMessage";
+import { useAuthorization } from "../../store/auth/auth-selectors";
 
 const PostsList = () => {
 	const dispatch = useDispatch();
 	const { posts, error, hasMore, isLoading } = usePosts();
+	const {
+		isLoading: authorizationIsLoading,
+		error: authorizationError
+	} = useAuthorization();
 
-	if (error) return <ErrorMessage message={error} />;
+	if (authorizationError) toaster.notify("Network error", { duration: null });
+	if (authorizationIsLoading || authorizationError)
+		return <div>Loading...</div>;
 	return (
 		<div>
 			<InfiniteScroll

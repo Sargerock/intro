@@ -20,8 +20,8 @@ export const ButtonStyled = styled.button`
 	align-self: ${({ alignSelf }) => alignSelf};
 
 	&:disabled {
-		background-color: #98cff9;
-		border: 2px solid #98cff9;
+		background-color: #bfe1fb;
+		border: 2px solid #bfe1fb;
 	}
 
 	&:active {

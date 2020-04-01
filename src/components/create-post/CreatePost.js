@@ -1,6 +1,6 @@
 import React from "react";
 import { ErrorMessage, Formik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 
 import Avatar from "../common/avatar/Avatar";
@@ -14,23 +14,27 @@ import {
 } from "./CreatePostStyled";
 
 const createPostValidationSchema = yup.object().shape({
-	postMessage: yup
+	text: yup
 		.string()
 		.required("Enter you message.")
 		.min(8, "Message must contain at least 8 characters")
 		.max(512, "Message is too long.")
 });
 
+const createPostInitialValues = {
+	text: ""
+};
+
 const CreatePost = () => {
 	const dispatch = useDispatch();
+	const errors = useSelector(state => state.posts.validationErrors);
 
-	const createPostHandleSubmit = ({ postMessage }, { resetForm }) => {
-		dispatch(createPost({ text: postMessage }));
-		resetForm();
-	};
-
-	const createPostInitialValues = {
-		postMessage: ""
+	const createPostHandleSubmit = async ({ text }, { resetForm }) => {
+		dispatch(createPost({ text }))
+			.then(() => {
+				resetForm();
+			})
+			.catch(() => {});
 	};
 
 	return (
@@ -38,20 +42,22 @@ const CreatePost = () => {
 			<Avatar src="https://via.placeholder.com/100" alt="avatar" size="50" />
 			<Formik
 				initialValues={createPostInitialValues}
+				initialErrors={errors}
 				validationSchema={createPostValidationSchema}
 				onSubmit={createPostHandleSubmit}
+				enableReinitialize={true}
 			>
-				{({ dirty, isValid, submitForm }) => (
+				{({ dirty, isValid, submitForm, errors: err }) => (
 					<FormCreatePost>
 						<TextAreaCreatePost
-							name="postMessage"
+							name="text"
 							component="textarea"
 							placeholder="What you think ?"
 							onKeyDown={e => {
 								if (e.ctrlKey && e.key === "Enter") submitForm();
 							}}
 						/>
-						<ErrorMessage name="postMessage" />
+						<ErrorMessage name="text" />
 						<ButtonCreatePost
 							title="Ctrl + Enter"
 							type="submit"

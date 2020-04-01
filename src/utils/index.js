@@ -34,28 +34,26 @@ export const createDispatchRequestAction = (
 export const saveTokens = (accessToken, refreshToken, options) => {
 	if (!accessToken) return;
 	const remember = options && options.remember;
+
 	axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-	const storage = remember ? localStorage : sessionStorage;
-	storage.setItem("accessToken", accessToken);
-	if (refreshToken) storage.setItem("refreshToken", refreshToken);
+	if (remember) {
+		localStorage.setItem("accessToken", accessToken);
+		if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
+	}
 };
 
 export const refreshTokens = accessToken => {
 	if (!accessToken) return;
-	const storage = localStorage.getItem("accessToken")
-		? localStorage
-		: sessionStorage;
+	const remember = !!localStorage.getItem("accessToken");
 	axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-	storage.setItem("accessToken", accessToken);
+
+	if (remember) localStorage.setItem("accessToken", accessToken);
 };
 
 export const loadTokens = () => {
-	const accessToken =
-		localStorage.getItem("accessToken") ||
-		sessionStorage.getItem("accessToken");
-	const refreshToken =
-		localStorage.getItem("refreshToken") ||
-		sessionStorage.getItem("refreshToken");
+	const accessToken = localStorage.getItem("accessToken");
+	const refreshToken = localStorage.getItem("refreshToken");
+
 	if (accessToken)
 		axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 	return { accessToken, refreshToken };
@@ -64,6 +62,4 @@ export const removeTokens = () => {
 	delete axios.defaults.headers.common.Authorization;
 	localStorage.removeItem("accessToken");
 	localStorage.removeItem("refreshToken");
-	sessionStorage.removeItem("accessToken");
-	sessionStorage.removeItem("refreshToken");
 };

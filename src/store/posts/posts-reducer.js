@@ -12,17 +12,25 @@ const initialState = {
 	hasMore: true,
 	postsPerFetch: 3,
 	error: "",
+	validationErrors: null,
 	isLoading: false
 };
 
 export default (state = initialState, action) => {
 	switch (action.type) {
 		case FETCH_POSTS:
-		case CREATE_POST:
 			return {
 				...state,
 				isLoading: true,
 				error: ""
+			};
+
+		case CREATE_POST:
+		case EDIT_POST:
+			return {
+				...state,
+				error: "",
+				validationErrors: null
 			};
 
 		case success(FETCH_POSTS):
@@ -44,7 +52,8 @@ export default (state = initialState, action) => {
 		case success(DELETE_POST):
 			return {
 				...state,
-				posts: state.posts.filter(post => post.id !== action.meta.id)
+				posts: state.posts.filter(post => post.id !== action.meta.id),
+				cursor: state.cursor - 1
 			};
 		case success(EDIT_POST):
 			return {
@@ -56,10 +65,16 @@ export default (state = initialState, action) => {
 				)
 			};
 		case error(FETCH_POSTS):
-		case error(CREATE_POST):
 			return {
 				...state,
 				error: action.payload.message
+			};
+		case error(CREATE_POST):
+		case error(EDIT_POST):
+			return {
+				...state,
+				error: action.payload.message,
+				validationErrors: action.payload.errors
 			};
 		default:
 			return state;
