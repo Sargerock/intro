@@ -2,32 +2,39 @@ import React from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch } from "react-redux";
+import toaster from "toasted-notes";
 
 import Post from "./post/Post";
-import { usePosts } from "../../store/posts/posts-hooks";
-import { getPosts } from "../../store/posts/posts-actions";
-import ErrorMessage from "../common/error-message/ErrorMessage";
+import { usePosts } from "../../store/posts/posts-selectors";
+import { fetchPosts } from "../../store/posts/posts-actions";
+import { useAuthorization } from "../../store/auth/auth-selectors";
 
 const PostsList = () => {
-	const { posts, error, hasMore } = usePosts();
 	const dispatch = useDispatch();
+	const { posts, error, hasMore, isLoading } = usePosts();
+	const {
+		isLoading: authorizationIsLoading,
+		error: authorizationError
+	} = useAuthorization();
 
-	if (error) return <ErrorMessage message={error} withBorder />;
+	if (authorizationError) toaster.notify("Network error", { duration: null });
+	if (authorizationIsLoading || authorizationError)
+		return <div>Loading...</div>;
 	return (
 		<div>
 			<InfiniteScroll
 				pageStart={0}
-				loadMore={() => dispatch(getPosts())}
+				loadMore={() => isLoading || error || dispatch(fetchPosts())}
 				hasMore={hasMore}
 				loader={<div key={0}>Loading ...</div>}
 			>
-				{posts.map(({ id, author, message, userId }) => (
+				{posts.map(({ id, text, userId, user }) => (
 					<Post
 						key={id}
 						id={id}
-						author={author}
-						messageText={message}
+						text={text}
 						authorId={userId}
+						authorName={user.userName}
 					/>
 				))}
 			</InfiniteScroll>

@@ -10,11 +10,13 @@
 		"formik": "^2.1.4",
 		"moment": "^2.24.0",
 		"react": "^16.13.0",
+		"react-contenteditable": "^3.3.3",
 		"react-dom": "^16.13.0",
 		"react-infinite-scroller": "^1.2.4",
 		"react-redux": "^7.2.0",
 		"react-router-dom": "^5.1.2",
 		"react-scripts": "3.4.0",
+		"react-spring": "^8.0.27",
 		"redux": "^4.0.5",
 		"redux-saga": "^1.1.3",
 		"redux-saga-requests": "^0.26.1",
@@ -22,12 +24,12 @@
 		"redux-thunk": "^2.3.0",
 		"reselect": "^4.0.0",
 		"styled-components": "^5.0.1",
+		"toasted-notes": "^3.2.0",
 		"yup": "^0.28.3"
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "react-scripts build",
-		"server": "node json-server/server.js"
+		"build": "react-scripts build"
 	},
 	"eslintConfig": {
 		"extends": "react-app"
@@ -45,9 +47,6 @@
 		]
 	},
 	"devDependencies": {
-		"json-server": "^0.16.1",
-		"json-server-auth": "^1.2.1",
-		"jwt-decode": "^2.2.0",
 		"prop-types": "^15.7.2"
 	}
 }

@@ -6,9 +6,9 @@ import { requestsPromiseMiddleware } from "redux-saga-requests";
 
 import posts from "./posts/posts-reducer";
 import auth from "./auth/auth-reducer";
-import rootSaga from "./root-saga";
+import rootSaga from "./sagas/root-saga";
 
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 const reducers = combineReducers({
 	posts,
@@ -19,11 +19,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
 	reducers,
-	applyMiddleware(
-		thunk,
-		requestsPromiseMiddleware({ auto: true }),
-		sagaMiddleware
-	)
+	applyMiddleware(thunk, requestsPromiseMiddleware(), sagaMiddleware)
 );
 
 sagaMiddleware.run(rootSaga);

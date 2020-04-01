@@ -1,38 +1,35 @@
-import moment from "moment";
+import { createRequestAction, createDispatchRequestAction } from "../../utils";
 
-import { createRequestAction } from "../../utils";
-
-export const GET_POSTS = "GET_POSTS";
-export const getPosts = () => async (dispatch, getState) => {
+export const FETCH_POSTS = "FETCH_POSTS";
+export const fetchPosts = () => async (dispatch, getState) => {
 	const {
 		posts: { cursor, postsPerFetch }
 	} = getState();
 	dispatch(
 		createRequestAction(
-			GET_POSTS,
+			FETCH_POSTS,
 			"get",
-			`/660/posts?_sort=timestamp&_order=desc&_start=${cursor}&_limit=${postsPerFetch}`
+			`/posts?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch}`
 		)
 	);
 };
 
 export const CREATE_POST = "CREATE_POST";
-export const createPost = data => (dispatch, getState) => {
-	const timestamp = moment().unix();
-	const { userId, userName } = getState().auth.profile;
-	dispatch(
-		createRequestAction(CREATE_POST, "post", "/660/posts", {
-			...data,
-			timestamp,
-			author: userName,
-			userId
-		})
-	);
-};
+export const createPost = data =>
+	createDispatchRequestAction(CREATE_POST, "post", "/posts", data, {
+		asPromise: true
+	});
 
 export const DELETE_POST = "DELETE_POST";
-export const deletePost = id => dispatch => {
-	dispatch(
-		createRequestAction(DELETE_POST, "delete", `/660/posts/${id}`, {}, { id })
+export const deletePost = id =>
+	createDispatchRequestAction(
+		DELETE_POST,
+		"delete",
+		`/posts/${id}`,
+		{},
+		{ id }
 	);
-};
+
+export const EDIT_POST = "EDIT_POST";
+export const editPost = (id, data, meta) =>
+	createDispatchRequestAction(EDIT_POST, "put", `/posts/${id}`, data, meta);

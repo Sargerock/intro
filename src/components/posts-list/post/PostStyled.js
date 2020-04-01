@@ -7,23 +7,14 @@ export const WrapperPost = styled.div`
 	position: relative;
 `;
 
-export const PostMessage = styled.p`
-	word-break: break-word;
-	white-space: pre-wrap;
+export const PostBody = styled.div`
+	width: 100%;
 `;
 
-export const ButtonPost = styled.button`
-	position: absolute;
-	top: 0;
-	right: 0;
-	height: 35px;
-	width: 35px;
-	margin: 5px;
-	border: none;
-	border-radius: 50%;
-	background-color: #fff;
-
-	&:hover {
-		background-color: #bae0f9;
-	}
+export const PostMessage = styled.div`
+	word-break: break-word;
+	white-space: pre-wrap;
+	padding: 10px;
+	margin-bottom: 40px;
+	margin-right: 40px;
 `;

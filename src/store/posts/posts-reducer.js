@@ -1,53 +1,80 @@
-import { GET_POSTS, CREATE_POST, DELETE_POST } from "./posts-actions";
+import {
+	FETCH_POSTS,
+	CREATE_POST,
+	DELETE_POST,
+	EDIT_POST
+} from "./posts-actions";
 import { success, error } from "redux-saga-requests";
 
 const initialState = {
 	posts: [],
 	cursor: 0,
 	hasMore: true,
-	postsPerFetch: 5,
+	postsPerFetch: 3,
 	error: "",
+	validationErrors: null,
 	isLoading: false
 };
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case GET_POSTS:
-		case CREATE_POST:
+		case FETCH_POSTS:
 			return {
 				...state,
 				isLoading: true,
 				error: ""
 			};
 
-		case success(GET_POSTS):
-			const { payload } = action;
-			const cursor = state.cursor + payload.data.length;
+		case CREATE_POST:
+		case EDIT_POST:
 			return {
 				...state,
-				posts: [...state.posts, ...payload.data],
+				error: "",
+				validationErrors: null
+			};
+
+		case success(FETCH_POSTS):
+			const cursor = state.cursor + action.payload.data.posts.length;
+			return {
+				...state,
+				posts: [...state.posts, ...action.payload.data.posts],
 				cursor,
-				hasMore: cursor < payload.response.headers["x-total-count"],
+				hasMore: cursor < action.payload.data.totalCount,
 				isLoading: false
 			};
 		case success(CREATE_POST):
 			return {
 				...state,
 				posts: [action.payload.data, ...state.posts],
-				totalPostsCount: state.totalPostsCount + 1,
 				cursor: state.cursor + 1,
 				isLoading: false
 			};
 		case success(DELETE_POST):
 			return {
 				...state,
-				posts: state.posts.filter(post => post.id !== action.meta.id)
+				posts: state.posts.filter(post => post.id !== action.meta.id),
+				cursor: state.cursor - 1
 			};
-		case error(GET_POSTS):
-		case error(CREATE_POST):
+		case success(EDIT_POST):
+			return {
+				...state,
+				posts: state.posts.map(post =>
+					post.id === action.payload.data.id
+						? { ...post, text: action.payload.data.text }
+						: post
+				)
+			};
+		case error(FETCH_POSTS):
 			return {
 				...state,
 				error: action.payload.message
+			};
+		case error(CREATE_POST):
+		case error(EDIT_POST):
+			return {
+				...state,
+				error: action.payload.message,
+				validationErrors: action.payload.errors
 			};
 		default:
 			return state;

@@ -2,41 +2,38 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import Avatar from "../../common/avatar/Avatar";
+import { useProfile } from "../../../store/auth/auth-selectors";
 
-import { WrapperPost, PostMessage, ButtonPost } from "./PostStyled";
-import { useProfile } from "../../../store/auth/auth-hooks";
-import { useDispatch } from "react-redux";
-import { deletePost } from "../../../store/posts/posts-actions";
+import { WrapperPost, PostBody, PostMessage } from "./PostStyled";
+import EditableTextBody from "../editable-text-body/EditableTextBody";
 
-const Post = ({ id, author, messageText, authorId }) => {
-	const dispatch = useDispatch();
-	const { userId } = useProfile();
+const Post = props => {
+	const { id, text, authorId, authorName } = props;
+	const isAuthor = useProfile().userId === authorId;
+
 	return (
 		<WrapperPost>
 			<div>
 				<Avatar src="https://via.placeholder.com/100" alt="avatar" />
 			</div>
-			<div>
+			<PostBody>
 				<p>
-					<strong>{author}</strong>
+					<strong>{authorName}</strong>
 				</p>
-				<PostMessage>{messageText}</PostMessage>
-				{authorId === userId ? (
-					<ButtonPost onClick={() => dispatch(deletePost(id))}>
-						&times;
-					</ButtonPost>
+				{isAuthor ? (
+					<EditableTextBody id={id} text={text} />
 				) : (
-					undefined
+					<PostMessage>{text}</PostMessage>
 				)}
-			</div>
+			</PostBody>
 		</WrapperPost>
 	);
 };
 
 Post.propTypes = {
 	id: PropTypes.number.isRequired,
-	author: PropTypes.string.isRequired,
-	messageText: PropTypes.string.isRequired,
+	authorName: PropTypes.string.isRequired,
+	text: PropTypes.string.isRequired,
 	authorId: PropTypes.number.isRequired
 };
 

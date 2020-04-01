@@ -5,26 +5,25 @@ import { useEffect } from "react";
 
 import Posts from "./pages/posts/Posts";
 import Authorization from "./pages/authorization/Authorization";
-import Navigation from "./components/navigation/Navigation";
 import PrivateRoute from "./hoc/private-route/PrivateRoute";
-import { getUser } from "./store/auth/auth-actions";
+import { fetchUser, getTokens } from "./store/auth/auth-actions";
+
+import "toasted-notes/src/styles.css";
 
 function App() {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(getUser());
+		dispatch(getTokens());
+		dispatch(fetchUser());
 		// eslint-disable-next-line
 	}, []);
 
 	return (
-		<>
-			<Navigation />
-			<Switch>
-				<Route path={["/signin", "/signup"]} component={Authorization} />
-				<PrivateRoute path="/posts" component={Posts} />
-				<Redirect to="/posts" />
-			</Switch>
-		</>
+		<Switch>
+			<Route path={["/sign-in", "/sign-up"]} component={Authorization} />
+			<PrivateRoute path="/posts" component={Posts} />
+			<Redirect to="/posts" />
+		</Switch>
 	);
 }
 
