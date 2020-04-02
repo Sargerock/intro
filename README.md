@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, run:
 
-### `node json-server/server.js`
+### `npm i`
 
 ### `npm start`
 
