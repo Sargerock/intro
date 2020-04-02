@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch } from "react-redux";
-import toaster from "toasted-notes";
 
 import Post from "./post/Post";
 import { usePosts } from "../../store/posts/posts-selectors";
@@ -17,14 +16,17 @@ const PostsList = () => {
 		error: authorizationError
 	} = useAuthorization();
 
-	if (authorizationError) toaster.notify("Network error", { duration: null });
-	if (authorizationIsLoading || authorizationError)
-		return <div>Loading...</div>;
 	return (
 		<div>
 			<InfiniteScroll
 				pageStart={0}
-				loadMore={() => isLoading || error || dispatch(fetchPosts())}
+				loadMore={() =>
+					authorizationIsLoading ||
+					authorizationError ||
+					isLoading ||
+					error ||
+					dispatch(fetchPosts())
+				}
 				hasMore={hasMore}
 				loader={<div key={0}>Loading ...</div>}
 			>
