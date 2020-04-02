@@ -8,8 +8,6 @@ import Authorization from "./pages/authorization/Authorization";
 import PrivateRoute from "./hoc/private-route/PrivateRoute";
 import { fetchUser, getTokens } from "./store/auth/auth-actions";
 
-import "toasted-notes/src/styles.css";
-
 function App() {
 	const dispatch = useDispatch();
 	useEffect(() => {
