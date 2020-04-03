@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { animated } from "react-spring";
 
 export const ToastOuterWrapper = styled.div`
 	text-align: center;
@@ -8,7 +9,7 @@ export const ToastOuterWrapper = styled.div`
 	left: 50%;
 `;
 
-export const ToastInnerWrapper = styled.div`
+export const ToastInnerWrapper = styled(animated.div)`
 	position: relative;
 	left: -50%;
 	width: fit-content;

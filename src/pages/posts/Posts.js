@@ -15,11 +15,7 @@ const Posts = () => {
 	if (isLoading) return <Loader />;
 	return (
 		<>
-			{error ? (
-				<Toast title="Network error" text="Refresh page to try again" />
-			) : (
-				undefined
-			)}
+			{error && <Toast title={error} text="Refresh page to try again" />}
 			<Navbar />
 			<MainWrapper>
 				<CreatePost />
