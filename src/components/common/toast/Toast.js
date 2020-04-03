@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
 
-import { ToastWrapper, Title } from "./ToastStyled";
+import { Title, ToastOuterWrapper, ToastInnerWrapper } from "./ToastStyled";
 
 const Toast = props => {
 	const { title, text, callback } = props;
@@ -23,10 +23,12 @@ const Toast = props => {
 	};
 
 	return createPortal(
-		<ToastWrapper onClick={onClickHandle}>
-			<Title>{title}</Title>
-			<p>{text}</p>
-		</ToastWrapper>,
+		<ToastOuterWrapper>
+			<ToastInnerWrapper onClick={onClickHandle}>
+				<Title>{title}</Title>
+				<p>{text}</p>
+			</ToastInnerWrapper>
+		</ToastOuterWrapper>,
 		element
 	);
 };
