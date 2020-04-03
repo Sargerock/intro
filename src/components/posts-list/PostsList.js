@@ -7,28 +7,22 @@ import Post from "./post/Post";
 import { usePosts } from "../../store/posts/posts-selectors";
 import { fetchPosts } from "../../store/posts/posts-actions";
 import { useAuthorization } from "../../store/auth/auth-selectors";
+import Loader from "../common/loader/Loader";
 
 const PostsList = () => {
 	const dispatch = useDispatch();
 	const { posts, error, hasMore, isLoading } = usePosts();
-	const {
-		isLoading: authorizationIsLoading,
-		error: authorizationError
-	} = useAuthorization();
+	const { error: authorizationError } = useAuthorization();
 
 	return (
 		<div>
 			<InfiniteScroll
 				pageStart={0}
 				loadMore={() =>
-					authorizationIsLoading ||
-					authorizationError ||
-					isLoading ||
-					error ||
-					dispatch(fetchPosts())
+					authorizationError || isLoading || error || dispatch(fetchPosts())
 				}
 				hasMore={hasMore}
-				loader={<div key={0}>Loading ...</div>}
+				loader={<Loader key={0} />}
 			>
 				{posts.map(({ id, text, userId, user }) => (
 					<Post

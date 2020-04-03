@@ -7,10 +7,12 @@ import CreatePost from "../../components/create-post/CreatePost";
 import PostsList from "../../components/posts-list/PostsList";
 import { useAuthorization } from "../../store/auth/auth-selectors";
 import Toast from "../../components/common/toast/Toast";
+import Loader from "../../components/common/loader/Loader";
 
 const Posts = () => {
-	const { error } = useAuthorization();
+	const { error, isLoading } = useAuthorization();
 
+	if (isLoading) return <Loader />;
 	return (
 		<>
 			{error ? (

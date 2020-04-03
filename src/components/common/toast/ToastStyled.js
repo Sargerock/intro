@@ -1,13 +1,18 @@
 import styled from "styled-components";
 
-export const ToastWrapper = styled.div`
+export const ToastOuterWrapper = styled.div`
 	text-align: center;
 	z-index: 1;
 	position: absolute;
 	top: 5px;
-	left: 40%;
+	left: 50%;
+`;
+
+export const ToastInnerWrapper = styled.div`
+	position: relative;
+	left: -50%;
 	width: fit-content;
-	padding: 10px 10px 0 10px;
+	padding: 10px 10px 1px 10px;
 	background-color: #fff;
 	box-shadow: 0 0 10px lightgrey;
 	border-radius: 3px;
