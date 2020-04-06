@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch } from "react-redux";
@@ -6,21 +6,23 @@ import { useDispatch } from "react-redux";
 import Post from "./post/Post";
 import { usePosts } from "../../store/posts/posts-selectors";
 import { fetchPosts } from "../../store/posts/posts-actions";
-import { useAuthorization } from "../../store/auth/auth-selectors";
+import { useProfile } from "../../store/auth/auth-selectors";
 import Loader from "../common/loader/Loader";
 
 const PostsList = () => {
 	const dispatch = useDispatch();
-	const { posts, error, hasMore, isLoading } = usePosts();
-	const { error: authorizationError } = useAuthorization();
+	const { posts, hasMore } = usePosts();
+	const { userName } = useProfile();
+
+	useEffect(() => {
+		if (userName) dispatch(fetchPosts());
+	}, [dispatch, userName]);
 
 	return (
 		<div>
 			<InfiniteScroll
 				pageStart={0}
-				loadMore={() =>
-					authorizationError || isLoading || error || dispatch(fetchPosts())
-				}
+				loadMore={() => dispatch(fetchPosts())}
 				hasMore={hasMore}
 				loader={<Loader key={0} />}
 			>
@@ -41,13 +43,13 @@ const PostsList = () => {
 PostsList.propTypes = {
 	posts: PropTypes.arrayOf(
 		PropTypes.shape({
-			id: PropTypes.number.isRequired
+			id: PropTypes.number.isRequired,
 		})
-	)
+	),
 };
 
 PostsList.defaultProps = {
-	posts: []
+	posts: [],
 };
 
 export default PostsList;

@@ -3,7 +3,8 @@ import {
 	SIGN_UP,
 	SIGN_OUT,
 	FETCH_USER,
-	GET_TOKENS
+	GET_TOKENS,
+	RESET_ERRORS,
 } from "./auth-actions";
 import { success, error } from "redux-saga-requests";
 
@@ -13,7 +14,7 @@ const initialState = {
 	isLoading: false,
 	error: "",
 	validationErrors: null,
-	refreshToken: ""
+	refreshToken: "",
 };
 
 export default (state = initialState, action) => {
@@ -25,7 +26,7 @@ export default (state = initialState, action) => {
 				...state,
 				isLoading: true,
 				error: "",
-				validationErrors: null
+				validationErrors: null,
 			};
 		case success(SIGN_IN):
 		case success(SIGN_UP):
@@ -33,16 +34,16 @@ export default (state = initialState, action) => {
 				...state,
 				isAuthorized: true,
 				refreshToken: action.payload.data.refreshToken,
-				isLoading: false
+				isLoading: false,
 			};
 		case success(FETCH_USER): {
 			return {
 				...state,
 				profile: {
 					userId: action.payload.data.id,
-					userName: action.payload.data.userName
+					userName: action.payload.data.userName,
 				},
-				isLoading: false
+				isLoading: false,
 			};
 		}
 		case error(SIGN_IN):
@@ -52,22 +53,24 @@ export default (state = initialState, action) => {
 				...state,
 				isLoading: false,
 				error: action.payload.message,
-				validationErrors: action.payload.errors
+				validationErrors: action.payload.errors,
 			};
 
 		case SIGN_OUT:
-			return {
-				...state,
-				isAuthorized: false,
-				profile: {}
-			};
+			return initialState;
 		case GET_TOKENS:
 			return {
 				...state,
 				isAuthorized: action.payload.isAuthorized,
-				refreshToken: action.payload.refreshToken
+				refreshToken: action.payload.refreshToken,
 			};
-
+		case RESET_ERRORS:
+			return {
+				...state,
+				isLoading: false,
+				error: "",
+				validationErrors: null,
+			};
 		default:
 			return state;
 	}

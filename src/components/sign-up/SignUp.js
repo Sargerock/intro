@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
 
-import { signUp, fetchUser } from "../../store/auth/auth-actions";
+import { signUp, fetchUser, resetErrors } from "../../store/auth/auth-actions";
 
 import { FieldStyled, ButtonStyled } from "../common/styles";
-import { FormAuth } from "../../pages/authorization/AuthorizationStyled";
+import {
+	FormAuth,
+	LinkSign,
+} from "../../pages/authorization/AuthorizationStyled";
 
 const signUpValidationSchema = yup.object().shape({
 	email: yup
@@ -28,19 +31,25 @@ const signUpValidationSchema = yup.object().shape({
 	passwordConfirm: yup
 		.string()
 		.oneOf([yup.ref("password")], "Passwords didn't match.")
-		.required("Password confirm is required.")
+		.required("Password confirm is required."),
 });
 
 const initialValues = {
 	email: "",
 	userName: "",
 	password: "",
-	passwordConfirm: ""
+	passwordConfirm: "",
 };
 
 const SignUp = () => {
 	const dispatch = useDispatch();
-	const errors = useSelector(state => state.auth.validationErrors);
+	const errors = useSelector((state) => state.auth.validationErrors);
+
+	useEffect(() => {
+		return () => {
+			dispatch(resetErrors());
+		};
+	}, [dispatch]);
 
 	const signUpHandleSubmit = ({ email, password, userName }) => {
 		dispatch(signUp({ email, password, userName }))
@@ -49,7 +58,7 @@ const SignUp = () => {
 			})
 			.catch(() => {});
 	};
-
+	// TODO: white-space: pre; inside error
 	return (
 		<>
 			<h2>Sign Up</h2>
@@ -60,15 +69,16 @@ const SignUp = () => {
 				validationSchema={signUpValidationSchema}
 				enableReinitialize={true}
 			>
-				{({ dirty, isValid, errors: err }) => (
+				{({ dirty, isValid }) => (
 					<FormAuth>
 						<FieldStyled
-							type="email"
+							type="text"
 							name="email"
 							placeholder="Email address"
 							width="100%"
 						/>
-						<ErrorMessage name="email" />
+
+						<ErrorMessage name="email" component="div" />
 						<FieldStyled
 							type="userName"
 							name="userName"
@@ -98,7 +108,7 @@ const SignUp = () => {
 						>
 							Sign Up
 						</ButtonStyled>
-						<pre>{JSON.stringify(err)}</pre>
+						<LinkSign to="/sign-in">or Sign In</LinkSign>
 					</FormAuth>
 				)}
 			</Formik>

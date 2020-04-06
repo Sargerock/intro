@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useProfile } from "../../store/auth/auth-selectors";
@@ -10,8 +10,7 @@ import { ButtonStyled, FlexWrapper } from "../common/styles";
 
 const Navbar = () => {
 	const dispatch = useDispatch();
-	const isSignUp = useHistory().location.pathname === "/sign-up";
-	const isAuthorized = useSelector(state => state.auth.isAuthorized);
+	const isAuthorized = useSelector((state) => state.auth.isAuthorized);
 	const { userName } = useProfile();
 
 	return (
@@ -30,16 +29,9 @@ const Navbar = () => {
 					Sign Out
 				</ButtonStyled>
 			) : (
-				<div>
-					<NavLink to="/sign-in">
-						<ButtonStyled margin="10px" disabled={!isSignUp}>
-							Sign In
-						</ButtonStyled>
-					</NavLink>
-					<NavLink to="/sign-up">
-						<ButtonStyled disabled={isSignUp}>Sign Up</ButtonStyled>
-					</NavLink>
-				</div>
+				<NavLink to="/sign-in">
+					<ButtonStyled>Sign In</ButtonStyled>
+				</NavLink>
 			)}
 		</WrapperNavbar>
 	);

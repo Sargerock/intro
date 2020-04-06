@@ -7,14 +7,15 @@ import Posts from "./pages/posts/Posts";
 import Authorization from "./pages/authorization/Authorization";
 import PrivateRoute from "./hoc/private-route/PrivateRoute";
 import { fetchUser, getTokens } from "./store/auth/auth-actions";
+import { useAuthorization } from "./store/auth/auth-selectors";
 
 function App() {
 	const dispatch = useDispatch();
+	const { isAuthorized } = useAuthorization();
 	useEffect(() => {
 		dispatch(getTokens());
-		dispatch(fetchUser());
-		// eslint-disable-next-line
-	}, []);
+		if (isAuthorized) dispatch(fetchUser());
+	}, [dispatch, isAuthorized]);
 
 	return (
 		<Switch>
