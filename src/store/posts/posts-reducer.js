@@ -3,6 +3,7 @@ import {
 	CREATE_POST,
 	DELETE_POST,
 	EDIT_POST,
+	RESET_POSTS,
 } from "./posts-actions";
 import { success, error } from "redux-saga-requests";
 
@@ -25,6 +26,8 @@ export default (state = initialState, action) => {
 				error: "",
 				hasMore: false,
 			};
+		case RESET_POSTS:
+			return initialState;
 
 		case CREATE_POST:
 		case EDIT_POST:

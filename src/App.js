@@ -8,15 +8,19 @@ import Authorization from "./pages/authorization/Authorization";
 import PrivateRoute from "./hoc/private-route/PrivateRoute";
 import { fetchUser, getTokens } from "./store/auth/auth-actions";
 import { useAuthorization } from "./store/auth/auth-selectors";
+import Loader from "./components/common/loader/Loader";
 
 function App() {
 	const dispatch = useDispatch();
-	const { isAuthorized } = useAuthorization();
+	const { isAuthorized, isLoading } = useAuthorization();
 	useEffect(() => {
 		dispatch(getTokens());
+	}, [dispatch]);
+	useEffect(() => {
 		if (isAuthorized) dispatch(fetchUser());
 	}, [dispatch, isAuthorized]);
 
+	if (isLoading) return <Loader />;
 	return (
 		<Switch>
 			<Route path={["/sign-in", "/sign-up"]} component={Authorization} />

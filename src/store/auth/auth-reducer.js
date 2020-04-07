@@ -11,7 +11,7 @@ import { success, error } from "redux-saga-requests";
 const initialState = {
 	profile: null,
 	isAuthorized: false,
-	isLoading: false,
+	isLoading: true,
 	error: "",
 	validationErrors: null,
 	refreshToken: "",
@@ -63,6 +63,7 @@ export default (state = initialState, action) => {
 				...state,
 				isAuthorized: action.payload.isAuthorized,
 				refreshToken: action.payload.refreshToken,
+				isLoading: false,
 			};
 		case RESET_ERRORS:
 			return {

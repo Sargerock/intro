@@ -3,6 +3,7 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 import { requestsPromiseMiddleware } from "redux-saga-requests";
+import logger from "redux-logger";
 
 import posts from "./posts/posts-reducer";
 import auth from "./auth/auth-reducer";
@@ -12,14 +13,14 @@ axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 const reducers = combineReducers({
 	posts,
-	auth
+	auth,
 });
 
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
 	reducers,
-	applyMiddleware(thunk, requestsPromiseMiddleware(), sagaMiddleware)
+	applyMiddleware(thunk, logger, requestsPromiseMiddleware(), sagaMiddleware)
 );
 
 sagaMiddleware.run(rootSaga);

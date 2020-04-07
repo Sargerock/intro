@@ -3,9 +3,9 @@ import * as yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
 
-import { signUp, fetchUser, resetErrors } from "../../store/auth/auth-actions";
+import { signUp, resetErrors } from "../../store/auth/auth-actions";
 
-import { FieldStyled, ButtonStyled } from "../common/styles";
+import { FieldStyled, ButtonStyled, ErrorMessages } from "../common/styles";
 import {
 	FormAuth,
 	LinkSign,
@@ -52,13 +52,8 @@ const SignUp = () => {
 	}, [dispatch]);
 
 	const signUpHandleSubmit = ({ email, password, userName }) => {
-		dispatch(signUp({ email, password, userName }))
-			.then(() => {
-				dispatch(fetchUser());
-			})
-			.catch(() => {});
+		dispatch(signUp({ email, password, userName }));
 	};
-	// TODO: white-space: pre; inside error
 	return (
 		<>
 			<h2>Sign Up</h2>
@@ -72,27 +67,27 @@ const SignUp = () => {
 				{({ dirty, isValid }) => (
 					<FormAuth>
 						<FieldStyled
-							type="text"
+							type="email"
 							name="email"
 							placeholder="Email address"
 							width="100%"
 						/>
 
-						<ErrorMessage name="email" component="div" />
+						<ErrorMessage name="email" component={ErrorMessages} />
 						<FieldStyled
 							type="userName"
 							name="userName"
 							placeholder="User name"
 							width="100%"
 						/>
-						<ErrorMessage name="userName" />
+						<ErrorMessage name="userName" component={ErrorMessages} />
 						<FieldStyled
 							type="password"
 							name="password"
 							placeholder="Password"
 							width="100%"
 						/>
-						<ErrorMessage name="password" />
+						<ErrorMessage name="password" component={ErrorMessages} />
 						<FieldStyled
 							type="password"
 							name="passwordConfirm"

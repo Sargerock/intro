@@ -2,27 +2,35 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch } from "react-redux";
+import { useParams, useRouteMatch } from "react-router-dom";
 
 import Post from "./post/Post";
 import { usePosts } from "../../store/posts/posts-selectors";
-import { fetchPosts } from "../../store/posts/posts-actions";
+import { fetchPosts, resetPosts } from "../../store/posts/posts-actions";
 import { useProfile } from "../../store/auth/auth-selectors";
 import Loader from "../common/loader/Loader";
 
 const PostsList = () => {
 	const dispatch = useDispatch();
+	const { userName: targetName } = useParams();
 	const { posts, hasMore } = usePosts();
 	const { userName } = useProfile();
 
 	useEffect(() => {
-		if (userName) dispatch(fetchPosts());
-	}, [dispatch, userName]);
+		if (userName) dispatch(fetchPosts(targetName));
+	}, [dispatch, userName, targetName]);
+
+	useEffect(() => {
+		return () => {
+			dispatch(resetPosts());
+		};
+	}, [dispatch]);
 
 	return (
 		<div>
 			<InfiniteScroll
 				pageStart={0}
-				loadMore={() => dispatch(fetchPosts())}
+				loadMore={() => dispatch(fetchPosts(targetName))}
 				hasMore={hasMore}
 				loader={<Loader key={0} />}
 			>

@@ -1,27 +1,29 @@
 import { createRequestAction, createDispatchRequestAction } from "../../utils";
 
 export const FETCH_POSTS = "FETCH_POSTS";
-export const fetchPosts = () => async (dispatch, getState) => {
+export const fetchPosts = (userName) => async (dispatch, getState) => {
 	const {
-		posts: { cursor, postsPerFetch }
+		posts: { cursor, postsPerFetch },
 	} = getState();
 	dispatch(
 		createRequestAction(
 			FETCH_POSTS,
 			"get",
-			`/posts?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch}`
+			`/posts/${
+				userName || ""
+			}?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch}`
 		)
 	);
 };
 
 export const CREATE_POST = "CREATE_POST";
-export const createPost = data =>
+export const createPost = (data) =>
 	createDispatchRequestAction(CREATE_POST, "post", "/posts", data, {
-		asPromise: true
+		asPromise: true,
 	});
 
 export const DELETE_POST = "DELETE_POST";
-export const deletePost = id =>
+export const deletePost = (id) =>
 	createDispatchRequestAction(
 		DELETE_POST,
 		"delete",
@@ -33,3 +35,6 @@ export const deletePost = id =>
 export const EDIT_POST = "EDIT_POST";
 export const editPost = (id, data, meta) =>
 	createDispatchRequestAction(EDIT_POST, "put", `/posts/${id}`, data, meta);
+
+export const RESET_POSTS = "RESET_POSTS";
+export const resetPosts = () => ({ type: RESET_POSTS });

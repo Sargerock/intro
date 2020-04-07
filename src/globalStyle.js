@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         font-family: 'Roboto', sans-serif;
         font-size: 16px;
+        color: #292929;
     }
 
     body {
@@ -21,6 +22,10 @@ const GlobalStyle = createGlobalStyle`
 
     input[type="checkbox"]:hover {
         cursor: pointer;
+    }
+
+    a {
+        text-decoration: none;
     }
 `;
 

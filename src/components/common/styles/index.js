@@ -32,12 +32,12 @@ export const ButtonStyled = styled.button`
 ButtonStyled.propTypes = {
 	margin: PropTypes.string,
 	width: PropTypes.string,
-	alignSelf: PropTypes.string
+	alignSelf: PropTypes.string,
 };
 ButtonStyled.defaultProps = {
 	margin: "0",
 	width: "fit-content",
-	alignSelf: "auto"
+	alignSelf: "auto",
 };
 
 export const FieldStyled = styled(Field)`
@@ -50,10 +50,10 @@ export const FieldStyled = styled(Field)`
 `;
 
 FieldStyled.propTypes = {
-	width: PropTypes.string
+	width: PropTypes.string,
 };
 FieldStyled.defaultProps = {
-	width: "auto"
+	width: "auto",
 };
 
 export const FlexWrapper = styled.div`
@@ -65,9 +65,13 @@ export const FlexWrapper = styled.div`
 
 FlexWrapper.propTypes = {
 	width: PropTypes.string,
-	justifyContent: PropTypes.string
+	justifyContent: PropTypes.string,
 };
 FlexWrapper.defaultProps = {
 	width: "auto",
-	justifyContent: "flex-start"
+	justifyContent: "flex-start",
 };
+
+export const ErrorMessages = styled.div`
+	white-space: pre-wrap;
+`;

@@ -7,17 +7,11 @@ import {
 
 export const SIGN_IN = "SIGN_IN";
 export const signIn = (data, meta) =>
-	createDispatchRequestAction(SIGN_IN, "post", "/auth/sign-in", data, {
-		...meta,
-		asPromise: true,
-	});
+	createDispatchRequestAction(SIGN_IN, "post", "/auth/sign-in", data, meta);
 
 export const SIGN_UP = "SIGN_UP";
 export const signUp = (data, meta) =>
-	createDispatchRequestAction(SIGN_UP, "post", "/auth/sign-up", data, {
-		...meta,
-		asPromise: true,
-	});
+	createDispatchRequestAction(SIGN_UP, "post", "/auth/sign-up", data, meta);
 
 export const SIGN_OUT = "SIGN_OUT";
 export const signOut = () => (dispatch) => {
