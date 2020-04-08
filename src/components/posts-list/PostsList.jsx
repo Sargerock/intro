@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch } from "react-redux";
-import { useParams, useRouteMatch } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import Post from "./post/Post";
 import { usePosts } from "../../store/posts/posts-selectors";
@@ -24,7 +24,7 @@ const PostsList = () => {
 		return () => {
 			dispatch(resetPosts());
 		};
-	}, [dispatch]);
+	}, [dispatch, targetName]);
 
 	return (
 		<div>

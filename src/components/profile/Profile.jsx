@@ -8,7 +8,7 @@ import {
 	InnerWrapper,
 } from "./ProfileStyled";
 
-const Profile = (props) => {
+const Profile = ({ userName }) => {
 	return (
 		<WrapperProfile>
 			<BackgroundImage
@@ -21,7 +21,7 @@ const Profile = (props) => {
 				size={120}
 			/>
 			<InnerWrapper>
-				<h2>Name</h2>
+				<h2>{userName}</h2>
 				<p>
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
 					totam.
@@ -31,6 +31,8 @@ const Profile = (props) => {
 	);
 };
 
-Profile.propTypes = {};
+Profile.propTypes = {
+	userName: PropTypes.string.isRequired,
+};
 
 export default Profile;

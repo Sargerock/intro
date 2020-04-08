@@ -9,12 +9,13 @@ export const WrapperPost = styled.div`
 
 export const PostBody = styled.div`
 	width: 100%;
+	padding: 10px;
 `;
 
 export const PostMessage = styled.div`
 	word-break: break-word;
 	white-space: pre-wrap;
-	padding: 10px;
 	margin-bottom: 40px;
 	margin-right: 40px;
+	padding: 10px 0;
 `;

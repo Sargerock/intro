@@ -38,3 +38,24 @@ export const editPost = (id, data, meta) =>
 
 export const RESET_POSTS = "RESET_POSTS";
 export const resetPosts = () => ({ type: RESET_POSTS });
+
+export const FETCH_PROFILE = "FETCH_PROFILE";
+export const fetchProfile = (userName) => ({
+	type: FETCH_PROFILE,
+	payload: {
+		request: {
+			url: `/users/${userName}`,
+			method: "get",
+		},
+	},
+});
+
+export const FETCH_USERS = "FETCH_USERS";
+export const fetchUsers = (userName) =>
+	createDispatchRequestAction(
+		FETCH_USERS,
+		"get",
+		`/users/find/${userName}`,
+		{},
+		{ asPromise: true }
+	);

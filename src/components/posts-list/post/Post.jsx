@@ -1,16 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import Avatar from "../../common/avatar/Avatar";
-import { useProfile } from "../../../store/auth/auth-selectors";
-
-import { WrapperPost, PostBody, PostMessage } from "./PostStyled";
-import EditableTextBody from "../editable-text-body/EditableTextBody";
+import stringReplace from "react-string-replace";
 import { Link } from "react-router-dom";
 
+import Avatar from "../../common/avatar/Avatar";
+
+import { WrapperPost, PostBody, PostMessage } from "./PostStyled";
+
 const Post = (props) => {
-	const { id, text, authorId, authorName } = props;
-	const isAuthor = useProfile().userId === authorId;
+	const { text, authorName } = props;
+
+	const stringWithLinks = stringReplace(text, /\B@(\w+)/gim, (match, i) => (
+		<Link to={`/posts/${match}`} key={i}>
+			{`@${match}`}
+		</Link>
+	));
 
 	return (
 		<WrapperPost>
@@ -21,11 +25,7 @@ const Post = (props) => {
 				<Link to={`/posts/${authorName}`}>
 					<strong>{authorName}</strong>
 				</Link>
-				{isAuthor ? (
-					<EditableTextBody id={id} text={text} />
-				) : (
-					<PostMessage>{text}</PostMessage>
-				)}
+				<PostMessage>{stringWithLinks}</PostMessage>
 			</PostBody>
 		</WrapperPost>
 	);

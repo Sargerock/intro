@@ -1,20 +1,24 @@
+import { success, error } from "redux-saga-requests";
 import {
 	FETCH_POSTS,
 	CREATE_POST,
 	DELETE_POST,
 	EDIT_POST,
 	RESET_POSTS,
+	FETCH_PROFILE,
+	FETCH_USERS,
 } from "./posts-actions";
-import { success, error } from "redux-saga-requests";
 
 const initialState = {
 	posts: [],
 	cursor: 0,
-	hasMore: true,
+	hasMore: false,
 	postsPerFetch: 3,
 	error: "",
 	validationErrors: null,
 	isLoading: false,
+	profile: null,
+	mentionData: [],
 };
 
 export default (state = initialState, action) => {
@@ -68,6 +72,19 @@ export default (state = initialState, action) => {
 						: post
 				),
 			};
+		case success(FETCH_PROFILE):
+			return {
+				...state,
+				profile: action.payload.data,
+			};
+		case success(FETCH_USERS):
+			return {
+				...state,
+				mentionData: action.payload.data.map(({ id, userName }) => ({
+					id,
+					display: userName,
+				})),
+			};
 		case error(FETCH_POSTS):
 			return {
 				...state,
@@ -76,6 +93,7 @@ export default (state = initialState, action) => {
 			};
 		case error(CREATE_POST):
 		case error(EDIT_POST):
+		case error(FETCH_PROFILE):
 			return {
 				...state,
 				error: action.payload.message,

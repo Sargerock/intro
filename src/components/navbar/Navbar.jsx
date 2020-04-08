@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { useProfile } from "../../store/auth/auth-selectors";
@@ -17,7 +17,7 @@ const Navbar = () => {
 		<WrapperNavbar>
 			<FlexWrapper>
 				<Logo src="/assets/twitter.svg" alt="logo" />
-				<span>{userName}</span>
+				<Link to={`/posts/${userName}`}>{userName}</Link>
 			</FlexWrapper>
 			{isAuthorized ? (
 				<ButtonStyled
