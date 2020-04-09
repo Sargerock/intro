@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import * as yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
 
 import { signUp, resetErrors } from "../../store/auth/auth-actions";
@@ -10,6 +10,7 @@ import {
 	FormAuth,
 	LinkSign,
 } from "../../pages/authorization/AuthorizationStyled";
+import { useAuthorization } from "../../store/auth/auth-selectors";
 
 const signUpValidationSchema = yup.object().shape({
 	email: yup
@@ -43,7 +44,7 @@ const initialValues = {
 
 const SignUp = () => {
 	const dispatch = useDispatch();
-	const errors = useSelector((state) => state.auth.validationErrors);
+	const { validationErrors } = useAuthorization();
 
 	useEffect(() => {
 		return () => {
@@ -59,7 +60,7 @@ const SignUp = () => {
 			<h2>Sign Up</h2>
 			<Formik
 				initialValues={initialValues}
-				initialErrors={errors}
+				initialErrors={validationErrors}
 				onSubmit={signUpHandleSubmit}
 				validationSchema={signUpValidationSchema}
 				enableReinitialize={true}

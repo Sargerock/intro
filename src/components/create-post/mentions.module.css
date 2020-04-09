@@ -41,6 +41,5 @@
 .mentions__mention {
 	position: relative;
 	z-index: 1;
-	color: blue;
 	pointer-events: none;
 }

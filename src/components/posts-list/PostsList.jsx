@@ -9,28 +9,30 @@ import { usePosts } from "../../store/posts/posts-selectors";
 import { fetchPosts, resetPosts } from "../../store/posts/posts-actions";
 import { useProfile } from "../../store/auth/auth-selectors";
 import Loader from "../common/loader/Loader";
+import { useQuery } from "../../utils/hooks";
 
 const PostsList = () => {
 	const dispatch = useDispatch();
 	const { userName: targetName } = useParams();
+	const tag = useQuery().get("tag");
 	const { posts, hasMore } = usePosts();
 	const { userName } = useProfile();
 
 	useEffect(() => {
-		if (userName) dispatch(fetchPosts(targetName));
-	}, [dispatch, userName, targetName]);
+		if (userName) dispatch(fetchPosts(targetName, tag));
+	}, [dispatch, userName, targetName, tag]);
 
 	useEffect(() => {
 		return () => {
 			dispatch(resetPosts());
 		};
-	}, [dispatch, targetName]);
+	}, [dispatch, targetName, tag]);
 
 	return (
 		<div>
 			<InfiniteScroll
 				pageStart={0}
-				loadMore={() => dispatch(fetchPosts(targetName))}
+				loadMore={() => dispatch(fetchPosts(targetName, tag))}
 				hasMore={hasMore}
 				loader={<Loader key={0} />}
 			>

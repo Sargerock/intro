@@ -1,11 +1,12 @@
 import React from "react";
 import * as yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
 import { useEffect } from "react";
 
 import { signIn, resetErrors } from "../../store/auth/auth-actions";
 import Checkbox from "../common/checkbox/Checkbox";
+import { useAuthorization } from "../../store/auth/auth-selectors";
 
 import {
 	FieldStyled,
@@ -34,7 +35,7 @@ const initialValues = {
 
 const SignIn = () => {
 	const dispatch = useDispatch();
-	const error = useSelector((state) => state.auth.error);
+	const { validationErrors } = useAuthorization();
 
 	useEffect(() => {
 		return () => {
@@ -43,7 +44,7 @@ const SignIn = () => {
 	}, [dispatch]);
 
 	const signInHandleSubmit = ({ email, password, sign }) => {
-		const remember = !!sign[0];
+		const remember = !!sign[0]; //sign - array of checked inputs
 		dispatch(signIn({ email, password }, { remember }));
 	};
 	return (
@@ -51,8 +52,10 @@ const SignIn = () => {
 			<h2>Sign In</h2>
 			<Formik
 				initialValues={initialValues}
+				initialErrors={validationErrors}
 				onSubmit={signInHandleSubmit}
 				validationSchema={signInValidationSchema}
+				enableReinitialize={true}
 			>
 				{({ dirty, isValid }) => (
 					<FormAuth>
@@ -70,7 +73,6 @@ const SignIn = () => {
 							width="100%"
 						/>
 						<ErrorMessage name="password" component={ErrorMessages} />
-						<span>{error}</span>
 						<FlexWrapper width="100%" justifyContent="space-between">
 							<Checkbox name="sign" value="Remember me" />
 							<ButtonStyled

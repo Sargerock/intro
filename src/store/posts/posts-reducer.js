@@ -6,7 +6,8 @@ import {
 	EDIT_POST,
 	RESET_POSTS,
 	FETCH_PROFILE,
-	FETCH_USERS,
+	FETCH_MENTION_DATA,
+	SET_FETCHING_TAG,
 } from "./posts-actions";
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
 	isLoading: false,
 	profile: null,
 	mentionData: [],
+	tag: "",
 };
 
 export default (state = initialState, action) => {
@@ -39,6 +41,12 @@ export default (state = initialState, action) => {
 				...state,
 				error: "",
 				validationErrors: null,
+			};
+		case SET_FETCHING_TAG:
+			return {
+				...initialState,
+				hasMore: true,
+				tag: action.payload.tag,
 			};
 
 		case success(FETCH_POSTS):
@@ -77,12 +85,12 @@ export default (state = initialState, action) => {
 				...state,
 				profile: action.payload.data,
 			};
-		case success(FETCH_USERS):
+		case success(FETCH_MENTION_DATA):
 			return {
 				...state,
-				mentionData: action.payload.data.map(({ id, userName }) => ({
-					id,
-					display: userName,
+				mentionData: action.payload.data.map((data) => ({
+					id: data.id,
+					display: data.userName || data.tag,
 				})),
 			};
 		case error(FETCH_POSTS):

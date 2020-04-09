@@ -5,15 +5,19 @@ import * as yup from "yup";
 import { MentionsInput, Mention } from "react-mentions";
 
 import Avatar from "../common/avatar/Avatar";
-import { createPost, fetchUsers } from "../../store/posts/posts-actions";
-import styles from "./mentions.module.css";
+import {
+	createPost,
+	fetchMentionData,
+	mentionType,
+} from "../../store/posts/posts-actions";
+import { usePosts } from "../../store/posts/posts-selectors";
 
 import {
 	WrapperCreatePost,
 	FormCreatePost,
 	ButtonCreatePost,
 } from "./CreatePostStyled";
-import { usePosts } from "../../store/posts/posts-selectors";
+import styles from "./mentions.module.css";
 
 const createPostValidationSchema = yup.object().shape({
 	text: yup
@@ -31,17 +35,27 @@ const CreatePost = () => {
 	const dispatch = useDispatch();
 	const { errors, mentionData } = usePosts();
 
-	const createPostHandleSubmit = async ({ text }, { resetForm }) => {
+	const createPostHandleSubmit = async ({ text: rawText }, { resetForm }) => {
+		let text = rawText;
+		const tags = [];
+		let matchResult = [];
+
+		while ((matchResult = text.match(/#(>>>)?(\w+)(>>>)?/im))) {
+			tags.push(matchResult[2]);
+			text = text.slice(matchResult["index"] + 1);
+		}
+
+		text = rawText.replace(/>>>/g, "");
+
 		try {
-			await dispatch(createPost({ text: text.replace(/\[\[\[/g, "") }));
+			await dispatch(createPost({ text, tags }));
 			resetForm();
 		} catch {}
 	};
 
-	const fetchData = async (query, callback) => {
+	const createDataFetcher = (type) => async (query, callback) => {
 		if (!query) return;
-		await dispatch(fetchUsers(query));
-
+		await dispatch(fetchMentionData(query, type));
 		callback(mentionData);
 	};
 
@@ -77,9 +91,15 @@ const CreatePost = () => {
 						>
 							<Mention
 								trigger="@"
-								data={fetchData}
-								markup="@[[[__display__[[["
+								data={createDataFetcher(mentionType.MENTION)}
+								markup="@>>>__display__>>>"
 								displayTransform={(id, name) => `@${name}`}
+							/>
+							<Mention
+								trigger="#"
+								data={createDataFetcher(mentionType.TAG)}
+								markup="#>>>__display__>>>"
+								displayTransform={(id, name) => `#${name}`}
 							/>
 						</MentionsInput>
 						<ErrorMessage name="text" />

@@ -6,7 +6,7 @@ import { LoaderWrapper } from "./LoaderStyled";
 const Loader = ({ height }) => {
 	return (
 		<LoaderWrapper height={height}>
-			<img src="./assets/spinner.svg" alt="spinner" />
+			<img src="/assets/spinner.svg" alt="spinner" />
 		</LoaderWrapper>
 	);
 };

@@ -1,17 +1,19 @@
 import { createRequestAction, createDispatchRequestAction } from "../../utils";
 
 export const FETCH_POSTS = "FETCH_POSTS";
-export const fetchPosts = (userName) => async (dispatch, getState) => {
+export const fetchPosts = (userName, tag) => async (dispatch, getState) => {
 	const {
 		posts: { cursor, postsPerFetch },
 	} = getState();
+	const queryTag = tag ? `&tag=${tag}` : "";
+
 	dispatch(
 		createRequestAction(
 			FETCH_POSTS,
 			"get",
 			`/posts/${
 				userName || ""
-			}?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch}`
+			}?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch}${queryTag}`
 		)
 	);
 };
@@ -50,12 +52,22 @@ export const fetchProfile = (userName) => ({
 	},
 });
 
-export const FETCH_USERS = "FETCH_USERS";
-export const fetchUsers = (userName) =>
+export const FETCH_MENTION_DATA = "FETCH_MENTION_DATA";
+export const mentionType = {
+	MENTION: "users",
+	TAG: "posts",
+};
+export const fetchMentionData = (query, mentionType) =>
 	createDispatchRequestAction(
-		FETCH_USERS,
+		FETCH_MENTION_DATA,
 		"get",
-		`/users/find/${userName}`,
+		`/${mentionType}/find/${query}`,
 		{},
 		{ asPromise: true }
 	);
+
+export const SET_FETCHING_TAG = "SET_FETCHING_TAG";
+export const setFetchingTag = (tag) => ({
+	type: SET_FETCHING_TAG,
+	payload: { tag },
+});
