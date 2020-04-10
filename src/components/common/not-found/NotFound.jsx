@@ -12,7 +12,7 @@ const NotFound = ({ message }) => {
 		return () => {
 			dispatch(resetPosts());
 		};
-	});
+	}, [dispatch]);
 	return (
 		<Wrapper>
 			<h2>{message}</h2>
