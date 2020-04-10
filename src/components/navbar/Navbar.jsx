@@ -2,11 +2,11 @@ import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import { useProfile } from "../../store/auth/auth-selectors";
-import { signOut } from "../../store/auth/auth-actions";
+import { useProfile } from "store/auth/auth-selectors";
+import { signOut } from "store/auth/auth-actions";
 
 import { WrapperNavbar, Logo } from "./NavbarStyled";
-import { ButtonStyled, FlexWrapper } from "../common/styles";
+import { ButtonStyled, FlexWrapper } from "components/common/styles";
 
 const Navbar = () => {
 	const dispatch = useDispatch();
@@ -16,7 +16,9 @@ const Navbar = () => {
 	return (
 		<WrapperNavbar>
 			<FlexWrapper>
-				<Logo src="/assets/twitter.svg" alt="logo" />
+				<Link to="/posts">
+					<Logo src="/assets/twitter.svg" alt="logo" />
+				</Link>
 				<Link to={`/posts/${userName}`}>{userName}</Link>
 			</FlexWrapper>
 			{isAuthorized ? (

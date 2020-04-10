@@ -3,12 +3,12 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 
-import Posts from "./pages/Posts";
-import Authorization from "./pages/authorization/Authorization";
-import PrivateRoute from "./hoc/private-route/PrivateRoute";
-import { fetchUser, getTokens } from "./store/auth/auth-actions";
-import { useAuthorization } from "./store/auth/auth-selectors";
-import Loader from "./components/common/loader/Loader";
+import Posts from "pages/Posts";
+import Authorization from "pages/authorization";
+import PrivateRoute from "hoc/PrivateRoute";
+import { fetchUser, getTokens } from "store/auth/auth-actions";
+import { useAuthorization } from "store/auth/auth-selectors";
+import Loader from "components/common/loader/Loader";
 
 function App() {
 	const dispatch = useDispatch();
@@ -20,7 +20,7 @@ function App() {
 		if (isAuthorized) dispatch(fetchUser());
 	}, [dispatch, isAuthorized]);
 
-	//if (isLoading) return <Loader />;
+	if (isLoading) return <Loader />;
 	return (
 		<Switch>
 			<Route path={["/sign-in", "/sign-up"]} component={Authorization} />

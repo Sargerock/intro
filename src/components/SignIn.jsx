@@ -4,20 +4,20 @@ import { useDispatch } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
 import { useEffect } from "react";
 
-import { signIn, resetErrors } from "../../store/auth/auth-actions";
-import Checkbox from "../common/checkbox/Checkbox";
-import { useAuthorization } from "../../store/auth/auth-selectors";
+import { signIn, resetErrors } from "store/auth/auth-actions";
+import Checkbox from "components/common/Checkbox";
+import { useAuthorization } from "store/auth/auth-selectors";
 
 import {
 	FieldStyled,
 	ButtonStyled,
 	FlexWrapper,
 	ErrorMessages,
-} from "../common/styles";
+} from "./common/styles";
 import {
 	FormAuth,
 	LinkSign,
-} from "../../pages/authorization/AuthorizationStyled";
+} from "./../pages/authorization/AuthorizationStyled";
 
 const signInValidationSchema = yup.object().shape({
 	email: yup

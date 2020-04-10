@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
-import { editPost, deletePost } from "../../../store/posts/posts-actions";
+
+import ErrorMessage from "components/common/error-message";
+import { editPost, deletePost } from "store/posts/posts-actions";
+
 import {
 	EditablePostMessage,
 	ButtonDeletePost,
-	ButtonEditPost
+	ButtonEditPost,
 } from "./EditableTextBodyStyled";
-import ErrorMessage from "../../common/error-message/ErrorMessage";
 
 const textValidationSchema = yup
 	.string()
@@ -21,7 +23,7 @@ const EditableTextBody = ({ id, text }) => {
 	const [message, setMessage] = useState({
 		text,
 		isEditable: false,
-		error: ""
+		error: "",
 	});
 
 	const onSaveHandle = async () => {
@@ -36,7 +38,7 @@ const EditableTextBody = ({ id, text }) => {
 	const onCancelHandle = () => {
 		setMessage({
 			text,
-			isEditable: false
+			isEditable: false,
 		});
 	};
 	return (
@@ -44,7 +46,7 @@ const EditableTextBody = ({ id, text }) => {
 			<EditablePostMessage
 				html={message.text}
 				disabled={!message.isEditable}
-				onChange={event =>
+				onChange={(event) =>
 					setMessage({ ...message, text: event.target.value, error: "" })
 				}
 			/>
@@ -72,7 +74,7 @@ const EditableTextBody = ({ id, text }) => {
 
 EditableTextBody.propTypes = {
 	id: PropTypes.number.isRequired,
-	text: PropTypes.string.isRequired
+	text: PropTypes.string.isRequired,
 };
 
 export default EditableTextBody;

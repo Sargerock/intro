@@ -4,12 +4,12 @@ import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import Post from "./post/Post";
-import { usePosts } from "../../store/posts/posts-selectors";
-import { fetchPosts, resetPosts } from "../../store/posts/posts-actions";
-import { useProfile } from "../../store/auth/auth-selectors";
-import Loader from "../common/loader/Loader";
-import { useQuery } from "../../utils/hooks";
+import Post from "./post";
+import Loader from "components/common/loader";
+import { usePosts } from "store/posts/posts-selectors";
+import { fetchPosts, resetPosts } from "store/posts/posts-actions";
+import { useProfile } from "store/auth/auth-selectors";
+import { useQuery } from "utils/hooks";
 
 const PostsList = () => {
 	const dispatch = useDispatch();

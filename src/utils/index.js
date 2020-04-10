@@ -6,30 +6,11 @@ export const createRequestAction = (type, method, url, data, meta) => ({
 		request: {
 			url,
 			method,
-			data
-		}
-	},
-	meta
-});
-
-export const createDispatchRequestAction = (
-	type,
-	method,
-	url,
-	data,
-	meta
-) => dispatch =>
-	dispatch({
-		type,
-		payload: {
-			request: {
-				url,
-				method,
-				data
-			}
+			data,
 		},
-		meta
-	});
+	},
+	meta,
+});
 
 export const saveTokens = (accessToken, refreshToken, options) => {
 	if (!accessToken) return;
@@ -42,7 +23,7 @@ export const saveTokens = (accessToken, refreshToken, options) => {
 	}
 };
 
-export const refreshTokens = accessToken => {
+export const refreshTokens = (accessToken) => {
 	if (!accessToken) return;
 	const remember = !!localStorage.getItem("accessToken");
 	axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;

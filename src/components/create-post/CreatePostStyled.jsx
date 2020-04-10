@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Form } from "formik";
 
-import { ButtonStyled, FieldStyled } from "../common/styles";
+import { ButtonStyled, FieldStyled } from "components/common/styles";
 
 export const WrapperCreatePost = styled.div`
 	display: flex;

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import stringReplace from "react-string-replace";
 import { Link } from "react-router-dom";
 
-import Avatar from "../../common/avatar/Avatar";
+import Avatar from "components/common/Avatar";
 
 import { WrapperPost, PostBody, PostMessage } from "./PostStyled";
 

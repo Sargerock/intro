@@ -4,13 +4,13 @@ import { useDispatch } from "react-redux";
 import * as yup from "yup";
 import { MentionsInput, Mention } from "react-mentions";
 
-import Avatar from "../common/avatar/Avatar";
+import Avatar from "components/common/Avatar";
 import {
 	createPost,
 	fetchMentionData,
 	mentionType,
-} from "../../store/posts/posts-actions";
-import { usePosts } from "../../store/posts/posts-selectors";
+} from "store/posts/posts-actions";
+import { usePosts } from "store/posts/posts-selectors";
 
 import {
 	WrapperCreatePost,
@@ -23,7 +23,7 @@ const createPostValidationSchema = yup.object().shape({
 	text: yup
 		.string()
 		.required("Enter you message.")
-		.min(8, "Message must contain at least 8 characters")
+		.min(3, "Message must contain at least 3 characters")
 		.max(512, "Message is too long."),
 });
 
@@ -33,7 +33,7 @@ const createPostInitialValues = {
 
 const CreatePost = () => {
 	const dispatch = useDispatch();
-	const { errors, mentionData } = usePosts();
+	const { validationErrors, mentionData } = usePosts();
 
 	const createPostHandleSubmit = async ({ text: rawText }, { resetForm }) => {
 		let text = rawText;
@@ -64,7 +64,7 @@ const CreatePost = () => {
 			<Avatar src="https://via.placeholder.com/100" alt="avatar" size="50" />
 			<Formik
 				initialValues={createPostInitialValues}
-				initialErrors={errors}
+				initialErrors={validationErrors}
 				validationSchema={createPostValidationSchema}
 				onSubmit={createPostHandleSubmit}
 				enableReinitialize={true}

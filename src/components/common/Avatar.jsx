@@ -1,6 +1,5 @@
-import PropTypes from "prop-types";
-
 import styled from "styled-components";
+import PropTypes from "prop-types";
 
 const Avatar = styled.img`
 	border-radius: 50%;
@@ -11,12 +10,12 @@ const Avatar = styled.img`
 
 Avatar.propTypes = {
 	size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-	margin: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+	margin: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 Avatar.defaultProps = {
 	size: 80,
-	margin: 10
+	margin: 10,
 };
 
 export default Avatar;

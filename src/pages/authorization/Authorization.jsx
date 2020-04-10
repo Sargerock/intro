@@ -2,9 +2,9 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Redirect, Switch, Route } from "react-router-dom";
 
-import Navbar from "../../components/navbar/Navbar";
-import SignUp from "../../components/sign-up/SignUp";
-import SignIn from "../../components/sign-in/SignIn";
+import Navbar from "components/navbar";
+import SignUp from "components/SignUp";
+import SignIn from "components/SignIn";
 
 import { WrapperAuth } from "./AuthorizationStyled";
 

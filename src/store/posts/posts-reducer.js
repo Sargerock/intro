@@ -14,7 +14,7 @@ const initialState = {
 	posts: [],
 	cursor: 0,
 	hasMore: false,
-	postsPerFetch: 3,
+	postsPerFetch: 5,
 	error: "",
 	validationErrors: null,
 	isLoading: false,
@@ -66,6 +66,7 @@ export default (state = initialState, action) => {
 				isLoading: false,
 			};
 		case success(DELETE_POST):
+			debugger;
 			return {
 				...state,
 				posts: state.posts.filter((post) => post.id !== action.meta.id),

@@ -3,14 +3,21 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
 
-import { signUp, resetErrors } from "../../store/auth/auth-actions";
+import { signUp, resetErrors } from "store/auth/auth-actions";
+import { useAuthorization } from "store/auth/auth-selectors";
 
-import { FieldStyled, ButtonStyled, ErrorMessages } from "../common/styles";
 import {
-	FormAuth,
-	LinkSign,
-} from "../../pages/authorization/AuthorizationStyled";
-import { useAuthorization } from "../../store/auth/auth-selectors";
+	FieldStyled,
+	ButtonStyled,
+	ErrorMessages,
+} from "components/common/styles";
+import { FormAuth, LinkSign } from "pages/authorization/AuthorizationStyled";
+
+const whitespaceTestOptions = {
+	name: "whitespace",
+	test: (value) => !value.includes(" "),
+	message: "Whitespaces not allowed",
+};
 
 const signUpValidationSchema = yup.object().shape({
 	email: yup
@@ -22,13 +29,15 @@ const signUpValidationSchema = yup.object().shape({
 		.string()
 		.required("Enter your name.")
 		.min(3, "Name is too short.")
-		.max(32, "Name is too long."),
+		.max(32, "Name is too long.")
+		.test(whitespaceTestOptions),
 	password: yup
 		.string()
 		.required("Password is required.")
 		.required("Password is required.")
 		.min(7, "Min password length is 7.")
-		.max(64, "Max password length is 64."),
+		.max(64, "Max password length is 64.")
+		.test(whitespaceTestOptions),
 	passwordConfirm: yup
 		.string()
 		.oneOf([yup.ref("password")], "Passwords didn't match.")

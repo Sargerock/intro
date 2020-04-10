@@ -1,14 +1,15 @@
 import React from "react";
 import { useAlert } from "react-alert";
-
-import Navbar from "../components/navbar/Navbar";
-
-import { MainWrapper } from "../components/common/styles";
-import PostsList from "../components/posts-list/PostsList";
-import { useAuthorization } from "../store/auth/auth-selectors";
-import Loader from "../components/common/loader/Loader";
 import { useRouteMatch, Route, Switch } from "react-router-dom";
-import ProfilePage from "./ProfilePage";
+
+import Navbar from "components/navbar/Navbar";
+import PostsList from "components/posts-list";
+import { useAuthorization } from "store/auth/auth-selectors";
+import Loader from "components/common/loader";
+import ProfilePage from "pages/ProfilePage";
+import withErrorsAlert from "../hoc/withErrorsAlert";
+
+import { MainWrapper } from "components/common/styles";
 
 const Posts = () => {
 	const { error, isLoading } = useAuthorization();
@@ -30,4 +31,4 @@ const Posts = () => {
 	);
 };
 
-export default Posts;
+export default withErrorsAlert(Posts);

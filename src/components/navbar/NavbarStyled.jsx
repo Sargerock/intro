@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { MainWrapper } from "../common/styles";
 
 export const WrapperNavbar = styled.div`

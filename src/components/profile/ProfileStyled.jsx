@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import Avatar from "../common/avatar/Avatar";
+
+import Avatar from "components/common/Avatar";
 
 export const WrapperProfile = styled.div`
 	position: relative;
