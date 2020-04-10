@@ -1,5 +1,5 @@
-import { saveTokens } from "../../utils";
-import { SIGN_IN, SIGN_UP } from "../auth/auth-actions";
+import { saveTokens } from "utils";
+import { SIGN_IN, SIGN_UP } from "store/auth/auth-actions";
 
 // eslint-disable-next-line
 export default function* onSuccessSaga(response, action) {

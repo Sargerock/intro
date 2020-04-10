@@ -1,11 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 
+import { usePosts } from "store/posts/posts-selectors";
+import { useEffect } from "react";
+
 const withErrorsAlert = (Component) => (props) => {
-	const error = useSelector((state) => state.posts.error);
+	const { error, isLoading } = usePosts();
 	const alert = useAlert();
-	if (error) alert.show(error);
+
+	useEffect(() => {
+		if (!isLoading && error) {
+			alert.show(error);
+		}
+		// eslint-disable-next-line
+	}, [error]);
+
 	return <Component {...props} />;
 };
 

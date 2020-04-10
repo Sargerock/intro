@@ -25,10 +25,14 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	switch (action.type) {
+		case FETCH_PROFILE:
+			return {
+				...initialState,
+				isLoading: true,
+			};
 		case FETCH_POSTS:
 			return {
 				...state,
-				isLoading: true,
 				error: "",
 				hasMore: false,
 			};
@@ -85,6 +89,8 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				profile: action.payload.data,
+				isLoading: false,
+				error: "",
 			};
 		case success(FETCH_MENTION_DATA):
 			return {
@@ -107,6 +113,7 @@ export default (state = initialState, action) => {
 				...state,
 				error: action.payload.message,
 				validationErrors: action.payload.errors,
+				isLoading: false,
 			};
 		default:
 			return state;

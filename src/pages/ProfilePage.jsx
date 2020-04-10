@@ -9,11 +9,12 @@ import { fetchProfile } from "store/posts/posts-actions";
 import NotFound from "components/common/not-found";
 import { useProfile } from "store/auth/auth-selectors";
 import CreatePost from "components/create-post";
+import Loader from "../components/common/loader";
 
 const ProfilePage = () => {
 	const dispatch = useDispatch();
 	const { userName: authorName } = useParams();
-	const { profile, error } = usePosts();
+	const { profile, error, isLoading } = usePosts();
 	const { userName } = useProfile();
 
 	useEffect(() => {
@@ -25,12 +26,14 @@ const ProfilePage = () => {
 	if (!profile && error) {
 		return <NotFound message={"404 User not found"} />;
 	}
+	if (isLoading) return <Loader />;
+	console.log("--- ", profile);
 
 	return (
 		<>
 			<Profile userName={authorName} />
 			{userName === authorName ? <CreatePost /> : undefined}
-			<PostsList />
+			{profile && <PostsList authorName={authorName} />}
 		</>
 	);
 };

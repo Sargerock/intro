@@ -22,5 +22,5 @@ export const FormAuth = styled(Form)`
 
 export const LinkSign = styled(Link)`
 	text-decoration: none;
-	color: lightgray;
+	color: #636363;
 `;

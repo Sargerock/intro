@@ -10,9 +10,9 @@ import { WrapperPost, PostBody, PostMessage } from "./PostStyled";
 const Post = (props) => {
 	const { text, authorName } = props;
 
-	let stringWithLinks = stringReplace(text, /\B(@\w+)/gim, (match, i) => (
+	let stringWithLinks = stringReplace(text, /\B@(\w+)/gim, (match, i) => (
 		<Link to={`/posts/${match}`} key={match + i}>
-			{match}
+			{`@${match}`}
 		</Link>
 	));
 
