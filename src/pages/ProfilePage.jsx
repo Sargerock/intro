@@ -27,7 +27,6 @@ const ProfilePage = () => {
 		return <NotFound message={"404 User not found"} />;
 	}
 	if (isLoading) return <Loader />;
-	console.log("--- ", profile);
 
 	return (
 		<>
