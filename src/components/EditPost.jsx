@@ -3,17 +3,16 @@ import { ErrorMessage, Formik } from "formik";
 import { useDispatch } from "react-redux";
 import * as yup from "yup";
 
-import Avatar from "components/common/Avatar";
-import { createPost } from "store/posts/posts-actions";
+import { editPost } from "store/posts/posts-actions";
 import { usePosts } from "store/posts/posts-selectors";
 import { getTags } from "utils";
+import PostMentionInput from "components/post-mention-input";
 
 import {
 	WrapperCreatePost,
 	FormCreatePost,
 	ButtonCreatePost,
-} from "./CreatePostStyled";
-import PostMentionInput from "../post-mention-input";
+} from "components/create-post/CreatePostStyled";
 
 const createPostValidationSchema = yup.object().shape({
 	text: yup
@@ -23,27 +22,26 @@ const createPostValidationSchema = yup.object().shape({
 		.max(512, "Message is too long."),
 });
 
-const createPostInitialValues = {
-	text: "",
-};
-
-const CreatePost = () => {
+const EditPost = ({ id, text, setVisibility }) => {
 	const dispatch = useDispatch();
 	const { validationErrors } = usePosts();
 
-	const createPostHandleSubmit = async ({ text: rawText }, { resetForm }) => {
+	const createPostInitialValues = {
+		text: text,
+	};
+
+	const createPostHandleSubmit = async ({ text: rawText }) => {
 		const tags = getTags(rawText);
 		let text = rawText.replace(/>>>/g, "");
 
 		try {
-			await dispatch(createPost({ text, tags }));
-			resetForm();
+			await dispatch(editPost(id, { text, tags }));
+			setVisibility(false);
 		} catch {}
 	};
 
 	return (
 		<WrapperCreatePost>
-			<Avatar src="https://via.placeholder.com/100" alt="avatar" size="50" />
 			<Formik
 				initialValues={createPostInitialValues}
 				initialErrors={validationErrors}
@@ -52,15 +50,7 @@ const CreatePost = () => {
 				enableReinitialize={true}
 				validateOnBlur={false}
 			>
-				{({
-					dirty,
-					isValid,
-					submitForm,
-					handleChange,
-					handleBlur,
-					values,
-					isSubmitting,
-				}) => (
+				{({ dirty, isValid, submitForm, handleChange, handleBlur, values }) => (
 					<FormCreatePost>
 						<PostMentionInput
 							name="text"
@@ -74,9 +64,9 @@ const CreatePost = () => {
 						<ButtonCreatePost
 							title="Ctrl + Enter"
 							type="submit"
-							disabled={isSubmitting || !dirty || !isValid}
+							disabled={!isValid}
 						>
-							Send
+							Save
 						</ButtonCreatePost>
 					</FormCreatePost>
 				)}
@@ -85,4 +75,4 @@ const CreatePost = () => {
 	);
 };
 
-export default CreatePost;
+export default EditPost;

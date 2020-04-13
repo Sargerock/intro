@@ -29,8 +29,8 @@ export const deletePost = (id) =>
 	createRequestAction(DELETE_POST, "delete", `/posts/${id}`, {}, { id });
 
 export const EDIT_POST = "EDIT_POST";
-export const editPost = (id, data, meta) =>
-	createRequestAction(EDIT_POST, "put", `/posts/${id}`, data, meta);
+export const editPost = (id, data) =>
+	createRequestAction(EDIT_POST, "put", `/posts/${id}`, data);
 
 export const RESET_POSTS = "RESET_POSTS";
 export const resetPosts = () => ({ type: RESET_POSTS });
