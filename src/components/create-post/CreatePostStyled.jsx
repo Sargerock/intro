@@ -5,6 +5,7 @@ import { ButtonStyled, FieldStyled } from "components/common/styles";
 
 export const WrapperCreatePost = styled.div`
 	display: flex;
+	min-width: 50vw;
 	background-color: #e7f5fd;
 	padding: 10px;
 	border: 1px solid #e6ecf0;

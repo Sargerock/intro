@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import Modal from "react-modal";
 
 import App from "./App";
 import store from "./store";
@@ -17,6 +18,8 @@ const alertOptions = {
 	offset: "30px",
 	transition: "fade",
 };
+
+Modal.setAppElement("#root");
 
 ReactDOM.render(
 	<Provider store={store}>

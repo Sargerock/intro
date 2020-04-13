@@ -6,7 +6,7 @@ import logger from "redux-logger";
 
 import posts from "./posts/posts-reducer";
 import auth from "./auth/auth-reducer";
-import { requestsMiddleware, rootSaga } from "./sagas/root-saga";
+import { requestsMiddleware, rootSaga } from "./sagas";
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 

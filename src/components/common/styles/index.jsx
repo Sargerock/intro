@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { Field } from "formik";
+import Modal from "react-modal";
 
 export const MainWrapper = styled.div`
 	max-width: 1200px;
@@ -74,4 +75,16 @@ FlexWrapper.defaultProps = {
 
 export const ErrorMessages = styled.div`
 	white-space: pre-wrap;
+`;
+
+export const ModalStyled = styled(Modal)`
+	background-color: rgba(0, 0, 0, 0.5);
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;

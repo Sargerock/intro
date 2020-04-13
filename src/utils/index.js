@@ -44,3 +44,15 @@ export const removeTokens = () => {
 	localStorage.removeItem("accessToken");
 	localStorage.removeItem("refreshToken");
 };
+
+export const getTags = (text) => {
+	const tags = [];
+	let matchResult = [];
+
+	while ((matchResult = text.match(/#(>>>)?(\w+)(>>>)?/im))) {
+		tags.push(matchResult[2]);
+		text = text.slice(matchResult["index"] + 1);
+	}
+
+	return tags;
+};
