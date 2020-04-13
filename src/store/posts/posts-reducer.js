@@ -105,6 +105,7 @@ export default (state = initialState, action) => {
 				...state,
 				error: action.payload.message,
 				hasMore: false,
+				isLoading: false,
 			};
 		case error(CREATE_POST):
 		case error(EDIT_POST):

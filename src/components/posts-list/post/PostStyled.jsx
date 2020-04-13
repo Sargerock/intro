@@ -18,4 +18,8 @@ export const PostMessage = styled.div`
 	margin-bottom: 40px;
 	margin-right: 40px;
 	padding: 10px 0;
+
+	a {
+		color: #5f55af;
+	}
 `;
