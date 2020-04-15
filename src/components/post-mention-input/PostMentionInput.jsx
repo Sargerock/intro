@@ -9,12 +9,14 @@ import { usePosts } from "store/posts/posts-selectors";
 import styles from "./mentions.module.css";
 
 const PostMentionInput = (props) => {
-	const { name, value, submitForm, handleChange, handleBlur, ...rest } = props;
+	const { name, value, submitForm, handleChange, ...rest } = props;
 	const dispatch = useDispatch();
 	const { mentionData } = usePosts();
 
 	const createDataFetcher = (type) => (query, callback) => {
-		if (!query) return;
+		if (!query) {
+			return;
+		}
 		dispatch(fetchMentionData(query, type));
 		callback(mentionData);
 	};
@@ -32,7 +34,6 @@ const PostMentionInput = (props) => {
 				e.target.name = name; //mentions didn't set name
 				handleChange(e);
 			}}
-			onBlur={handleBlur}
 			value={value}
 			{...rest}
 		>
@@ -57,7 +58,6 @@ PostMentionInput.propTypes = {
 	value: PropTypes.string.isRequired,
 	submitForm: PropTypes.func.isRequired,
 	handleChange: PropTypes.func.isRequired,
-	handleBlur: PropTypes.func.isRequired,
 };
 
 export default PostMentionInput;

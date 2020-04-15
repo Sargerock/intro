@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { WrapperErrorMessage } from "./ErrorMessageStyled";
+import { WrapperErrorMessage } from "../styles";
 
 const ErrorMessage = ({ message, ...rest }) => {
 	return <WrapperErrorMessage {...rest}>{message}</WrapperErrorMessage>;

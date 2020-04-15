@@ -2,16 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {
-	BackgroundImage,
+	BackgroundImageProfile,
 	AvatarProfile,
 	WrapperProfile,
-	InnerWrapper,
-} from "./ProfileStyled";
+	InnerWrapperProfile,
+} from "./styles";
 
 const Profile = ({ userName }) => {
 	return (
 		<WrapperProfile>
-			<BackgroundImage
+			<BackgroundImageProfile
 				src="https://via.placeholder.com/1200x200/f98506/FFFFFF"
 				alt="profile background"
 			/>
@@ -20,13 +20,13 @@ const Profile = ({ userName }) => {
 				alt="avatar"
 				size={120}
 			/>
-			<InnerWrapper>
+			<InnerWrapperProfile>
 				<h2>{userName}</h2>
 				<p>
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
 					totam.
 				</p>
-			</InnerWrapper>
+			</InnerWrapperProfile>
 		</WrapperProfile>
 	);
 };

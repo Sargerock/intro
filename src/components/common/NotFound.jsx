@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 
-import { resetPosts } from "../../../store/posts/posts-actions";
+import { resetPosts } from "../../store/posts/posts-actions";
 
-import { Wrapper } from "./NotFoundStyled";
+import { WrapperNotFound } from "../styles";
 
 const NotFound = ({ message }) => {
 	const dispatch = useDispatch();
@@ -14,9 +14,9 @@ const NotFound = ({ message }) => {
 		};
 	}, [dispatch]);
 	return (
-		<Wrapper>
+		<WrapperNotFound>
 			<h2>{message}</h2>
-		</Wrapper>
+		</WrapperNotFound>
 	);
 };
 

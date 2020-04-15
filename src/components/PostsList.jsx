@@ -3,33 +3,27 @@ import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroller";
 import { useDispatch } from "react-redux";
 
-import Post from "./post";
-import Loader from "components/common/loader";
+import Post from "./Post";
+import Loader from "components/common/Loader";
 import { usePosts } from "store/posts/posts-selectors";
 import { fetchPosts, resetPosts } from "store/posts/posts-actions";
-import { useProfile } from "store/auth/auth-selectors";
 import { useQuery } from "utils/hooks";
 
 const PostsList = ({ authorName }) => {
 	const dispatch = useDispatch();
 	const tag = useQuery().get("tag");
 	const { posts, hasMore } = usePosts();
-	const { userName } = useProfile();
 
 	useEffect(() => {
-		if (userName) dispatch(fetchPosts(authorName, tag));
-	}, [dispatch, userName, authorName, tag]);
-
-	useEffect(() => {
+		dispatch(fetchPosts(authorName, tag));
 		return () => {
 			dispatch(resetPosts());
 		};
 	}, [dispatch, authorName, tag]);
 
 	return (
-		<div>
+		<>
 			<InfiniteScroll
-				pageStart={0}
 				loadMore={() => dispatch(fetchPosts(authorName, tag))}
 				hasMore={hasMore}
 				loader={<Loader key={0} />}
@@ -44,7 +38,7 @@ const PostsList = ({ authorName }) => {
 					/>
 				))}
 			</InfiniteScroll>
-		</div>
+		</>
 	);
 };
 

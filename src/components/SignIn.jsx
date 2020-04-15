@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
-import { useEffect } from "react";
+import { Redirect } from "react-router-dom";
 
 import { signIn, resetErrors } from "store/auth/auth-actions";
 import Checkbox from "components/common/Checkbox";
@@ -13,11 +13,10 @@ import {
 	ButtonStyled,
 	FlexWrapper,
 	ErrorMessages,
-} from "./common/styles";
-import {
-	FormAuth,
+	FormSign,
 	LinkSign,
-} from "./../pages/authorization/AuthorizationStyled";
+	WrapperSign,
+} from "./styles";
 
 const signInValidationSchema = yup.object().shape({
 	email: yup
@@ -30,12 +29,12 @@ const signInValidationSchema = yup.object().shape({
 const initialValues = {
 	email: "",
 	password: "",
-	sign: [],
+	sign: false,
 };
 
 const SignIn = () => {
 	const dispatch = useDispatch();
-	const { validationErrors } = useAuthorization();
+	const { validationErrors, isAuthorized } = useAuthorization();
 
 	useEffect(() => {
 		return () => {
@@ -44,49 +43,53 @@ const SignIn = () => {
 	}, [dispatch]);
 
 	const signInHandleSubmit = ({ email, password, sign }) => {
-		const remember = !!sign[0]; //sign - array of checked inputs
-		dispatch(signIn({ email, password }, { remember }));
+		dispatch(signIn({ email, password }, { remember: sign }));
 	};
+
 	return (
 		<>
-			<h2>Sign In</h2>
-			<Formik
-				initialValues={initialValues}
-				initialErrors={validationErrors}
-				onSubmit={signInHandleSubmit}
-				validationSchema={signInValidationSchema}
-				enableReinitialize={true}
-			>
-				{({ dirty, isValid }) => (
-					<FormAuth>
-						<FieldStyled
-							type="email"
-							name="email"
-							placeholder="Email address"
-							width="100%"
-						/>
-						<ErrorMessage name="email" component={ErrorMessages} />
-						<FieldStyled
-							type="password"
-							name="password"
-							placeholder="Password"
-							width="100%"
-						/>
-						<ErrorMessage name="password" component={ErrorMessages} />
-						<FlexWrapper width="100%" justifyContent="space-between">
-							<Checkbox name="sign" value="Remember me" />
-							<ButtonStyled
-								type="submit"
-								margin="10px 0"
-								disabled={!dirty || !isValid}
-							>
-								Sign In
-							</ButtonStyled>
-						</FlexWrapper>
-						<LinkSign to="/sign-up">or Sign Up</LinkSign>
-					</FormAuth>
-				)}
-			</Formik>
+			{isAuthorized && <Redirect to="/posts" />}
+
+			<WrapperSign>
+				<h2>Sign In</h2>
+				<Formik
+					initialValues={initialValues}
+					initialErrors={validationErrors}
+					onSubmit={signInHandleSubmit}
+					validationSchema={signInValidationSchema}
+					enableReinitialize={true}
+				>
+					{({ dirty, isValid }) => (
+						<FormSign>
+							<FieldStyled
+								type="email"
+								name="email"
+								placeholder="Email address"
+								width="100%"
+							/>
+							<ErrorMessage name="email" component={ErrorMessages} />
+							<FieldStyled
+								type="password"
+								name="password"
+								placeholder="Password"
+								width="100%"
+							/>
+							<ErrorMessage name="password" component={ErrorMessages} />
+							<FlexWrapper width="100%" justifyContent="space-between">
+								<Checkbox name="sign" label="Remember me" />
+								<ButtonStyled
+									type="submit"
+									margin="10px 0"
+									disabled={!dirty || !isValid}
+								>
+									Sign In
+								</ButtonStyled>
+							</FlexWrapper>
+							<LinkSign to="/sign-up">or Sign Up</LinkSign>
+						</FormSign>
+					)}
+				</Formik>
+			</WrapperSign>
 		</>
 	);
 };

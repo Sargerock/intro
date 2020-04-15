@@ -6,14 +6,9 @@ import * as yup from "yup";
 import Avatar from "components/common/Avatar";
 import { createPost } from "store/posts/posts-actions";
 import { usePosts } from "store/posts/posts-selectors";
-import { getTags } from "utils";
+import PostMentionInput from "./post-mention-input";
 
-import {
-	WrapperCreatePost,
-	FormCreatePost,
-	ButtonCreatePost,
-} from "./CreatePostStyled";
-import PostMentionInput from "../post-mention-input";
+import { WrapperCreatePost, FormCreatePost, ButtonCreatePost } from "./styles";
 
 const createPostValidationSchema = yup.object().shape({
 	text: yup
@@ -31,12 +26,9 @@ const CreatePost = () => {
 	const dispatch = useDispatch();
 	const { validationErrors } = usePosts();
 
-	const createPostHandleSubmit = async ({ text: rawText }, { resetForm }) => {
-		const tags = getTags(rawText);
-		let text = rawText.replace(/>>>/g, "");
-
+	const createPostHandleSubmit = async ({ text }, { resetForm }) => {
 		try {
-			await dispatch(createPost({ text, tags }));
+			await dispatch(createPost({ text }));
 			resetForm();
 		} catch {}
 	};
@@ -57,7 +49,6 @@ const CreatePost = () => {
 					isValid,
 					submitForm,
 					handleChange,
-					handleBlur,
 					values,
 					isSubmitting,
 				}) => (
@@ -66,7 +57,6 @@ const CreatePost = () => {
 							name="text"
 							placeholder="What you think ?"
 							submitForm={submitForm}
-							handleBlur={handleBlur}
 							handleChange={handleChange}
 							value={values.text}
 						/>

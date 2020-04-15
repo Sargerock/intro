@@ -1,4 +1,9 @@
-import { createRequestAction, loadTokens, removeTokens } from "utils";
+import {
+	createRequestAction,
+	loadToken,
+	removeToken,
+	setAuthorizationHeader,
+} from "utils";
 
 export const SIGN_IN = "SIGN_IN";
 export const signIn = (data, meta) =>
@@ -11,19 +16,22 @@ export const signUp = (data, meta) =>
 export const SIGN_OUT = "SIGN_OUT";
 export const signOut = () => (dispatch) => {
 	dispatch(createRequestAction(SIGN_OUT, "post", "/auth/sign-out"));
-	removeTokens();
+	removeToken();
 };
 
 export const FETCH_USER = "FETCH_USER";
 export const fetchUser = () =>
 	createRequestAction(FETCH_USER, "get", `/auth/user`);
 
-export const GET_TOKENS = "GET_TOKENS";
-export const getTokens = () => {
-	const { accessToken, refreshToken } = loadTokens();
+export const CHECK_TOKEN = "CHECK_TOKEN";
+export const checkToken = () => {
+	const accessToken = loadToken();
+	if (accessToken) {
+		setAuthorizationHeader(accessToken);
+	}
 	return {
-		type: GET_TOKENS,
-		payload: { isAuthorized: !!accessToken, refreshToken },
+		type: CHECK_TOKEN,
+		payload: { isAuthorized: !!accessToken },
 	};
 };
 

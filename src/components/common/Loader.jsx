@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { LoaderWrapper } from "./LoaderStyled";
+import { LoaderWrapper } from "../styles";
 
 const Loader = ({ height }) => {
 	return (

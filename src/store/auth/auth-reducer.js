@@ -3,7 +3,7 @@ import {
 	SIGN_UP,
 	SIGN_OUT,
 	FETCH_USER,
-	GET_TOKENS,
+	CHECK_TOKEN,
 	RESET_ERRORS,
 } from "./auth-actions";
 import { success, error } from "redux-saga-requests";
@@ -14,11 +14,17 @@ const initialState = {
 	isLoading: true,
 	error: "",
 	validationErrors: null,
-	refreshToken: "",
 };
 
 export default (state = initialState, action) => {
 	switch (action.type) {
+		case SIGN_IN:
+		case SIGN_UP:
+			return {
+				...state,
+				error: "",
+				validationErrors: null,
+			};
 		case FETCH_USER:
 			return {
 				...state,
@@ -31,7 +37,6 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				isAuthorized: true,
-				refreshToken: action.payload.data.refreshToken,
 				isLoading: false,
 			};
 		case success(FETCH_USER): {
@@ -51,16 +56,15 @@ export default (state = initialState, action) => {
 				...state,
 				isLoading: false,
 				error: action.payload.message,
-				validationErrors: action.payload.errors,
+				validationErrors: action.payload.response.data.errors,
 			};
 
 		case SIGN_OUT:
 			return initialState;
-		case GET_TOKENS:
+		case CHECK_TOKEN:
 			return {
 				...state,
 				isAuthorized: action.payload.isAuthorized,
-				refreshToken: action.payload.refreshToken,
 				isLoading: false,
 			};
 		case RESET_ERRORS:

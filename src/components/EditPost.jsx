@@ -5,16 +5,11 @@ import * as yup from "yup";
 
 import { editPost } from "store/posts/posts-actions";
 import { usePosts } from "store/posts/posts-selectors";
-import { getTags } from "utils";
 import PostMentionInput from "components/post-mention-input";
 
-import {
-	WrapperCreatePost,
-	FormCreatePost,
-	ButtonCreatePost,
-} from "components/create-post/CreatePostStyled";
+import { WrapperCreatePost, FormCreatePost, ButtonCreatePost } from "./styles";
 
-const createPostValidationSchema = yup.object().shape({
+const postValidationSchema = yup.object().shape({
 	text: yup
 		.string()
 		.required("Enter you message.")
@@ -26,37 +21,29 @@ const EditPost = ({ id, text, setVisibility }) => {
 	const dispatch = useDispatch();
 	const { validationErrors } = usePosts();
 
-	const createPostInitialValues = {
-		text: text,
-	};
+	const postInitialValues = { text };
 
-	const createPostHandleSubmit = async ({ text: rawText }) => {
-		const tags = getTags(rawText);
-		let text = rawText.replace(/>>>/g, "");
-
-		try {
-			await dispatch(editPost(id, { text, tags }));
-			setVisibility(false);
-		} catch {}
+	const postHandleSubmit = ({ text }) => {
+		dispatch(editPost(id, { text }));
+		setVisibility(false);
 	};
 
 	return (
 		<WrapperCreatePost>
 			<Formik
-				initialValues={createPostInitialValues}
+				initialValues={postInitialValues}
 				initialErrors={validationErrors}
-				validationSchema={createPostValidationSchema}
-				onSubmit={createPostHandleSubmit}
+				validationSchema={postValidationSchema}
+				onSubmit={postHandleSubmit}
 				enableReinitialize={true}
 				validateOnBlur={false}
 			>
-				{({ dirty, isValid, submitForm, handleChange, handleBlur, values }) => (
+				{({ isValid, submitForm, handleChange, values }) => (
 					<FormCreatePost>
 						<PostMentionInput
 							name="text"
 							placeholder="What you think ?"
 							submitForm={submitForm}
-							handleBlur={handleBlur}
 							handleChange={handleChange}
 							value={values.text}
 						/>

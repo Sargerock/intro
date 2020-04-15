@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
+import { Redirect } from "react-router-dom";
 
 import { signUp, resetErrors } from "store/auth/auth-actions";
 import { useAuthorization } from "store/auth/auth-selectors";
@@ -10,12 +11,14 @@ import {
 	FieldStyled,
 	ButtonStyled,
 	ErrorMessages,
-} from "components/common/styles";
-import { FormAuth, LinkSign } from "pages/authorization/AuthorizationStyled";
+	FormSign,
+	LinkSign,
+	WrapperSign,
+} from "./styles";
 
 const whitespaceTestOptions = {
 	name: "whitespace",
-	test: (value) => !value.includes(" "),
+	test: (value) => !/\s/gi.test(value),
 	message: "Whitespaces not allowed",
 };
 
@@ -53,7 +56,7 @@ const initialValues = {
 
 const SignUp = () => {
 	const dispatch = useDispatch();
-	const { validationErrors } = useAuthorization();
+	const { validationErrors, isAuthorized } = useAuthorization();
 
 	useEffect(() => {
 		return () => {
@@ -62,61 +65,65 @@ const SignUp = () => {
 	}, [dispatch]);
 
 	const signUpHandleSubmit = ({ email, password, userName }) => {
-		dispatch(signUp({ email, password, userName }));
+		dispatch(signUp({ email, password, userName }, { remember: true }));
 	};
 	return (
 		<>
-			<h2>Sign Up</h2>
-			<Formik
-				initialValues={initialValues}
-				initialErrors={validationErrors}
-				onSubmit={signUpHandleSubmit}
-				validationSchema={signUpValidationSchema}
-				enableReinitialize={true}
-			>
-				{({ dirty, isValid }) => (
-					<FormAuth>
-						<FieldStyled
-							type="email"
-							name="email"
-							placeholder="Email address"
-							width="100%"
-						/>
+			{isAuthorized && <Redirect to="/posts" />}
 
-						<ErrorMessage name="email" component={ErrorMessages} />
-						<FieldStyled
-							type="userName"
-							name="userName"
-							placeholder="User name"
-							width="100%"
-						/>
-						<ErrorMessage name="userName" component={ErrorMessages} />
-						<FieldStyled
-							type="password"
-							name="password"
-							placeholder="Password"
-							width="100%"
-						/>
-						<ErrorMessage name="password" component={ErrorMessages} />
-						<FieldStyled
-							type="password"
-							name="passwordConfirm"
-							placeholder="Confirm password"
-							width="100%"
-						/>
-						<ErrorMessage name="passwordConfirm" />
-						<ButtonStyled
-							type="submit"
-							alignSelf={"flex-end"}
-							margin="10px 0"
-							disabled={!dirty || !isValid}
-						>
-							Sign Up
-						</ButtonStyled>
-						<LinkSign to="/sign-in">or Sign In</LinkSign>
-					</FormAuth>
-				)}
-			</Formik>
+			<WrapperSign>
+				<h2>Sign Up</h2>
+				<Formik
+					initialValues={initialValues}
+					initialErrors={validationErrors}
+					onSubmit={signUpHandleSubmit}
+					validationSchema={signUpValidationSchema}
+					enableReinitialize={true}
+				>
+					{({ dirty, isValid }) => (
+						<FormSign>
+							<FieldStyled
+								type="email"
+								name="email"
+								placeholder="Email address"
+								width="100%"
+							/>
+
+							<ErrorMessage name="email" component={ErrorMessages} />
+							<FieldStyled
+								type="userName"
+								name="userName"
+								placeholder="User name"
+								width="100%"
+							/>
+							<ErrorMessage name="userName" component={ErrorMessages} />
+							<FieldStyled
+								type="password"
+								name="password"
+								placeholder="Password"
+								width="100%"
+							/>
+							<ErrorMessage name="password" component={ErrorMessages} />
+							<FieldStyled
+								type="password"
+								name="passwordConfirm"
+								placeholder="Confirm password"
+								width="100%"
+							/>
+							<ErrorMessage name="passwordConfirm" />
+							<ButtonStyled
+								type="submit"
+								alignSelf={"flex-end"}
+								margin="10px 0"
+								disabled={!dirty || !isValid}
+							>
+								Sign Up
+							</ButtonStyled>
+							<LinkSign to="/sign-in">or Sign In</LinkSign>
+						</FormSign>
+					)}
+				</Formik>
+			</WrapperSign>
 		</>
 	);
 };

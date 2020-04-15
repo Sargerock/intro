@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { deletePost } from "store/posts/posts-actions";
 
-import { ButtonDeletePost, ButtonEditPost } from "./PostControlButtonsStyled";
+import { ButtonDeletePost, ButtonEditPost } from "./styles";
 
 const PostControlButtons = ({ id, setVisibility }) => {
 	const dispatch = useDispatch();

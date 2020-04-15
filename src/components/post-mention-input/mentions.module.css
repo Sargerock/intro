@@ -10,6 +10,7 @@
 	resize: none;
 	overflow-y: auto;
 	background-color: #fff;
+	word-break: break-all;
 }
 
 .mentions--multiLine .mentions__highlighter {

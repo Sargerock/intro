@@ -12,47 +12,26 @@ export const createRequestAction = (type, method, url, data, meta) => ({
 	meta,
 });
 
-export const saveTokens = (accessToken, refreshToken, options) => {
-	if (!accessToken) return;
+export const saveToken = (accessToken, options) => {
+	if (!accessToken) {
+		return;
+	}
 	const remember = options && options.remember;
-
-	axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 	if (remember) {
 		localStorage.setItem("accessToken", accessToken);
-		if (refreshToken) localStorage.setItem("refreshToken", refreshToken);
 	}
 };
-
-export const refreshTokens = (accessToken) => {
-	if (!accessToken) return;
-	const remember = !!localStorage.getItem("accessToken");
-	axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-
-	if (remember) localStorage.setItem("accessToken", accessToken);
-};
-
-export const loadTokens = () => {
+export const loadToken = () => {
 	const accessToken = localStorage.getItem("accessToken");
-	const refreshToken = localStorage.getItem("refreshToken");
-
-	if (accessToken)
-		axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-	return { accessToken, refreshToken };
+	return accessToken;
 };
-export const removeTokens = () => {
-	delete axios.defaults.headers.common.Authorization;
+export const removeToken = () => {
 	localStorage.removeItem("accessToken");
-	localStorage.removeItem("refreshToken");
 };
 
-export const getTags = (text) => {
-	const tags = [];
-	let matchResult = [];
-
-	while ((matchResult = text.match(/#(>>>)?(\w+)(>>>)?/im))) {
-		tags.push(matchResult[2]);
-		text = text.slice(matchResult["index"] + 1);
-	}
-
-	return tags;
+export const setAuthorizationHeader = (accessToken) => {
+	axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+};
+export const removeAuthorizationHeader = () => {
+	delete axios.defaults.headers.common.Authorization;
 };
