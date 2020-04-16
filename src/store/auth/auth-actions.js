@@ -1,6 +1,6 @@
 import {
 	createRequestAction,
-	loadToken,
+	loadToken, removeAuthorizationHeader,
 	removeToken,
 	setAuthorizationHeader,
 } from "utils";
@@ -14,9 +14,10 @@ export const signUp = (data, meta) =>
 	createRequestAction(SIGN_UP, "post", "/auth/sign-up", data, meta);
 
 export const SIGN_OUT = "SIGN_OUT";
-export const signOut = () => (dispatch) => {
-	dispatch(createRequestAction(SIGN_OUT, "post", "/auth/sign-out"));
+export const signOut = () => {
 	removeToken();
+	removeAuthorizationHeader();
+	return { type: SIGN_OUT };
 };
 
 export const FETCH_USER = "FETCH_USER";
@@ -39,3 +40,11 @@ export const RESET_ERRORS = "RESET_ERRORS";
 export const resetErrors = () => ({
 	type: RESET_ERRORS,
 });
+
+export const SET_ALERT_ERROR = "SET_ALERT_ERROR";
+export const setAlertError = (error) => ({
+	type: SET_ALERT_ERROR,
+	payload: {
+		error
+	}
+})

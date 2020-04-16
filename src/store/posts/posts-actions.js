@@ -1,11 +1,12 @@
-import { createRequestAction } from "utils";
+import {createRequestAction} from "utils";
 
 export const FETCH_POSTS = "FETCH_POSTS";
-export const fetchPosts = (userName, tag) => async (dispatch, getState) => {
+export const fetchPosts = (userName, tag, mentionName) => async (dispatch, getState) => {
 	const {
-		posts: { cursor, postsPerFetch },
+		posts: {cursor, postsPerFetch},
 	} = getState();
-	const queryTag = tag ? `&tag=${tag}` : "";
+	const tagQuery = tag ? `&tag=${tag}` : "";
+	const mentionQuery = mentionName ? `&mentionName=${mentionName}` : "";
 
 	dispatch(
 		createRequestAction(
@@ -13,7 +14,7 @@ export const fetchPosts = (userName, tag) => async (dispatch, getState) => {
 			"get",
 			`/posts/${
 				userName || ""
-			}?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch}${queryTag}`
+			}?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch + tagQuery + mentionQuery}`
 		)
 	);
 };
@@ -26,14 +27,14 @@ export const createPost = (data) =>
 
 export const DELETE_POST = "DELETE_POST";
 export const deletePost = (id) =>
-	createRequestAction(DELETE_POST, "delete", `/posts/${id}`, {}, { id });
+	createRequestAction(DELETE_POST, "delete", `/posts/${id}`, {}, {id});
 
 export const EDIT_POST = "EDIT_POST";
 export const editPost = (id, data) =>
 	createRequestAction(EDIT_POST, "put", `/posts/${id}`, data);
 
 export const RESET_POSTS = "RESET_POSTS";
-export const resetPosts = () => ({ type: RESET_POSTS });
+export const resetPosts = () => ({type: RESET_POSTS});
 
 export const FETCH_PROFILE = "FETCH_PROFILE";
 export const fetchProfile = (userName) =>
@@ -50,11 +51,5 @@ export const fetchMentionData = (query, mentionType) =>
 		"get",
 		`/${mentionType}/find/${query}`,
 		{},
-		{ asPromise: true }
+		{asPromise: true}
 	);
-
-export const SET_FETCHING_TAG = "SET_FETCHING_TAG";
-export const setFetchingTag = (tag) => ({
-	type: SET_FETCHING_TAG,
-	payload: { tag },
-});

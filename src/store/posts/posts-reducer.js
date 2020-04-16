@@ -7,7 +7,6 @@ import {
 	RESET_POSTS,
 	FETCH_PROFILE,
 	FETCH_MENTION_DATA,
-	SET_FETCHING_TAG,
 } from "./posts-actions";
 
 const initialState = {
@@ -15,7 +14,6 @@ const initialState = {
 	cursor: 0,
 	hasMore: false,
 	postsPerFetch: 5,
-	error: "",
 	validationErrors: null,
 	isLoading: false,
 	profile: null,
@@ -33,7 +31,6 @@ export default (state = initialState, action) => {
 		case FETCH_POSTS:
 			return {
 				...state,
-				error: "",
 				hasMore: false,
 			};
 		case RESET_POSTS:
@@ -43,16 +40,8 @@ export default (state = initialState, action) => {
 		case EDIT_POST:
 			return {
 				...state,
-				error: "",
 				validationErrors: null,
 			};
-		case SET_FETCHING_TAG:
-			return {
-				...initialState,
-				hasMore: true,
-				tag: action.payload.tag,
-			};
-
 		case success(FETCH_POSTS):
 			const cursor = state.cursor + action.payload.data.posts.length;
 			return {
@@ -60,14 +49,12 @@ export default (state = initialState, action) => {
 				posts: [...state.posts, ...action.payload.data.posts],
 				cursor,
 				hasMore: cursor < action.payload.data.totalCount,
-				isLoading: false,
 			};
 		case success(CREATE_POST):
 			return {
 				...state,
 				posts: [action.payload.data, ...state.posts],
 				cursor: state.cursor + 1,
-				isLoading: false,
 			};
 		case success(DELETE_POST):
 			return {
@@ -89,7 +76,6 @@ export default (state = initialState, action) => {
 				...state,
 				profile: action.payload.data,
 				isLoading: false,
-				error: "",
 			};
 		case success(FETCH_MENTION_DATA):
 			return {
@@ -102,16 +88,13 @@ export default (state = initialState, action) => {
 		case error(FETCH_POSTS):
 			return {
 				...state,
-				error: action.payload.message,
 				hasMore: false,
-				isLoading: false,
 			};
 		case error(CREATE_POST):
 		case error(EDIT_POST):
 		case error(FETCH_PROFILE):
 			return {
 				...state,
-				error: action.payload.message,
 				validationErrors: action.payload.errors,
 				isLoading: false,
 			};

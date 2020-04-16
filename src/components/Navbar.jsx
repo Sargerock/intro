@@ -1,24 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
-import { useProfile } from "store/auth/auth-selectors";
-import { signOut } from "store/auth/auth-actions";
+import {useAuthorization} from "store/auth/auth-selectors";
+import {signOut} from "store/auth/auth-actions";
 
-import { ButtonStyled, FlexWrapper, WrapperNavbar, Logo } from "./styles";
+import {ButtonStyled, FlexWrapper, WrapperNavbar, Logo, LinkNavbar} from "./styles";
 
 const Navbar = () => {
 	const dispatch = useDispatch();
-	const { userName } = useProfile();
+	const {profile} = useAuthorization();
+	const userName = profile ? profile.userName : "";
 
 	return (
 		<WrapperNavbar>
 			<FlexWrapper>
 				<Link to="/posts">
-					<Logo src="/assets/twitter.svg" alt="logo" />
+					<Logo src="/assets/twitter.svg" alt="logo"/>
 				</Link>
-				<Link to={`/posts/${userName}`}>{userName}</Link>
+				<Link to={`/profile`}>{userName}</Link>
 			</FlexWrapper>
+
+			<div>
+				<LinkNavbar to="/posts">Home</LinkNavbar>
+				<LinkNavbar to="/profile">Profile</LinkNavbar>
+				<LinkNavbar to={`/notifications?mentionName=${userName}`}>Notifications</LinkNavbar>
+			</div>
 
 			<ButtonStyled
 				onClick={() => {

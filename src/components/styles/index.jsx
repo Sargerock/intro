@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import { Field, Form } from "formik";
+import {Field, Form} from "formik";
 import Modal from "react-modal";
-import { Link } from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 import Avatar from "components/common/Avatar";
 
@@ -12,7 +12,7 @@ export const MainWrapper = styled.div`
 `;
 
 export const ButtonStyled = styled.button`
-	width: ${({ width }) => width};
+	width: ${({width}) => width};
 	background-color: #6699ff;
 	border: 2px solid #6699ff;
 	color: #fff;
@@ -20,8 +20,8 @@ export const ButtonStyled = styled.button`
 	border-radius: 50px;
 	padding: 7px 30px;
 	cursor: pointer;
-	margin: ${({ margin }) => margin};
-	align-self: ${({ alignSelf }) => alignSelf};
+	margin: ${({margin}) => margin};
+	align-self: ${({alignSelf}) => alignSelf};
 
 	&:disabled {
 		background-color: #bfe1fb;
@@ -46,7 +46,7 @@ ButtonStyled.defaultProps = {
 
 export const FieldStyled = styled(Field)`
 	display: block;
-	width: ${({ width }) => width};
+	width: ${({width}) => width};
 	margin: 5px 0;
 	padding: 10px;
 	border: 2px solid #bae0f9;
@@ -63,8 +63,8 @@ FieldStyled.defaultProps = {
 export const FlexWrapper = styled.div`
 	display: flex;
 	align-items: center;
-	width: ${({ width }) => width};
-	justify-content: ${({ justifyContent }) => justifyContent};
+	width: ${({width}) => width};
+	justify-content: ${({justifyContent}) => justifyContent};
 `;
 
 FlexWrapper.propTypes = {
@@ -110,15 +110,35 @@ export const FormSign = styled(Form)`
 
 export const LinkSign = styled(Link)`
 	text-decoration: none;
-	color: #636363;
+	color: #0195f6;
+	
+	&:hover{
+		text-decoration: underline;
+	}
+`;
+
+export const LinkNavbar = styled(NavLink)`
+	margin: 0 5px;
+	padding: 10px 20px;
+	border-radius: 20px;
+	transition: all 0.2s;
+	
+	&.active{
+		font-weight: bold;
+	}
+	
+	&:hover{
+	  color: #0195f6;
+	  background-color: #f3f3f3;
+	}
 `;
 
 export const WrapperErrorMessage = styled.div`
 	text-align: center;
-	margin: ${({ margin }) => margin};
+	margin: ${({margin}) => margin};
 	border-radius: 3px;
 	padding: 10px;
-	border: ${({ withBorder }) => (withBorder ? "2px solid #ffb5b5" : "none")};
+	border: ${({withBorder}) => (withBorder ? "2px solid #ffb5b5" : "none")};
 `;
 WrapperErrorMessage.propTypes = {
 	withBorder: PropTypes.bool,
@@ -131,7 +151,7 @@ export const LoaderWrapper = styled.div`
 	text-align: center;
 
 	& > img {
-		height: ${({ height }) => height};
+		height: ${({height}) => height};
 	}
 `;
 
@@ -145,7 +165,7 @@ export const WrapperNotFound = styled.div`
 
 export const WrapperCreatePost = styled.div`
 	display: flex;
-	min-width: 50vw;
+	width: 100%;
 	background-color: #e7f5fd;
 	padding: 10px;
 	border: 1px solid #e6ecf0;
@@ -155,17 +175,6 @@ export const FormCreatePost = styled(Form)`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-`;
-
-export const TextAreaCreatePost = styled(FieldStyled)`
-	min-height: 90px;
-	scroll-padding: 10px;
-	resize: none;
-	overflow-y: auto;
-`;
-
-export const InputCreatePost = styled(FieldStyled)`
-	width: 200px;
 `;
 
 export const ButtonCreatePost = styled(ButtonStyled)`
@@ -181,12 +190,6 @@ export const WrapperNavbar = styled.div`
 	height: 80px;
 	background-color: #fff;
 	border-bottom: 1px solid #c4c9cc;
-`;
-
-export const FlexMainWrapper = styled(MainWrapper)`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
 `;
 
 export const Logo = styled.img`
@@ -214,7 +217,7 @@ export const AvatarProfile = styled(Avatar)`
 	position: absolute;
 	margin: 0;
 	border: 4px solid #fff;
-	top: ${({ size }) => 200 - size / 2}px;
+	top: ${({size}) => 200 - size / 2}px;
 	left: 20px;
 `;
 

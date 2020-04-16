@@ -1,12 +1,14 @@
 import axios from "axios";
-import { createStore, applyMiddleware, combineReducers } from "redux";
+import {createStore, applyMiddleware, combineReducers} from "redux";
 import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
 import logger from "redux-logger";
+import {requestsMiddleware, rootSaga} from "./sagas";
 
 import posts from "./posts/posts-reducer";
 import auth from "./auth/auth-reducer";
-import { requestsMiddleware, rootSaga } from "./sagas";
+import {authInterceptor} from "./middleware";
+
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
@@ -19,7 +21,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
 	reducers,
-	applyMiddleware(thunk, logger, ...requestsMiddleware, sagaMiddleware)
+	applyMiddleware(thunk, logger, authInterceptor, ...requestsMiddleware, sagaMiddleware)
 );
 
 sagaMiddleware.run(rootSaga);

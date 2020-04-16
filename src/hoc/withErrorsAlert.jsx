@@ -1,19 +1,19 @@
 import React from "react";
-import { useAlert } from "react-alert";
+import {useAlert} from "react-alert";
 
-import { usePosts } from "store/posts/posts-selectors";
-import { useEffect } from "react";
+import {useEffect} from "react";
+import {useAuthorization} from "../store/auth/auth-selectors";
 
 const withErrorsAlert = (Component) => (props) => {
-	const { error, isLoading } = usePosts();
+	const {error} = useAuthorization();
 	const alert = useAlert();
 
 	useEffect(() => {
-		if (!isLoading && error) {
+		if (error) {
 			alert.show(error);
 		}
 		// eslint-disable-next-line
-	}, [error]);
+	}, );
 
 	return <Component {...props} />;
 };

@@ -1,38 +1,23 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-import {
-	BackgroundImageProfile,
-	AvatarProfile,
-	WrapperProfile,
-	InnerWrapperProfile,
-} from "./styles";
+import Navbar from "./Navbar";
+import UsersProfile from "./UsersProfile";
+import {useProfile} from "store/auth/auth-selectors";
+import CreatePost from "./CreatePost";
+import PostsList from "./PostsList";
 
-const Profile = ({ userName }) => {
-	return (
-		<WrapperProfile>
-			<BackgroundImageProfile
-				src="https://via.placeholder.com/1200x200/f98506/FFFFFF"
-				alt="profile background"
-			/>
-			<AvatarProfile
-				src="https://via.placeholder.com/100"
-				alt="avatar"
-				size={120}
-			/>
-			<InnerWrapperProfile>
-				<h2>{userName}</h2>
-				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-					totam.
-				</p>
-			</InnerWrapperProfile>
-		</WrapperProfile>
-	);
-};
+import {MainWrapper} from "./styles";
 
-Profile.propTypes = {
-	userName: PropTypes.string.isRequired,
-};
+const Profile = () => {
+	const {userName} = useProfile();
+	return <>
+		<Navbar/>
+		<MainWrapper>
+			<UsersProfile userName={userName}/>
+			<CreatePost/>
+			<PostsList authorName={userName}/>
+		</MainWrapper>
+	</>
+}
 
 export default Profile;
