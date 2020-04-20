@@ -17,7 +17,7 @@ export const SIGN_OUT = "SIGN_OUT";
 export const signOut = () => {
 	removeToken();
 	removeAuthorizationHeader();
-	return { type: SIGN_OUT };
+	return {type: SIGN_OUT};
 };
 
 export const FETCH_USER = "FETCH_USER";
@@ -32,7 +32,7 @@ export const checkToken = () => {
 	}
 	return {
 		type: CHECK_TOKEN,
-		payload: { isAuthorized: !!accessToken },
+		payload: {isAuthorized: !!accessToken},
 	};
 };
 
@@ -42,9 +42,11 @@ export const resetErrors = () => ({
 });
 
 export const SET_ALERT_ERROR = "SET_ALERT_ERROR";
-export const setAlertError = (error) => ({
+export const setAlertMessage = (error) => ({
 	type: SET_ALERT_ERROR,
-	payload: {
-		error
-	}
+	payload: {error}
 })
+
+export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
+export const changePassword = (data) =>
+	createRequestAction(CHANGE_PASSWORD, "put", "/users", data, {asPromise: true});

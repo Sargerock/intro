@@ -8,6 +8,7 @@ import onSuccessSaga from "./on-success-saga";
 export const {requestsSagas, requestsMiddleware} = handleRequests({
 	driver: createDriver(axios),
 	onSuccess: onSuccessSaga,
+	promisify: true
 });
 
 export function* rootSaga() {

@@ -9,6 +9,10 @@ import Avatar from "components/common/Avatar";
 export const MainWrapper = styled.div`
 	max-width: 1200px;
 	margin: 0 auto;
+	border-left: 1px solid #ececec;
+	border-right: 1px solid #ececec;
+	border-bottom: 1px solid #ececec;
+	
 `;
 
 export const ButtonStyled = styled.button`
@@ -273,4 +277,32 @@ export const ButtonEditPost = styled.span`
 	> span {
 		margin-left: 10px;
 	}
+`;
+
+export const NavBarProfile = styled.div`
+	display: flex;
+	justify-content: space-around;
+	transition: all 0.2s;
+	background-color: #fff;
+`;
+
+export const NavLinkProfile = styled(NavLink)`
+	width: 100%;
+	text-align: center;
+	padding: 15px 0;
+	border-bottom: 2px solid #fff;
+	
+	&.active{
+		color: #0195f6;
+		border-bottom: 2px solid #0195f6;
+	}
+	
+	&:hover{
+	  color: #0195f6;
+	  background-color: #f3f3f3;
+	}
+`;
+
+export const WrapperSettings = styled.div`
+	padding: 50px 50px 200px 50px;
 `;

@@ -23,8 +23,8 @@ const Navbar = () => {
 
 			<div>
 				<LinkNavbar to="/posts">Home</LinkNavbar>
-				<LinkNavbar to="/profile">Profile</LinkNavbar>
-				<LinkNavbar to={`/notifications?mentionName=${userName}`}>Notifications</LinkNavbar>
+				<LinkNavbar to="/profile/posts">Profile</LinkNavbar>
+				<LinkNavbar to={`/profile/notifications?mentionName=${userName}`}>Notifications</LinkNavbar>
 			</div>
 
 			<ButtonStyled

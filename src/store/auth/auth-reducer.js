@@ -4,9 +4,9 @@ import {
 	SIGN_OUT,
 	FETCH_USER,
 	CHECK_TOKEN,
-	RESET_ERRORS, SET_ALERT_ERROR,
+	RESET_ERRORS, SET_ALERT_ERROR, CHANGE_PASSWORD,
 } from "./auth-actions";
-import { success, error } from "redux-saga-requests";
+import {success, error} from "redux-saga-requests";
 
 const initialState = {
 	profile: null,
@@ -20,6 +20,7 @@ export default (state = initialState, action) => {
 	switch (action.type) {
 		case SIGN_IN:
 		case SIGN_UP:
+		case CHANGE_PASSWORD:
 			return {
 				...state,
 				validationErrors: null,
@@ -50,6 +51,7 @@ export default (state = initialState, action) => {
 		case error(SIGN_IN):
 		case error(SIGN_UP):
 		case error(FETCH_USER):
+		case error(CHANGE_PASSWORD):
 			return {
 				...state,
 				isLoading: false,

@@ -4,13 +4,13 @@ import {useAlert} from "react-alert";
 import {useEffect} from "react";
 import {useAuthorization} from "../store/auth/auth-selectors";
 
-const withErrorsAlert = (Component) => (props) => {
+const withErrorAlert = (Component) => (props) => {
 	const {error} = useAuthorization();
 	const alert = useAlert();
 
 	useEffect(() => {
 		if (error) {
-			alert.show(error);
+			alert.show(error, {type: "error"});
 		}
 		// eslint-disable-next-line
 	}, );
@@ -18,4 +18,4 @@ const withErrorsAlert = (Component) => (props) => {
 	return <Component {...props} />;
 };
 
-export default withErrorsAlert;
+export default withErrorAlert;

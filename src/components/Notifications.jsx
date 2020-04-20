@@ -1,17 +1,8 @@
 import React from "react";
 
 import PostsList from "./PostsList";
-import Navbar from "./Navbar";
+import withProfileLayout from "../hoc/withProfileLayout";
 
-import {MainWrapper} from "./styles";
+const Notifications = () => <PostsList/>;
 
-const Notifications = () => {
-	return <>
-		<Navbar/>
-		<MainWrapper>
-			<PostsList/>
-		</MainWrapper>
-	</>
-}
-
-export default Notifications;
+export default withProfileLayout(Notifications);

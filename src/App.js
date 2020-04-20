@@ -12,10 +12,12 @@ import PrivateRoute from "./components/PrivateRoute";
 import {fetchUser, checkToken} from "store/auth/auth-actions";
 import {useAuthorization} from "store/auth/auth-selectors";
 import Notifications from "./components/Notifications";
-import Profile from "./components/Profile";
-import withErrorsAlert from "./hoc/withErrorsAlert";
+import withErrorAlert from "./hoc/withErrorAlert";
+import ProfilePosts from "./components/ProfilePosts";
+import Settings from "./components/Settings";
 
 import GlobalStyle from "./globalStyle";
+
 
 function App() {
 	const dispatch = useDispatch();
@@ -40,8 +42,9 @@ function App() {
 					<Route path="/sign-up" component={SignUp}/>
 					<PrivateRoute path="/posts/:userName" component={UserPage}/>
 					<PrivateRoute path="/posts" component={PostsPage}/>
-					<PrivateRoute path="/profile" component={Profile}/>
-					<PrivateRoute path="/notifications" component={Notifications}/>
+					<PrivateRoute path="/profile/posts" component={ProfilePosts}/>
+					<PrivateRoute path="/profile/notifications" component={Notifications}/>
+					<PrivateRoute path="/profile/settings" component={Settings}/>
 					<Redirect to="/posts"/>
 				</Switch>
 			</BrowserRouter>
@@ -49,4 +52,4 @@ function App() {
 	);
 }
 
-export default withErrorsAlert(App);
+export default withErrorAlert(App);
