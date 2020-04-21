@@ -4,7 +4,7 @@ import {useParams} from "react-router-dom";
 
 import UsersProfile from "components/UsersProfile";
 import PostsList from "components/PostsList";
-import Navbar from "components/Navbar";
+import NavBar from "components/NavBar";
 import {usePosts} from "store/posts/posts-selectors";
 import {fetchProfile} from "store/posts/posts-actions";
 import NotFound from "components/common/NotFound";
@@ -22,7 +22,7 @@ const UserPage = () => {
 
 	return (
 		<>
-			<Navbar/>
+			<NavBar/>
 			<MainWrapper>
 				{!profile && error && <NotFound message={"404 User not found"}/>}
 				{profile && (

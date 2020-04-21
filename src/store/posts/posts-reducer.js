@@ -41,6 +41,7 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				validationErrors: null,
+				isLoading: true
 			};
 		case success(FETCH_POSTS):
 			const cursor = state.cursor + action.payload.data.posts.length;
@@ -55,6 +56,7 @@ export default (state = initialState, action) => {
 				...state,
 				posts: [action.payload.data, ...state.posts],
 				cursor: state.cursor + 1,
+				isLoading: false
 			};
 		case success(DELETE_POST):
 			return {
@@ -70,6 +72,7 @@ export default (state = initialState, action) => {
 						? { ...post, text: action.payload.data.text }
 						: post
 				),
+				isLoading: false
 			};
 		case success(FETCH_PROFILE):
 			return {

@@ -1,14 +1,14 @@
 import React from "react";
-import { ErrorMessage, Formik } from "formik";
-import { useDispatch } from "react-redux";
+import {ErrorMessage, Formik} from "formik";
+import {useDispatch} from "react-redux";
 import * as yup from "yup";
 
 import Avatar from "components/common/Avatar";
-import { createPost } from "store/posts/posts-actions";
-import { usePosts } from "store/posts/posts-selectors";
+import {createPost} from "store/posts/posts-actions";
+import {usePosts} from "store/posts/posts-selectors";
 import PostMentionInput from "./post-mention-input";
 
-import { WrapperCreatePost, FormCreatePost, ButtonCreatePost } from "./styles";
+import {WrapperCreatePost, FormCreatePost, ButtonCreatePost} from "./styles";
 
 const createPostValidationSchema = yup.object().shape({
 	text: yup
@@ -24,34 +24,29 @@ const createPostInitialValues = {
 
 const CreatePost = () => {
 	const dispatch = useDispatch();
-	const { validationErrors } = usePosts();
-
-	const createPostHandleSubmit = async ({ text }, { resetForm }) => {
-		try {
-			await dispatch(createPost({ text }));
-			resetForm();
-		} catch {}
-	};
+	const {validationErrors, isLoading} = usePosts();
 
 	return (
 		<WrapperCreatePost>
-			<Avatar src="https://via.placeholder.com/100" alt="avatar" size="50" />
+			<Avatar src="https://via.placeholder.com/100" alt="avatar" size="50"/>
 			<Formik
 				initialValues={createPostInitialValues}
 				initialErrors={validationErrors}
 				validationSchema={createPostValidationSchema}
-				onSubmit={createPostHandleSubmit}
+				onSubmit={({text}, {resetForm}) => {
+					dispatch(createPost({text}));
+					resetForm();
+				}}
 				enableReinitialize={true}
 				validateOnBlur={false}
 			>
 				{({
-					dirty,
-					isValid,
-					submitForm,
-					handleChange,
-					values,
-					isSubmitting,
-				}) => (
+					  dirty,
+					  isValid,
+					  submitForm,
+					  handleChange,
+					  values,
+				  }) => (
 					<FormCreatePost>
 						<PostMentionInput
 							name="text"
@@ -60,11 +55,11 @@ const CreatePost = () => {
 							handleChange={handleChange}
 							value={values.text}
 						/>
-						<ErrorMessage name="text" />
+						<ErrorMessage name="text"/>
 						<ButtonCreatePost
 							title="Ctrl + Enter"
 							type="submit"
-							disabled={isSubmitting || !dirty || !isValid}
+							disabled={isLoading || !dirty || !isValid}
 						>
 							Send
 						</ButtonCreatePost>

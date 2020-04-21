@@ -34,7 +34,7 @@ const initialValues = {
 
 const SignIn = () => {
 	const dispatch = useDispatch();
-	const { validationErrors, isAuthorized } = useAuthorization();
+	const { validationErrors, isAuthorized, isLoading } = useAuthorization();
 
 	useEffect(() => {
 		return () => {
@@ -80,7 +80,7 @@ const SignIn = () => {
 								<ButtonStyled
 									type="submit"
 									margin="10px 0"
-									disabled={!dirty || !isValid}
+									disabled={isLoading || !dirty || !isValid}
 								>
 									Sign In
 								</ButtonStyled>

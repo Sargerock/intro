@@ -5,26 +5,26 @@ import {useDispatch} from "react-redux";
 import {useAuthorization} from "store/auth/auth-selectors";
 import {signOut} from "store/auth/auth-actions";
 
-import {ButtonStyled, FlexWrapper, WrapperNavbar, Logo, LinkNavbar} from "./styles";
+import {ButtonStyled, FlexWrapper, WrapperNavBar, Logo, LinkNavBar} from "./styles";
 
-const Navbar = () => {
+const NavBar = () => {
 	const dispatch = useDispatch();
 	const {profile} = useAuthorization();
 	const userName = profile ? profile.userName : "";
 
 	return (
-		<WrapperNavbar>
+		<WrapperNavBar>
 			<FlexWrapper>
 				<Link to="/posts">
 					<Logo src="/assets/twitter.svg" alt="logo"/>
 				</Link>
-				<Link to={`/profile`}>{userName}</Link>
+				<Link to={`/profile/posts`}>{userName}</Link>
 			</FlexWrapper>
 
 			<div>
-				<LinkNavbar to="/posts">Home</LinkNavbar>
-				<LinkNavbar to="/profile/posts">Profile</LinkNavbar>
-				<LinkNavbar to={`/profile/notifications?mentionName=${userName}`}>Notifications</LinkNavbar>
+				<LinkNavBar to="/posts">Home</LinkNavBar>
+				<LinkNavBar to="/profile/posts">Profile</LinkNavBar>
+				<LinkNavBar to={`/profile/notifications?mentionName=${userName}`}>Notifications</LinkNavBar>
 			</div>
 
 			<ButtonStyled
@@ -35,8 +35,8 @@ const Navbar = () => {
 			>
 				Sign Out
 			</ButtonStyled>
-		</WrapperNavbar>
+		</WrapperNavBar>
 	);
 };
 
-export default Navbar;
+export default NavBar;

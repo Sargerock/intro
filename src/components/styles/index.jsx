@@ -121,7 +121,7 @@ export const LinkSign = styled(Link)`
 	}
 `;
 
-export const LinkNavbar = styled(NavLink)`
+export const LinkNavBar = styled(NavLink)`
 	margin: 0 5px;
 	padding: 10px 20px;
 	border-radius: 20px;
@@ -175,6 +175,10 @@ export const WrapperCreatePost = styled.div`
 	border: 1px solid #e6ecf0;
 `;
 
+export const WrapperEditPost = styled(WrapperCreatePost)`
+	width: 1200px;
+`;
+
 export const FormCreatePost = styled(Form)`
 	display: flex;
 	flex-direction: column;
@@ -185,7 +189,7 @@ export const ButtonCreatePost = styled(ButtonStyled)`
 	align-self: flex-end;
 `;
 
-export const WrapperNavbar = styled.div`
+export const WrapperNavBar = styled.div`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;

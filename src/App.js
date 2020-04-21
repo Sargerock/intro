@@ -1,7 +1,6 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Switch, Route, Redirect} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {useEffect} from "react";
 import {BrowserRouter} from "react-router-dom";
 
 import SignIn from "./components/SignIn";
@@ -41,7 +40,7 @@ function App() {
 					<Route path="/sign-in" component={SignIn}/>
 					<Route path="/sign-up" component={SignUp}/>
 					<PrivateRoute path="/posts/:userName" component={UserPage}/>
-					<PrivateRoute path="/posts" component={PostsPage}/>
+					<PrivateRoute exact path="/posts" component={PostsPage}/>
 					<PrivateRoute path="/profile/posts" component={ProfilePosts}/>
 					<PrivateRoute path="/profile/notifications" component={Notifications}/>
 					<PrivateRoute path="/profile/settings" component={Settings}/>

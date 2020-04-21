@@ -1,13 +1,13 @@
 import React from "react";
 
-import Navbar from "../components/Navbar";
+import NavBar from "../components/NavBar";
 
 import {MainWrapper} from "../components/styles";
 
 
 const withMainLayout = (Component) => (props) => {
 	return <>
-		<Navbar/>
+		<NavBar/>
 		<MainWrapper>
 			<Component {...props}/>
 		</MainWrapper>

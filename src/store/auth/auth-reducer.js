@@ -20,17 +20,17 @@ export default (state = initialState, action) => {
 	switch (action.type) {
 		case SIGN_IN:
 		case SIGN_UP:
-		case CHANGE_PASSWORD:
-			return {
-				...state,
-				validationErrors: null,
-			};
 		case FETCH_USER:
 			return {
 				...state,
-				isLoading: true,
 				validationErrors: null,
+				isLoading: true
 			};
+		case CHANGE_PASSWORD:
+			return {
+				...state,
+				validationErrors: null
+			}
 		case success(SIGN_IN):
 		case success(SIGN_UP):
 			return {

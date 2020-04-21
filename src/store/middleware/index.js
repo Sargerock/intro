@@ -5,11 +5,11 @@ export const authInterceptor = ({dispatch}) => (next) => (action) => {
 		next(action);
 		return;
 	}
-	if(action.payload.message === "Network Error"){
+	if (action.payload.message === "Network Error") {
 		dispatch(setAlertMessage(action.payload.message));
 		return;
 	}
-	if(action.payload.response?.status === 401) {
+	if (action.payload.response?.status === 401) {
 		dispatch(signOut());
 		return;
 	}

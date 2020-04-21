@@ -56,7 +56,7 @@ const initialValues = {
 
 const SignUp = () => {
 	const dispatch = useDispatch();
-	const { validationErrors, isAuthorized } = useAuthorization();
+	const { validationErrors, isAuthorized, isLoading } = useAuthorization();
 
 	useEffect(() => {
 		return () => {
@@ -115,7 +115,7 @@ const SignUp = () => {
 								type="submit"
 								alignSelf={"flex-end"}
 								margin="10px 0"
-								disabled={!dirty || !isValid}
+								disabled={isLoading || !dirty || !isValid}
 							>
 								Sign Up
 							</ButtonStyled>
