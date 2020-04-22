@@ -12,13 +12,13 @@ import { ModalStyled, WrapperPost, PostBody, PostMessage } from "./styles";
 
 const getTextWithLinks = (text) => {
 	let result = stringReplace(text, /\B@(\w+)/gim, (match, i) => (
-		<Link to={`/posts/${match}`} key={match + i}>
+		<Link to={`/${match}`} key={match + i}>
 			{`@${match}`}
 		</Link>
 	));
 
 	result = stringReplace(result, /#(\w+)/gim, (match, i) => (
-		<Link to={`/posts?tag=${match}`} key={match + i} data-tag={match}>
+		<Link to={`/home?tag=${match}`} key={match + i} data-tag={match}>
 			{`#${match}`}
 		</Link>
 	));
@@ -36,7 +36,7 @@ const Post = (props) => {
 				<Avatar src="https://via.placeholder.com/100" alt="avatar" />
 			</div>
 			<PostBody>
-				<Link to={`/posts/${authorName}`}>
+				<Link to={`/${authorName}`}>
 					<strong>{authorName}</strong>
 				</Link>
 				<PostMessage>{getTextWithLinks(text)}</PostMessage>

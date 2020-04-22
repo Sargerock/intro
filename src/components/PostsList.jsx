@@ -9,15 +9,14 @@ import {usePosts} from "store/posts/posts-selectors";
 import {fetchPosts, resetPosts} from "store/posts/posts-actions";
 import {useQuery} from "utils/hooks";
 
-const PostsList = ({authorName}) => {
+const PostsList = ({authorName, mentionName}) => {
 	const dispatch = useDispatch();
 	const query = useQuery();
 	const tag = query.get("tag");
-	const mentionName = query.get("mentionName");
 	const {posts, hasMore} = usePosts();
 
 	useEffect(() => {
-		dispatch(fetchPosts(authorName, tag, mentionName));
+		dispatch(fetchPosts(authorName, tag, mentionName, true));
 		return () => {
 			dispatch(resetPosts());
 		};
@@ -26,7 +25,7 @@ const PostsList = ({authorName}) => {
 	return (
 		<>
 			<InfiniteScroll
-				loadMore={() => dispatch(fetchPosts(authorName, tag))}
+				loadMore={() => dispatch(fetchPosts(authorName, tag, mentionName))}
 				hasMore={hasMore}
 				loader={<Loader key={0}/>}
 			>

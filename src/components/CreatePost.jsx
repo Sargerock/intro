@@ -50,7 +50,7 @@ const CreatePost = () => {
 					<FormCreatePost>
 						<PostMentionInput
 							name="text"
-							placeholder="What you think ?"
+							placeholder="What do you think ?"
 							submitForm={submitForm}
 							handleChange={handleChange}
 							value={values.text}

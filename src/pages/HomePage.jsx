@@ -3,21 +3,22 @@ import React from "react";
 import NavBar from "components/NavBar";
 import PostsList from "components/PostsList";
 import CreatePost from "components/CreatePost";
-import { useProfile } from "store/auth/auth-selectors";
+import {useQuery} from "../utils/hooks";
 
 import { MainWrapper } from "components/styles";
 
-const PostsPage = () => {
-	const profile = useProfile();
+const HomePage = () => {
+	const tag = useQuery().get("tag");
+
 	return (
 		<>
 			<NavBar />
 			<MainWrapper>
-				{profile && <CreatePost />}
+				{tag ? undefined : <CreatePost />}
 				<PostsList />
 			</MainWrapper>
 		</>
 	);
 };
 
-export default PostsPage;
+export default HomePage;

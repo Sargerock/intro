@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
 
-import UsersProfile from "components/UsersProfile";
+import Profile from "components/Profile";
 import PostsList from "components/PostsList";
 import NavBar from "components/NavBar";
 import {usePosts} from "store/posts/posts-selectors";
@@ -14,7 +14,7 @@ import {MainWrapper} from "components/styles";
 const UserPage = () => {
 	const dispatch = useDispatch();
 	const {userName: authorName} = useParams();
-	const {profile, error} = usePosts();
+	const {profile, isLoading} = usePosts();
 
 	useEffect(() => {
 		dispatch(fetchProfile(authorName));
@@ -24,10 +24,10 @@ const UserPage = () => {
 		<>
 			<NavBar/>
 			<MainWrapper>
-				{!profile && error && <NotFound message={"404 User not found"}/>}
+				{!profile && !isLoading && <NotFound message={"404 User not found"}/>}
 				{profile && (
 					<>
-						<UsersProfile userName={authorName}/>
+						<Profile userName={authorName}/>
 						<PostsList authorName={authorName}/>
 					</>
 				)}

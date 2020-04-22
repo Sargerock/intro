@@ -12,6 +12,7 @@ const initialState = {
 	profile: null,
 	isAuthorized: false,
 	isLoading: true,
+	isInitialized: false,
 	error: "",
 	validationErrors: null,
 };
@@ -65,6 +66,7 @@ export default (state = initialState, action) => {
 				...state,
 				isAuthorized: action.payload.isAuthorized,
 				isLoading: false,
+				isInitialized: true
 			};
 		case RESET_ERRORS:
 			return {

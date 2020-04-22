@@ -3,8 +3,6 @@ import {useDispatch} from "react-redux";
 import {ErrorMessage, Form, Formik} from "formik";
 import * as yup from "yup";
 
-import withProfileLayout from "../hoc/withProfileLayout";
-
 import {ButtonStyled, ErrorMessages, FieldStyled, WrapperSettings} from "./styles";
 
 import {changePassword} from "../store/auth/auth-actions";
@@ -88,4 +86,4 @@ const Settings = () => {
 	);
 };
 
-export default withProfileLayout(Settings);
+export default Settings;

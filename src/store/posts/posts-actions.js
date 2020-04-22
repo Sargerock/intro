@@ -1,7 +1,7 @@
 import {createRequestAction} from "utils";
 
 export const FETCH_POSTS = "FETCH_POSTS";
-export const fetchPosts = (userName, tag, mentionName) => async (dispatch, getState) => {
+export const fetchPosts = (userName, tag, mentionName, isInitial) => async (dispatch, getState) => {
 	const {
 		posts: {cursor, postsPerFetch},
 	} = getState();
@@ -14,7 +14,12 @@ export const fetchPosts = (userName, tag, mentionName) => async (dispatch, getSt
 			"get",
 			`/posts/${
 				userName || ""
-			}?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch + tagQuery + mentionQuery}`
+			}?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch + tagQuery + mentionQuery}`,
+			null,
+			{
+				isInitial,
+				destination: userName ? "profilePosts" : "posts"
+			}
 		)
 	);
 };
@@ -40,16 +45,21 @@ export const FETCH_PROFILE = "FETCH_PROFILE";
 export const fetchProfile = (userName) =>
 	createRequestAction(FETCH_PROFILE, "get", `/users/${userName}`);
 
+export const mentionTypes = {
+	TAG: "TAG",
+	USERNAME: "USERNAME"
+}
 export const FETCH_MENTION_DATA = "FETCH_MENTION_DATA";
-export const mentionType = {
-	MENTION: "users",
-	TAG: "posts",
-};
-export const fetchMentionData = (query, mentionType) =>
-	createRequestAction(
+export const fetchMentionData = (query, mentionType) => {
+	const url = mentionType === mentionTypes.USERNAME
+		? `/users/autocomplete/${query}`
+		: `/posts/autocomplete/${query}`
+
+	return createRequestAction(
 		FETCH_MENTION_DATA,
 		"get",
-		`/${mentionType}/find/${query}`,
+		url,
 		{},
 		{asPromise: true}
-	);
+	)
+};

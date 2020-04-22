@@ -8,7 +8,7 @@ import {
 	InnerWrapperProfile,
 } from "./styles";
 
-const UsersProfile = ({ userName }) => {
+const Profile = ({ userName }) => {
 	return (
 		<WrapperProfile>
 			<BackgroundImageProfile
@@ -31,8 +31,8 @@ const UsersProfile = ({ userName }) => {
 	);
 };
 
-UsersProfile.propTypes = {
+Profile.propTypes = {
 	userName: PropTypes.string.isRequired,
 };
 
-export default UsersProfile;
+export default Profile;

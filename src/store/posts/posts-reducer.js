@@ -11,6 +11,7 @@ import {
 
 const initialState = {
 	posts: [],
+	profilePosts: [],
 	cursor: 0,
 	hasMore: false,
 	postsPerFetch: 5,
@@ -34,7 +35,12 @@ export default (state = initialState, action) => {
 				hasMore: false,
 			};
 		case RESET_POSTS:
-			return initialState;
+			return {
+				...state,
+				posts: [],
+				cursor: 0,
+				hasMore: false
+			};
 
 		case CREATE_POST:
 		case EDIT_POST:
@@ -45,6 +51,7 @@ export default (state = initialState, action) => {
 			};
 		case success(FETCH_POSTS):
 			const cursor = state.cursor + action.payload.data.posts.length;
+
 			return {
 				...state,
 				posts: [...state.posts, ...action.payload.data.posts],

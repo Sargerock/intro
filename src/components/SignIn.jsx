@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
-import { Redirect } from "react-router-dom";
 
 import { signIn, resetErrors } from "store/auth/auth-actions";
 import Checkbox from "components/common/Checkbox";
@@ -15,7 +14,6 @@ import {
 	ErrorMessages,
 	FormSign,
 	LinkSign,
-	WrapperSign,
 } from "./styles";
 
 const signInValidationSchema = yup.object().shape({
@@ -34,7 +32,7 @@ const initialValues = {
 
 const SignIn = () => {
 	const dispatch = useDispatch();
-	const { validationErrors, isAuthorized, isLoading } = useAuthorization();
+	const { validationErrors, isLoading } = useAuthorization();
 
 	useEffect(() => {
 		return () => {
@@ -48,9 +46,6 @@ const SignIn = () => {
 
 	return (
 		<>
-			{isAuthorized && <Redirect to="/posts" />}
-
-			<WrapperSign>
 				<h2>Sign In</h2>
 				<Formik
 					initialValues={initialValues}
@@ -89,7 +84,6 @@ const SignIn = () => {
 						</FormSign>
 					)}
 				</Formik>
-			</WrapperSign>
 		</>
 	);
 };

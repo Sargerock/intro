@@ -102,6 +102,7 @@ export const WrapperSign = styled(MainWrapper)`
 	justify-content: center;
 	align-items: center;
 	height: 80vh;
+	border: none;
 `;
 
 export const FormSign = styled(Form)`

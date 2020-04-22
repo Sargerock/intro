@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 import { MentionsInput, Mention } from "react-mentions";
 
-import { fetchMentionData, mentionType } from "store/posts/posts-actions";
+import { fetchMentionData, mentionTypes } from "store/posts/posts-actions";
 import { usePosts } from "store/posts/posts-selectors";
 
 import styles from "./mentions.module.css";
@@ -31,7 +31,7 @@ const PostMentionInput = (props) => {
 				}
 			}}
 			onChange={(e) => {
-				e.target.name = name; //mentions didn't set name
+				e.target.name = name; //mentions didn't set a name
 				handleChange(e);
 			}}
 			value={value}
@@ -39,13 +39,13 @@ const PostMentionInput = (props) => {
 		>
 			<Mention
 				trigger="@"
-				data={createDataFetcher(mentionType.MENTION)}
+				data={createDataFetcher(mentionTypes.USERNAME)}
 				markup="@>>>__display__>>>"
 				displayTransform={(id, name) => `@${name}`}
 			/>
 			<Mention
 				trigger="#"
-				data={createDataFetcher(mentionType.TAG)}
+				data={createDataFetcher(mentionTypes.TAG)}
 				markup="#>>>__display__>>>"
 				displayTransform={(id, name) => `#${name}`}
 			/>

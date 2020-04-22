@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { Formik, ErrorMessage } from "formik";
-import { Redirect } from "react-router-dom";
 
 import { signUp, resetErrors } from "store/auth/auth-actions";
 import { useAuthorization } from "store/auth/auth-selectors";
@@ -13,7 +12,6 @@ import {
 	ErrorMessages,
 	FormSign,
 	LinkSign,
-	WrapperSign,
 } from "./styles";
 
 const whitespaceTestOptions = {
@@ -56,7 +54,7 @@ const initialValues = {
 
 const SignUp = () => {
 	const dispatch = useDispatch();
-	const { validationErrors, isAuthorized, isLoading } = useAuthorization();
+	const { validationErrors, isLoading } = useAuthorization();
 
 	useEffect(() => {
 		return () => {
@@ -69,9 +67,6 @@ const SignUp = () => {
 	};
 	return (
 		<>
-			{isAuthorized && <Redirect to="/posts" />}
-
-			<WrapperSign>
 				<h2>Sign Up</h2>
 				<Formik
 					initialValues={initialValues}
@@ -123,7 +118,6 @@ const SignUp = () => {
 						</FormSign>
 					)}
 				</Formik>
-			</WrapperSign>
 		</>
 	);
 };
