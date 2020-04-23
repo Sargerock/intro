@@ -11,9 +11,10 @@ import Settings from "../components/Settings";
 import CreatePost from "../components/CreatePost";
 
 
+
 const ProfilePage = () => {
-	const {userName, avatarUrl} = useProfile();
 	const pathname = useLocation().pathname.split("/")[2];
+	const profile = useProfile();
 
 	let content;
 
@@ -21,23 +22,23 @@ const ProfilePage = () => {
 		case "posts":
 			content = <>
 				<CreatePost/>
-				<PostsList authorName={userName}/>
+				<PostsList authorName={profile.userName}/>
 			</>
 			break;
 		case "mentions":
-			content = <PostsList mentionName={userName}/>
+			content = <PostsList mentionName={profile.userName}/>
 			break;
 		case "settings":
 			content = <Settings/>;
 			break;
 		default:
-			content = <PostsList authorName={userName}/>
+			content = <PostsList authorName={profile.userName}/>
 	}
 
 	return <>
 		<NavBar/>
 		<MainWrapper>
-			<Profile userName={userName} avatarUrl={avatarUrl}/>
+			<Profile profile={profile}/>
 			<NavBarProfile>
 				<NavLinkProfile to="/profile/posts">Posts</NavLinkProfile>
 				<NavLinkProfile to="/profile/mentions">Mentions</NavLinkProfile>

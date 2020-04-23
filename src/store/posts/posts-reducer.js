@@ -5,7 +5,6 @@ import {
 	DELETE_POST,
 	EDIT_POST,
 	RESET_POSTS,
-	FETCH_PROFILE,
 	FETCH_MENTION_DATA,
 } from "./posts-actions";
 
@@ -24,11 +23,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case FETCH_PROFILE:
-			return {
-				...initialState,
-				isLoading: true,
-			};
 		case FETCH_POSTS:
 			return {
 				...state,
@@ -81,12 +75,6 @@ export default (state = initialState, action) => {
 				),
 				isLoading: false
 			};
-		case success(FETCH_PROFILE):
-			return {
-				...state,
-				profile: action.payload.data,
-				isLoading: false,
-			};
 		case success(FETCH_MENTION_DATA):
 			return {
 				...state,
@@ -102,7 +90,6 @@ export default (state = initialState, action) => {
 			};
 		case error(CREATE_POST):
 		case error(EDIT_POST):
-		case error(FETCH_PROFILE):
 			return {
 				...state,
 				validationErrors: action.payload.errors,

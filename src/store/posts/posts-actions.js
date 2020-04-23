@@ -41,10 +41,6 @@ export const editPost = (id, data) =>
 export const RESET_POSTS = "RESET_POSTS";
 export const resetPosts = () => ({type: RESET_POSTS});
 
-export const FETCH_PROFILE = "FETCH_PROFILE";
-export const fetchProfile = (userName) =>
-	createRequestAction(FETCH_PROFILE, "get", `/users/${userName}`);
-
 export const mentionTypes = {
 	TAG: "TAG",
 	USERNAME: "USERNAME"

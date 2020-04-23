@@ -28,6 +28,7 @@ const NavBar = () => {
 					dispatch(signOut());
 					window.location.reload();
 				}}
+				simple
 			>
 				Sign Out
 			</ButtonStyled>

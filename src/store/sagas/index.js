@@ -11,8 +11,6 @@ export const {requestsSagas, requestsMiddleware} = handleRequests({
 	promisify: true
 });
 
-console.log(requestsMiddleware);
-
 export function* rootSaga() {
 	yield all(requestsSagas);
 }

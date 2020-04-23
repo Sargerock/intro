@@ -9,7 +9,7 @@ import store from "./store";
 import AlertTemplate from "react-alert-template-basic";
 import {Provider as AlertProvider} from "react-alert";
 
-Modal.setAppElement("#modal");
+Modal.setAppElement("#root");
 
 ReactDOM.render(
 	<Provider store={store}>

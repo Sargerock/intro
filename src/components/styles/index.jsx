@@ -17,15 +17,16 @@ export const MainWrapper = styled.div`
 
 export const ButtonStyled = styled.button`
 	width: ${({width}) => width};
-	background-color: #6699ff;
+	background-color: ${({simple}) => simple ? "#fff" : "#6699ff"};
 	border: 2px solid #6699ff;
-	color: #fff;
+	color: ${({simple}) => simple ? "#6699ff" : "#fff"};
 	font-weight: bolder;
 	border-radius: 50px;
 	padding: 7px 30px;
 	cursor: pointer;
 	margin: ${({margin}) => margin};
 	align-self: ${({alignSelf}) => alignSelf};
+	transition: all 0.1s;
 
 	&:disabled {
 		background-color: #bfe1fb;
@@ -41,11 +42,13 @@ ButtonStyled.propTypes = {
 	margin: PropTypes.string,
 	width: PropTypes.string,
 	alignSelf: PropTypes.string,
+	simple: PropTypes.bool
 };
 ButtonStyled.defaultProps = {
 	margin: "0",
 	width: "fit-content",
 	alignSelf: "auto",
+	simple: false
 };
 
 export const FieldStyled = styled(Field)`

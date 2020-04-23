@@ -9,13 +9,12 @@ import UserPage from "./pages/UserPage";
 import HomePage from "./pages/HomePage";
 import PrivateRoute from "./components/PrivateRoute";
 import {checkToken} from "store/auth/auth-actions";
-import {fetchUser} from "store/profile/profile-actions";
+import {fetchProfile} from "store/profile/profile-actions";
 import {useAuthorization} from "store/auth/auth-selectors";
 import withErrorAlert from "./hoc/withErrorAlert";
+import Loader from "./components/common/Loader";
 
 import GlobalStyle from "./globalStyle";
-
-
 
 function App() {
 	const dispatch = useDispatch();
@@ -27,12 +26,12 @@ function App() {
 
 	useEffect(() => {
 		if (isAuthorized) {
-			dispatch(fetchUser());
+			dispatch(fetchProfile());
 		}
 	}, [dispatch, isAuthorized]);
 
 	if(!isInitialized){
-		return <div>splash</div>
+		return <Loader/>
 	}
 
 	return (

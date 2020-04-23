@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import stringReplace from "react-string-replace";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {useDispatch} from "react-redux";
 
 import Avatar from "./common/Avatar";
-import { useProfile } from "../store/profile/profile-selectors";
-import EditPost from "./EditPost";
-import PostControlButtons from "./PostControlButtons";
+import {useProfile} from "../store/profile/profile-selectors";
+import {deletePost} from "../store/posts/posts-actions";
 
-import { ModalStyled, WrapperPost, PostBody, PostMessage } from "./styles";
+import {WrapperPost, PostBody, PostMessage, ButtonDeletePost, ButtonEditPost} from "./styles";
 
 const getTextWithLinks = (text) => {
 	let result = stringReplace(text, /\B@(\w+)/gim, (match, i) => (
@@ -26,31 +26,37 @@ const getTextWithLinks = (text) => {
 };
 
 const Post = (props) => {
-	const { text, authorName, authorId, id, avatarUrl } = props;
-	const { userId } = useProfile();
-	const [isVisible, setVisibility] = useState(false);
+	const dispatch = useDispatch();
+	const {text, authorName, authorId, id, avatarUrl, setModalOptions} = props;
+	const {userId} = useProfile();
 
 	return (
 		<WrapperPost>
 			<div>
-				<Avatar src={process.env.REACT_APP_BASE_URL + avatarUrl} alt="avatar" />
+				<Avatar src={process.env.REACT_APP_BASE_URL + avatarUrl} alt="avatar"/>
 			</div>
 			<PostBody>
 				<Link to={`/${authorName}`}>
 					<strong>{authorName}</strong>
 				</Link>
 				<PostMessage>{getTextWithLinks(text)}</PostMessage>
-				{userId === authorId ? (
-					<>
-						<ModalStyled
-							isOpen={isVisible}
-							onRequestClose={() => setVisibility(false)}
-						>
-							<EditPost id={id} text={text} setVisibility={setVisibility} />
-						</ModalStyled>
-						<PostControlButtons id={id} setVisibility={setVisibility} />
+				{userId === authorId
+					? <>
+						<ButtonDeletePost onClick={() => dispatch(deletePost(id))}>
+							&times;
+						</ButtonDeletePost>
+						<ButtonEditPost>
+							<span onClick={() => setModalOptions({
+								isVisible: true,
+								text,
+								id
+							})}>
+								Edit
+							</span>
+						</ButtonEditPost>
 					</>
-				) : undefined}
+					: undefined
+				}
 			</PostBody>
 		</WrapperPost>
 	);

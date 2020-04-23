@@ -1,6 +1,6 @@
 import {
-	FETCH_USER,
-	CHANGE_PASSWORD,
+	FETCH_PROFILE,
+	CHANGE_PASSWORD, CHANGE_AVATAR,
 } from "./profile-actions";
 import {success, error} from "redux-saga-requests";
 
@@ -13,11 +13,14 @@ const initialState = {
 	validationErrors: null,
 };
 
-export default (state = initialState, action) => {
+export const createProfileReducer = (namespace = "") => (state = initialState, action) => {
+	if (action.meta?.namespace && action.meta?.namespace !== namespace) {
+		return state;
+	}
+
 	switch (action.type) {
-		case FETCH_USER:
+		case FETCH_PROFILE:
 			return {
-				...state,
 				validationErrors: null,
 				isLoading: true
 			};
@@ -26,14 +29,21 @@ export default (state = initialState, action) => {
 				...state,
 				validationErrors: null
 			}
-		case success(FETCH_USER): {
+		case success(FETCH_PROFILE): {
 			return {
 				...state,
 				...action.payload.data,
+				userId: action.payload.data.id,
 				isLoading: false,
 			};
 		}
-		case error(FETCH_USER):
+		case success(CHANGE_AVATAR): {
+			return {
+				...state,
+				avatarUrl: action.payload.data.avatarUrl
+			}
+		}
+		case error(FETCH_PROFILE):
 		case error(CHANGE_PASSWORD):
 			return {
 				...state,

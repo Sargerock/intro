@@ -9,6 +9,7 @@ import {usePosts} from "store/posts/posts-selectors";
 import PostMentionInput from "./post-mention-input";
 
 import {WrapperCreatePost, FormCreatePost, ButtonCreatePost} from "./styles";
+import {useProfile} from "../store/profile/profile-selectors";
 
 const createPostValidationSchema = yup.object().shape({
 	text: yup
@@ -25,10 +26,11 @@ const createPostInitialValues = {
 const CreatePost = () => {
 	const dispatch = useDispatch();
 	const {validationErrors, isLoading} = usePosts();
+	const {avatarUrl} = useProfile();
 
 	return (
 		<WrapperCreatePost>
-			<Avatar src="https://via.placeholder.com/100" alt="avatar" size="50"/>
+			<Avatar src={process.env.REACT_APP_BASE_URL + avatarUrl} alt="avatar" size="50"/>
 			<Formik
 				initialValues={createPostInitialValues}
 				initialErrors={validationErrors}

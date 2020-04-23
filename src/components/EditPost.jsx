@@ -17,7 +17,7 @@ const postValidationSchema = yup.object().shape({
 		.max(512, "Message is too long."),
 });
 
-const EditPost = ({id, text, setVisibility}) => {
+const EditPost = ({id, text, setModalOptions}) => {
 	const dispatch = useDispatch();
 	const {validationErrors} = usePosts();
 
@@ -29,7 +29,7 @@ const EditPost = ({id, text, setVisibility}) => {
 				validationSchema={postValidationSchema}
 				onSubmit={({text}) => {
 					dispatch(editPost(id, {text}));
-					setVisibility(false);
+					setModalOptions({isVisible: false});
 				}}
 				enableReinitialize={true}
 				validateOnBlur={false}
@@ -48,7 +48,7 @@ const EditPost = ({id, text, setVisibility}) => {
 							<ButtonStyled
 								margin="10px"
 								title="Esc"
-								onClick={() => setVisibility(false)}
+								onClick={() => setModalOptions({isVisible: false})}
 							>
 								Cancel
 							</ButtonStyled>
