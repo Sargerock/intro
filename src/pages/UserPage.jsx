@@ -20,6 +20,7 @@ const UserPage = () => {
 		dispatch(fetchProfile(authorName));
 	}, [dispatch, authorName]);
 
+	console.log(profile)
 	return (
 		<>
 			<NavBar/>
@@ -28,7 +29,7 @@ const UserPage = () => {
 				{profile && (
 					<>
 						<Profile userName={authorName}/>
-						<PostsList authorName={authorName}/>
+						<PostsList authorName={authorName} avatarUrl={profile.avatarUrl}/>
 					</>
 				)}
 			</MainWrapper>

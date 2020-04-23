@@ -20,10 +20,6 @@ export const signOut = () => {
 	return {type: SIGN_OUT};
 };
 
-export const FETCH_USER = "FETCH_USER";
-export const fetchUser = () =>
-	createRequestAction(FETCH_USER, "get", `/auth/user`);
-
 export const CHECK_TOKEN = "CHECK_TOKEN";
 export const checkToken = () => {
 	const accessToken = loadToken();
@@ -46,7 +42,3 @@ export const setAlertMessage = (error) => ({
 	type: SET_ALERT_ERROR,
 	payload: {error}
 })
-
-export const CHANGE_PASSWORD = "CHANGE_PASSWORD";
-export const changePassword = (data) =>
-	createRequestAction(CHANGE_PASSWORD, "put", "/users", data, {asPromise: true});

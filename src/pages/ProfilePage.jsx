@@ -2,7 +2,7 @@ import React from "react";
 import {useLocation} from "react-router-dom";
 
 import Profile from "../components/Profile";
-import {useProfile} from "../store/auth/auth-selectors";
+import {useProfile} from "../store/profile/profile-selectors";
 import NavBar from "../components/NavBar";
 
 import {MainWrapper, NavBarProfile, NavLinkProfile} from "../components/styles";
@@ -12,7 +12,7 @@ import CreatePost from "../components/CreatePost";
 
 
 const ProfilePage = () => {
-	const {userName} = useProfile();
+	const {userName, avatarUrl} = useProfile();
 	const pathname = useLocation().pathname.split("/")[2];
 
 	let content;
@@ -37,7 +37,7 @@ const ProfilePage = () => {
 	return <>
 		<NavBar/>
 		<MainWrapper>
-			<Profile userName={userName}/>
+			<Profile userName={userName} avatarUrl={avatarUrl}/>
 			<NavBarProfile>
 				<NavLinkProfile to="/profile/posts">Posts</NavLinkProfile>
 				<NavLinkProfile to="/profile/mentions">Mentions</NavLinkProfile>

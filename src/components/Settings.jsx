@@ -5,8 +5,10 @@ import * as yup from "yup";
 
 import {ButtonStyled, ErrorMessages, FieldStyled, WrapperSettings} from "./styles";
 
-import {changePassword} from "../store/auth/auth-actions";
-import {useAuthorization} from "../store/auth/auth-selectors";
+import {changePassword} from "../store/profile/profile-actions";
+import {useProfile} from "../store/profile/profile-selectors";
+
+import axios from "axios";
 
 const validationSchema = yup.object().shape({
 	oldPassword: yup.string().required("Password is required."),
@@ -35,7 +37,7 @@ const initialValues = {
 
 const Settings = () => {
 	const dispatch = useDispatch();
-	const {validationErrors} = useAuthorization();
+	const {validationErrors} = useProfile();
 
 	return (
 		<WrapperSettings>
@@ -82,6 +84,14 @@ const Settings = () => {
 					</Form>
 				)}
 			</Formik>
+			<div>
+				<label htmlFor="avatar">File upload</label>
+				<input id="avatar" name="avatar" type="file" accept="image/*" onChange={(e) => {
+					const formData = new FormData();
+					formData.append("avatar", e.target.files[0]);
+					axios.put("http://localhost:8000/api/users/upload/avatar", formData)
+				}}/>
+			</div>
 		</WrapperSettings>
 	);
 };

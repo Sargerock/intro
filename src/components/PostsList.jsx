@@ -36,6 +36,7 @@ const PostsList = ({authorName, mentionName}) => {
 						text={text}
 						authorId={userId}
 						authorName={user.userName}
+						avatarUrl={user.avatarUrl}
 					/>
 				))}
 			</InfiniteScroll>

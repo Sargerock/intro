@@ -8,7 +8,8 @@ import AuthenticationPage from "./pages/AuthenticationPage";
 import UserPage from "./pages/UserPage";
 import HomePage from "./pages/HomePage";
 import PrivateRoute from "./components/PrivateRoute";
-import {fetchUser, checkToken} from "store/auth/auth-actions";
+import {checkToken} from "store/auth/auth-actions";
+import {fetchUser} from "store/profile/profile-actions";
 import {useAuthorization} from "store/auth/auth-selectors";
 import withErrorAlert from "./hoc/withErrorAlert";
 

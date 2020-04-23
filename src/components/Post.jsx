@@ -4,7 +4,7 @@ import stringReplace from "react-string-replace";
 import { Link } from "react-router-dom";
 
 import Avatar from "./common/Avatar";
-import { useProfile } from "store/auth/auth-selectors";
+import { useProfile } from "../store/profile/profile-selectors";
 import EditPost from "./EditPost";
 import PostControlButtons from "./PostControlButtons";
 
@@ -26,14 +26,14 @@ const getTextWithLinks = (text) => {
 };
 
 const Post = (props) => {
-	const { text, authorName, authorId, id } = props;
+	const { text, authorName, authorId, id, avatarUrl } = props;
 	const { userId } = useProfile();
 	const [isVisible, setVisibility] = useState(false);
 
 	return (
 		<WrapperPost>
 			<div>
-				<Avatar src="https://via.placeholder.com/100" alt="avatar" />
+				<Avatar src={process.env.REACT_APP_BASE_URL + avatarUrl} alt="avatar" />
 			</div>
 			<PostBody>
 				<Link to={`/${authorName}`}>

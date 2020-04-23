@@ -8,7 +8,7 @@ import {
 	InnerWrapperProfile,
 } from "./styles";
 
-const Profile = ({ userName }) => {
+const Profile = ({ userName, avatarUrl }) => {
 	return (
 		<WrapperProfile>
 			<BackgroundImageProfile
@@ -16,7 +16,7 @@ const Profile = ({ userName }) => {
 				alt="profile background"
 			/>
 			<AvatarProfile
-				src="https://via.placeholder.com/100"
+				src={process.env.REACT_APP_BASE_URL + avatarUrl}
 				alt="avatar"
 				size={120}
 			/>
@@ -33,6 +33,7 @@ const Profile = ({ userName }) => {
 
 Profile.propTypes = {
 	userName: PropTypes.string.isRequired,
+	avatarUrl: PropTypes.string.isRequired
 };
 
 export default Profile;
