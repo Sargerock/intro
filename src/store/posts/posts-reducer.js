@@ -1,40 +1,37 @@
-import { success, error } from "redux-saga-requests";
+import {success, error} from "redux-saga-requests";
 import {
 	FETCH_POSTS,
 	CREATE_POST,
 	DELETE_POST,
 	EDIT_POST,
-	RESET_POSTS,
 	FETCH_MENTION_DATA,
 } from "./posts-actions";
 
 const initialState = {
 	posts: [],
-	profilePosts: [],
 	cursor: 0,
-	hasMore: false,
+	hasMore: true,
 	postsPerFetch: 5,
 	validationErrors: null,
 	isLoading: false,
-	profile: null,
 	mentionData: [],
-	tag: "",
 };
 
-export default (state = initialState, action) => {
+export const createPostsReducer = (namespace = "") => (state = initialState, action) => {
+	if (action.meta?.namespaces && !action.meta?.namespaces.includes(namespace)) {
+		return state;
+	}
+
 	switch (action.type) {
 		case FETCH_POSTS:
-			return {
-				...state,
-				hasMore: false,
-			};
-		case RESET_POSTS:
-			return {
-				...state,
-				posts: [],
-				cursor: 0,
-				hasMore: false
-			};
+			if (action.meta.isInitial) {
+				return {
+					...state,
+					posts: [],
+					cursor: 0
+				}
+			}
+			return state;
 
 		case CREATE_POST:
 		case EDIT_POST:
@@ -60,17 +57,18 @@ export default (state = initialState, action) => {
 				isLoading: false
 			};
 		case success(DELETE_POST):
+			const filteredPosts = state.posts.filter((post) => post.id !== action.meta.id);
 			return {
 				...state,
-				posts: state.posts.filter((post) => post.id !== action.meta.id),
-				cursor: state.cursor - 1,
+				posts: filteredPosts,
+				cursor: filteredPosts.length,
 			};
 		case success(EDIT_POST):
 			return {
 				...state,
 				posts: state.posts.map((post) =>
 					post.id === action.payload.data.id
-						? { ...post, text: action.payload.data.text }
+						? {...post, text: action.payload.data.text}
 						: post
 				),
 				isLoading: false
@@ -98,4 +96,4 @@ export default (state = initialState, action) => {
 		default:
 			return state;
 	}
-};
+}

@@ -1,18 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-
-import { resetPosts } from "../../store/posts/posts-actions";
 
 import { WrapperNotFound } from "../styles";
 
 const NotFound = ({ message }) => {
-	const dispatch = useDispatch();
-	useEffect(() => {
-		return () => {
-			dispatch(resetPosts());
-		};
-	}, [dispatch]);
 	return (
 		<WrapperNotFound>
 			<h2>{message}</h2>

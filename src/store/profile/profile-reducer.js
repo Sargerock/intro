@@ -1,6 +1,6 @@
 import {
 	FETCH_PROFILE,
-	CHANGE_PASSWORD, CHANGE_AVATAR,
+	CHANGE_PASSWORD, CHANGE_AVATAR, FETCH_SELECTED_PROFILE,
 } from "./profile-actions";
 import {success, error} from "redux-saga-requests";
 
@@ -19,6 +19,7 @@ export const createProfileReducer = (namespace = "") => (state = initialState, a
 	}
 
 	switch (action.type) {
+		case FETCH_SELECTED_PROFILE:
 		case FETCH_PROFILE:
 			return {
 				validationErrors: null,
@@ -29,6 +30,7 @@ export const createProfileReducer = (namespace = "") => (state = initialState, a
 				...state,
 				validationErrors: null
 			}
+		case success(FETCH_SELECTED_PROFILE):
 		case success(FETCH_PROFILE): {
 			return {
 				...state,
@@ -45,7 +47,7 @@ export const createProfileReducer = (namespace = "") => (state = initialState, a
 		}
 		case error(CHANGE_AVATAR): {
 			const errors = Object.entries(action.payload.response.data.errors)
-				.reduce((acc, [key, value])=> {
+				.reduce((acc, [key, value]) => {
 					return {...acc, avatar: [...acc.avatar || [], ...value]}
 				}, {})
 			return {
@@ -53,6 +55,7 @@ export const createProfileReducer = (namespace = "") => (state = initialState, a
 				validationErrors: errors,
 			};
 		}
+		case error(FETCH_SELECTED_PROFILE):
 		case error(FETCH_PROFILE):
 		case error(CHANGE_PASSWORD):
 			return {

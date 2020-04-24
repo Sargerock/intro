@@ -4,17 +4,19 @@ import {useLocation} from "react-router-dom";
 import Profile from "../components/Profile";
 import {useProfile} from "../store/profile/profile-selectors";
 import NavBar from "../components/NavBar";
-
-import {MainWrapper, NavBarProfile, NavLinkProfile} from "../components/styles";
 import PostsList from "../components/PostsList";
 import Settings from "../components/Settings";
 import CreatePost from "../components/CreatePost";
+import {useSelector} from "react-redux";
+import {postsNamespaces} from "../store/posts/posts-actions";
 
-
+import {MainWrapper, NavBarProfile, NavLinkProfile} from "../components/styles";
 
 const ProfilePage = () => {
 	const pathname = useLocation().pathname.split("/")[2];
 	const profile = useProfile();
+	const profilePostsState = useSelector(state => state.profilePosts);
+	const mentionPostsState = useSelector(state => state.mentionPosts);
 
 	let content;
 
@@ -22,17 +24,32 @@ const ProfilePage = () => {
 		case "posts":
 			content = <>
 				<CreatePost/>
-				<PostsList authorName={profile.userName}/>
+				<PostsList
+					authorName={profile.userName}
+					postsState={profilePostsState}
+					namespace={postsNamespaces.PROFILE}
+				/>
 			</>
 			break;
 		case "mentions":
-			content = <PostsList mentionName={profile.userName}/>
+			content = <PostsList
+				mentionName={profile.userName}
+				postsState={mentionPostsState}
+				namespace={postsNamespaces.MENTIONS}
+			/>
 			break;
 		case "settings":
 			content = <Settings/>;
 			break;
 		default:
-			content = <PostsList authorName={profile.userName}/>
+			content = <>
+				<CreatePost/>
+				<PostsList
+					authorName={profile.userName}
+					postsState={profilePostsState}
+					namespace={postsNamespaces.PROFILE}
+				/>
+			</>
 	}
 
 	return <>
@@ -44,7 +61,7 @@ const ProfilePage = () => {
 				<NavLinkProfile to="/profile/mentions">Mentions</NavLinkProfile>
 				<NavLinkProfile to="/profile/settings">Settings</NavLinkProfile>
 			</NavBarProfile>
-			{content}
+			{!profile.isLoading && content}
 		</MainWrapper>
 	</>
 };

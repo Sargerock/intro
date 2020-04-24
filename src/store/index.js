@@ -5,18 +5,22 @@ import createSagaMiddleware from "redux-saga";
 import logger from "redux-logger";
 import {requestsMiddleware, rootSaga} from "./sagas";
 
-import posts from "./posts/posts-reducer";
+import {createPostsReducer} from "./posts/posts-reducer";
 import auth from "./auth/auth-reducer";
 import {createProfileReducer} from "./profile/profile-reducer";
 import {authInterceptor} from "./middleware";
+import {postsNamespaces} from "./posts/posts-actions";
 
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL + "api";
 
 const reducers = combineReducers({
-	posts,
+	posts: createPostsReducer(postsNamespaces.HOME),
+	profilePosts: createPostsReducer(postsNamespaces.PROFILE),
+	selectedProfilePosts: createPostsReducer(postsNamespaces.SELECTED_PROFILE),
+	mentionPosts: createPostsReducer(postsNamespaces.MENTIONS),
 	auth,
-	profile: createProfileReducer(),
+	profile: createProfileReducer("current"),
 	selectedProfile: createProfileReducer("selected")
 });
 

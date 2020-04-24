@@ -5,17 +5,17 @@ import {useDispatch} from "react-redux";
 
 import Post from "./Post";
 import Loader from "components/common/Loader";
-import {usePosts} from "store/posts/posts-selectors";
-import {fetchPosts, resetPosts} from "store/posts/posts-actions";
+import {fetchPosts, postsNamespaces} from "store/posts/posts-actions";
 import {useQuery} from "utils/hooks";
 import EditPost from "./EditPost";
+
 import {ModalStyled} from "./styles";
 
-const PostsList = ({authorName, mentionName}) => {
+const PostsList = ({postsState, authorName, mentionName, namespace}) => {
 	const dispatch = useDispatch();
+	const {posts, hasMore, cursor, postsPerFetch} = postsState;
 	const query = useQuery();
 	const tag = query.get("tag");
-	const {posts, hasMore} = usePosts();
 	const [modalOptions, setModalOptions] = useState({
 		isVisible: false,
 		id: 0,
@@ -23,16 +23,29 @@ const PostsList = ({authorName, mentionName}) => {
 	});
 
 	useEffect(() => {
-		dispatch(fetchPosts(authorName, tag, mentionName, true));
-		return () => {
-			dispatch(resetPosts());
-		};
-	}, [dispatch, authorName, tag, mentionName]);
+		if( !namespace || namespace === postsNamespaces.SELECTED_PROFILE) {
+			dispatch(fetchPosts({
+				userName:authorName,
+				tag,
+				namespace,
+				cursor: 0,
+				postsPerFetch,
+				isInitial: true
+			}))
+		}
+	}, [dispatch, tag, authorName, namespace, postsPerFetch]);
 
 	return (
 		<>
 			<InfiniteScroll
-				loadMore={() => dispatch(fetchPosts(authorName, tag, mentionName))}
+				loadMore={() => dispatch(fetchPosts({
+					userName:authorName,
+					tag,
+					mentionName,
+					namespace,
+					cursor,
+					postsPerFetch
+				}))}
 				hasMore={hasMore}
 				loader={<Loader key={0}/>}
 			>

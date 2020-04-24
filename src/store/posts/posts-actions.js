@@ -1,33 +1,35 @@
 import {createRequestAction} from "utils";
 
+export const postsNamespaces = {
+	HOME: "HOME",
+	PROFILE: "PROFILE",
+	MENTIONS: "MENTIONS",
+	SELECTED_PROFILE: "SELECTED_PROFILE"
+}
+
 export const FETCH_POSTS = "FETCH_POSTS";
-export const fetchPosts = (userName, tag, mentionName, isInitial) => async (dispatch, getState) => {
-	const {
-		posts: {cursor, postsPerFetch},
-	} = getState();
+export const fetchPosts = ({cursor, postsPerFetch, userName, tag, mentionName, isInitial, namespace = postsNamespaces.HOME}) => {
 	const tagQuery = tag ? `&tag=${tag}` : "";
 	const mentionQuery = mentionName ? `&mentionName=${mentionName}` : "";
 
-	dispatch(
-		createRequestAction(
-			FETCH_POSTS,
-			"get",
-			`/posts/${
-				userName || ""
-			}?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch + tagQuery + mentionQuery}`,
-			null,
-			{
-				isInitial,
-				destination: userName ? "profilePosts" : "posts"
-			}
-		)
-	);
+	return createRequestAction(
+		FETCH_POSTS,
+		"get",
+		`/posts/${
+			userName || ""
+		}?sort=createdAt&order=desc&offset=${cursor}&limit=${postsPerFetch + tagQuery + mentionQuery}`,
+		null,
+		{
+			isInitial,
+			namespaces: [namespace]
+		}
+	)
 };
 
 export const CREATE_POST = "CREATE_POST";
 export const createPost = (data) =>
 	createRequestAction(CREATE_POST, "post", "/posts", data, {
-		asPromise: true,
+		namespaces: [postsNamespaces.HOME, postsNamespaces.PROFILE]
 	});
 
 export const DELETE_POST = "DELETE_POST";
@@ -37,9 +39,6 @@ export const deletePost = (id) =>
 export const EDIT_POST = "EDIT_POST";
 export const editPost = (id, data) =>
 	createRequestAction(EDIT_POST, "put", `/posts/${id}`, data);
-
-export const RESET_POSTS = "RESET_POSTS";
-export const resetPosts = () => ({type: RESET_POSTS});
 
 export const mentionTypes = {
 	TAG: "TAG",
