@@ -229,6 +229,7 @@ export const AvatarProfile = styled(Avatar)`
 	position: absolute;
 	margin: 0;
 	border: 4px solid #fff;
+	background-color: #fff;
 	top: ${({size}) => 200 - size / 2}px;
 	left: 20px;
 `;
@@ -313,4 +314,18 @@ export const NavLinkProfile = styled(NavLink)`
 
 export const WrapperSettings = styled.div`
 	padding: 50px 50px 200px 50px;
+`;
+
+export const FileInputLabel = styled.label`
+	display: inline-block;
+	padding: 10px;
+	margin: 10px 0;
+	border: 2px solid #bae0f9;
+	border-radius: 15px;
+	color: #30adff;
+	font-weight: bold;
+	
+	input {
+		display: none;
+	}
 `;

@@ -8,8 +8,8 @@ import ChangeAvatar from "./ChangeAvatar";
 const Settings = () => {
 	return (
 		<WrapperSettings>
-			<ChangePassword/>
 			<ChangeAvatar/>
+			<ChangePassword/>
 		</WrapperSettings>
 	);
 };

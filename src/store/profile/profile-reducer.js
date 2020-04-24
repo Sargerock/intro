@@ -43,6 +43,16 @@ export const createProfileReducer = (namespace = "") => (state = initialState, a
 				avatarUrl: action.payload.data.avatarUrl
 			}
 		}
+		case error(CHANGE_AVATAR): {
+			const errors = Object.entries(action.payload.response.data.errors)
+				.reduce((acc, [key, value])=> {
+					return {...acc, avatar: [...acc.avatar || [], ...value]}
+				}, {})
+			return {
+				...state,
+				validationErrors: errors,
+			};
+		}
 		case error(FETCH_PROFILE):
 		case error(CHANGE_PASSWORD):
 			return {
