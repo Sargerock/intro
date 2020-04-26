@@ -5,9 +5,9 @@ import {useParams} from "react-router-dom";
 import Profile from "components/Profile";
 import PostsList from "components/PostsList";
 import NavBar from "components/NavBar";
-import {fetchSelectedProfile} from "../store/profile/profile-actions";
+import {fetchSelectedProfile, profileNamespaces} from "../store/profile/profile-actions";
 import NotFound from "components/common/NotFound";
-import {postsNamespaces} from "../store/posts/posts-actions";
+import {fetchPosts, postsNamespaces} from "../store/posts/posts-actions";
 
 import {MainWrapper} from "components/styles";
 
@@ -18,8 +18,15 @@ const UserPage = () => {
 	const postsState = useSelector(state => state.selectedProfilePosts);
 
 	useEffect(() => {
-	 	dispatch(fetchSelectedProfile(userName, "selected"));
-	 }, [dispatch, userName]);
+	 	dispatch(fetchSelectedProfile(userName, profileNamespaces.SELECTED));
+		dispatch(fetchPosts({
+			userName,
+			namespace: postsNamespaces.SELECTED_PROFILE,
+			cursor: 0,
+			postsPerFetch: postsState.postsPerFetch,
+			isInitial: true
+		}))
+	 }, [dispatch, userName, postsState.postsPerFetch]);
 	return (
 		<>
 			<NavBar/>
@@ -29,7 +36,7 @@ const UserPage = () => {
 					<>
 						<Profile profile={profile}/>
 						<PostsList
-							authorName={userName}
+							userName={userName}
 							postsState={postsState}
 							namespace={postsNamespaces.SELECTED_PROFILE}
 						/>

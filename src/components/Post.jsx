@@ -18,7 +18,7 @@ const getTextWithLinks = (text) => {
 	));
 
 	result = stringReplace(result, /#(\w+)/gim, (match, i) => (
-		<Link to={`/home?tag=${match}`} key={match + i} data-tag={match}>
+		<Link to={`/hashtag/${match}`} key={match + i} data-tag={match}>
 			{`#${match}`}
 		</Link>
 	));

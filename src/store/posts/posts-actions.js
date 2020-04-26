@@ -4,7 +4,8 @@ export const postsNamespaces = {
 	HOME: "HOME",
 	PROFILE: "PROFILE",
 	MENTIONS: "MENTIONS",
-	SELECTED_PROFILE: "SELECTED_PROFILE"
+	SELECTED_PROFILE: "SELECTED_PROFILE",
+	TAG: "TAG"
 }
 
 export const FETCH_POSTS = "FETCH_POSTS";
@@ -46,15 +47,10 @@ export const mentionTypes = {
 }
 export const FETCH_MENTION_DATA = "FETCH_MENTION_DATA";
 export const fetchMentionData = (query, mentionType) => {
-	const url = mentionType === mentionTypes.USERNAME
-		? `/users/autocomplete/${query}`
-		: `/posts/autocomplete/${query}`
+	const url = mentionType === mentionTypes.USERNAME ?
+		`/users/autocomplete/${query}` :
+		`/posts/autocomplete/${query}`
 
 	return createRequestAction(
-		FETCH_MENTION_DATA,
-		"get",
-		url,
-		{},
-		{asPromise: true}
-	)
+		FETCH_MENTION_DATA, "get", url, {}, {asPromise: true, namespaces: [postsNamespaces.PROFILE]})
 };

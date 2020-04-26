@@ -10,6 +10,7 @@ import auth from "./auth/auth-reducer";
 import {createProfileReducer} from "./profile/profile-reducer";
 import {authInterceptor} from "./middleware";
 import {postsNamespaces} from "./posts/posts-actions";
+import {profileNamespaces} from "./profile/profile-actions";
 
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL + "api";
@@ -19,9 +20,10 @@ const reducers = combineReducers({
 	profilePosts: createPostsReducer(postsNamespaces.PROFILE),
 	selectedProfilePosts: createPostsReducer(postsNamespaces.SELECTED_PROFILE),
 	mentionPosts: createPostsReducer(postsNamespaces.MENTIONS),
+	tagPosts: createPostsReducer(postsNamespaces.TAG),
 	auth,
-	profile: createProfileReducer("current"),
-	selectedProfile: createProfileReducer("selected")
+	profile: createProfileReducer(profileNamespaces.CURRENT),
+	selectedProfile: createProfileReducer(profileNamespaces.SELECTED)
 });
 
 const sagaMiddleware = createSagaMiddleware();

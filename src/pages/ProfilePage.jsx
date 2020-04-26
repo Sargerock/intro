@@ -25,7 +25,7 @@ const ProfilePage = () => {
 			content = <>
 				<CreatePost/>
 				<PostsList
-					authorName={profile.userName}
+					userName={profile.userName}
 					postsState={profilePostsState}
 					namespace={postsNamespaces.PROFILE}
 				/>
@@ -45,7 +45,7 @@ const ProfilePage = () => {
 			content = <>
 				<CreatePost/>
 				<PostsList
-					authorName={profile.userName}
+					userName={profile.userName}
 					postsState={profilePostsState}
 					namespace={postsNamespaces.PROFILE}
 				/>

@@ -1,45 +1,30 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import InfiniteScroll from "react-infinite-scroller";
 import {useDispatch} from "react-redux";
 
 import Post from "./Post";
 import Loader from "components/common/Loader";
-import {fetchPosts, postsNamespaces} from "store/posts/posts-actions";
-import {useQuery} from "utils/hooks";
+import {fetchPosts} from "store/posts/posts-actions";
 import EditPost from "./EditPost";
 
 import {ModalStyled} from "./styles";
 
-const PostsList = ({postsState, authorName, mentionName, namespace}) => {
+const PostsList = (props) => {
 	const dispatch = useDispatch();
+	const {postsState, userName, mentionName, namespace, tag} = props;
 	const {posts, hasMore, cursor, postsPerFetch} = postsState;
-	const query = useQuery();
-	const tag = query.get("tag");
 	const [modalOptions, setModalOptions] = useState({
 		isVisible: false,
 		id: 0,
 		text: ""
 	});
 
-	useEffect(() => {
-		if( !namespace || namespace === postsNamespaces.SELECTED_PROFILE) {
-			dispatch(fetchPosts({
-				userName:authorName,
-				tag,
-				namespace,
-				cursor: 0,
-				postsPerFetch,
-				isInitial: true
-			}))
-		}
-	}, [dispatch, tag, authorName, namespace, postsPerFetch]);
-
 	return (
 		<>
 			<InfiniteScroll
 				loadMore={() => dispatch(fetchPosts({
-					userName:authorName,
+					userName,
 					tag,
 					mentionName,
 					namespace,
@@ -65,7 +50,7 @@ const PostsList = ({postsState, authorName, mentionName, namespace}) => {
 				isOpen={modalOptions.isVisible}
 				onRequestClose={() => setModalOptions({...modalOptions, isVisible: false})}
 			>
-				<EditPost id={modalOptions.id} text={modalOptions.text} setModalOptions={setModalOptions} />
+				<EditPost id={modalOptions.id} text={modalOptions.text} setModalOptions={setModalOptions}/>
 			</ModalStyled>
 		</>
 	);

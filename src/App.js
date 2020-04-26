@@ -13,6 +13,7 @@ import {fetchProfile} from "store/profile/profile-actions";
 import {useAuthorization} from "store/auth/auth-selectors";
 import withErrorAlert from "./hoc/withErrorAlert";
 import Loader from "./components/common/Loader";
+import HashtagPage from "./pages/HashtagPage";
 
 import GlobalStyle from "./globalStyle";
 
@@ -30,7 +31,7 @@ function App() {
 		}
 	}, [dispatch, isAuthorized]);
 
-	if(!isInitialized){
+	if (!isInitialized) {
 		return <Loader/>
 	}
 
@@ -43,6 +44,7 @@ function App() {
 					<PrivateRoute path="/home" component={HomePage}/>
 					<PrivateRoute path={["/profile/posts", "/profile/mentions", "/profile/settings"]}
 								  component={ProfilePage}/>
+					<PrivateRoute path="/hashtag/:tag" component={HashtagPage}/>
 					<PrivateRoute path="/:userName" component={UserPage}/>
 					<Redirect to="/home"/>
 				</Switch>
