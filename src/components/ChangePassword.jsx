@@ -55,19 +55,21 @@ const ChangePassword = () => {
 							type="password"
 							name="oldPassword"
 							placeholder="Old password"
-
+							autoComplete="current-password"
 						/>
 						<ErrorMessage name="oldPassword" component={ErrorMessages}/>
 						<FieldStyled
 							type="password"
 							name="newPassword"
 							placeholder="Password"
+							autoComplete="new-password"
 						/>
 						<ErrorMessage name="newPassword" component={ErrorMessages}/>
 						<FieldStyled
 							type="password"
 							name="confirmPassword"
 							placeholder="Confirm password"
+							autoComplete="new-password"
 						/>
 						<ErrorMessage name="confirmPassword"/>
 						<div>

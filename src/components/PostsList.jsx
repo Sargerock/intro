@@ -5,10 +5,10 @@ import {useDispatch} from "react-redux";
 
 import Post from "./Post";
 import Loader from "components/common/Loader";
-import {fetchPosts} from "store/posts/posts-actions";
+import {fetchPosts, postsNamespaces} from "store/posts/posts-actions";
 import EditPost from "./EditPost";
 
-import {ModalStyled} from "./styles";
+import {ModalStyled, RefreshIcon} from "./styles";
 
 const PostsList = (props) => {
 	const dispatch = useDispatch();
@@ -46,6 +46,19 @@ const PostsList = (props) => {
 					/>
 				))}
 			</InfiniteScroll>
+			{!hasMore && <RefreshIcon onClick={() => dispatch(fetchPosts({
+				userName,
+				tag,
+				mentionName,
+				namespace,
+				cursor: 0,
+				postsPerFetch,
+				isInitial: true
+			}))}
+			>
+				Refresh
+			</RefreshIcon>}
+
 			<ModalStyled
 				isOpen={modalOptions.isVisible}
 				onRequestClose={() => setModalOptions({...modalOptions, isVisible: false})}
@@ -57,11 +70,22 @@ const PostsList = (props) => {
 };
 
 PostsList.propTypes = {
-	authorName: PropTypes.string
+	userName: PropTypes.string,
+	mentionName: PropTypes.string,
+	tag: PropTypes.string,
+	namespace: PropTypes.oneOf(Object.values(postsNamespaces)),
+	postsState: PropTypes.shape({
+		posts: PropTypes.array.isRequired,
+		hasMore: PropTypes.bool.isRequired,
+		cursor: PropTypes.number.isRequired,
+		postsPerFetch: PropTypes.number.isRequired
+	}).isRequired
 };
 
 PostsList.defaultProps = {
-	authorName: "",
+	userName: "",
+	mentionName: "",
+	tag: ""
 };
 
 export default PostsList;

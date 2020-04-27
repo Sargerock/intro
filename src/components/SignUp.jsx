@@ -82,6 +82,7 @@ const SignUp = () => {
 								name="email"
 								placeholder="Email address"
 								width="100%"
+								autoComplete="username"
 							/>
 
 							<ErrorMessage name="email" component={ErrorMessages} />
@@ -97,6 +98,7 @@ const SignUp = () => {
 								name="password"
 								placeholder="Password"
 								width="100%"
+								autoComplete="new-password"
 							/>
 							<ErrorMessage name="password" component={ErrorMessages} />
 							<FieldStyled
@@ -104,6 +106,7 @@ const SignUp = () => {
 								name="passwordConfirm"
 								placeholder="Confirm password"
 								width="100%"
+								autoComplete="new-password"
 							/>
 							<ErrorMessage name="passwordConfirm" />
 							<ButtonStyled

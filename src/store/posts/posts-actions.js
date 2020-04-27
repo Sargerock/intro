@@ -52,5 +52,8 @@ export const fetchMentionData = (query, mentionType) => {
 		`/posts/autocomplete/${query}`
 
 	return createRequestAction(
-		FETCH_MENTION_DATA, "get", url, {}, {asPromise: true, namespaces: [postsNamespaces.PROFILE]})
+		FETCH_MENTION_DATA, "get", url, {}, {
+			asPromise: true,
+			namespaces: [postsNamespaces.HOME]
+		})
 };

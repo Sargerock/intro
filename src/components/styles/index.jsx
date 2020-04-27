@@ -3,16 +3,13 @@ import PropTypes from "prop-types";
 import {Field, Form} from "formik";
 import Modal from "react-modal";
 import {Link, NavLink} from "react-router-dom";
+import {Refresh} from "@styled-icons/foundation";
 
 import Avatar from "components/common/Avatar";
 
 export const MainWrapper = styled.div`
 	max-width: 1200px;
 	margin: 0 auto;
-	border-left: 1px solid #ececec;
-	border-right: 1px solid #ececec;
-	border-bottom: 1px solid #ececec;
-	
 `;
 
 export const ButtonStyled = styled.button`
@@ -328,4 +325,13 @@ export const FileInputLabel = styled.label`
 	input {
 		display: none;
 	}
+`;
+
+export const RefreshIcon = styled(Refresh)`
+	text-align: center;
+    height: 40px;
+    width: 100%;
+    color: #b1b1b1;
+    cursor: pointer;
+    margin: 40px 0;
 `;

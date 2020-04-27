@@ -61,6 +61,7 @@ const SignIn = () => {
 								name="email"
 								placeholder="Email address"
 								width="100%"
+								autoComplete="username"
 							/>
 							<ErrorMessage name="email" component={ErrorMessages} />
 							<FieldStyled
@@ -68,6 +69,7 @@ const SignIn = () => {
 								name="password"
 								placeholder="Password"
 								width="100%"
+								autoComplete="current-password"
 							/>
 							<ErrorMessage name="password" component={ErrorMessages} />
 							<FlexWrapper width="100%" justifyContent="space-between">
