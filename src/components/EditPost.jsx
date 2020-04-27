@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {ErrorMessage, Formik} from "formik";
 import {useDispatch} from "react-redux";
 import * as yup from "yup";
@@ -67,5 +68,16 @@ const EditPost = ({id, text, setModalOptions}) => {
 		</WrapperEditPost>
 	);
 };
+
+EditPost.propTypes = {
+	id: PropTypes.number,
+	text: PropTypes.string,
+	setModalOptions: PropTypes.func.isRequired
+}
+
+EditPost.defaultProps = {
+	id: 0,
+	text: ""
+}
 
 export default EditPost;

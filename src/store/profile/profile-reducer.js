@@ -22,6 +22,7 @@ export const createProfileReducer = (namespace = "") => (state = initialState, a
 		case FETCH_SELECTED_PROFILE:
 		case FETCH_PROFILE:
 			return {
+				...state,
 				validationErrors: null,
 				isLoading: true
 			};

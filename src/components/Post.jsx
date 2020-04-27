@@ -27,7 +27,7 @@ const getTextWithLinks = (text) => {
 
 const Post = (props) => {
 	const dispatch = useDispatch();
-	const {text, authorName, authorId, id, avatarUrl, setModalOptions} = props;
+	const {id, authorId, text, authorName, avatarUrl, setModalOptions} = props;
 	const {userId} = useProfile();
 
 	return (
@@ -64,9 +64,15 @@ const Post = (props) => {
 
 Post.propTypes = {
 	id: PropTypes.number.isRequired,
+	authorId: PropTypes.number.isRequired,
 	authorName: PropTypes.string.isRequired,
 	text: PropTypes.string.isRequired,
-	authorId: PropTypes.number.isRequired,
+	avatarUrl: PropTypes.string.isRequired,
+	setModalOptions: PropTypes.func
 };
+
+Post.defaultProps = {
+	setModalOptions: () => ({})
+}
 
 export default Post;

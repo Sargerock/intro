@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import {
 	BackgroundImageProfile,
@@ -31,5 +32,12 @@ const Profile = ({profile}) => {
 		</WrapperProfile>
 	);
 };
+
+Profile.propTypes = {
+	profile: PropTypes.shape({
+		userName: PropTypes.string,
+		avatarUrl: PropTypes.string
+	})
+}
 
 export default Profile;

@@ -55,9 +55,7 @@ const PostsList = (props) => {
 				postsPerFetch,
 				isInitial: true
 			}))}
-			>
-				Refresh
-			</RefreshIcon>}
+			/>}
 
 			<ModalStyled
 				isOpen={modalOptions.isVisible}

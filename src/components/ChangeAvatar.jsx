@@ -1,11 +1,18 @@
 import React, {useRef} from 'react';
 import {useDispatch} from "react-redux";
 import {ErrorMessage, Form, Formik} from "formik";
+import * as yup from "yup";
 
 import {changeAvatar} from "../store/profile/profile-actions";
 import {useProfile} from "../store/profile/profile-selectors";
 
 import {ButtonStyled, ErrorMessages, FileInputLabel} from "./styles";
+
+const validationSchema = yup
+	.object().required("No files were uploaded").shape({
+		size: yup.number().max(5242880, "Maximum file size is 5MB"),
+		type: yup.string().matches(/^image\/\w+$/, {message: "Invalid image format"})
+	});
 
 const initialValues = {
 	avatar: {},
@@ -23,14 +30,19 @@ const ChangeAvatar = () => {
 				initialValues={initialValues}
 				initialErrors={validationErrors}
 				enableReinitialize={true}
-				onSubmit={({avatar}) => {
+				onSubmit={({avatar}, {setErrors}) => {
 					const formData = new FormData();
 					formData.append("avatar", avatar);
-					dispatch(changeAvatar(formData));
-					fileInputRef.current.value = null;
+					try {
+						validationSchema.validateSync({size: avatar.size, type: avatar.type}, {abortEarly: false});
+						dispatch(changeAvatar(formData));
+						fileInputRef.current.value = null;
+					} catch (e) {
+						setErrors({avatar: e.errors.map(message => message + "\n")});
+					}
 				}}
 			>
-				{({setFieldValue ,values}) => (
+				{({setFieldValue, values}) => (
 					<Form>
 						<FileInputLabel htmlFor="file">
 							{values.avatar.name || "Upload a file"}
