@@ -15,6 +15,7 @@ import {MainWrapper, NavBarProfile, NavLinkProfile} from "../components/styles";
 const ProfilePage = () => {
 	const pathname = useLocation().pathname.split("/")[2];
 	const profile = useProfile();
+	const userName = profile.userName;
 	const profilePostsState = useSelector(state => state.profilePosts);
 	const mentionPostsState = useSelector(state => state.mentionPosts);
 
@@ -22,18 +23,18 @@ const ProfilePage = () => {
 
 	switch (pathname) {
 		case "posts":
-			content = <>
+			content = !userName ? undefined : <>
 				<CreatePost/>
 				<PostsList
-					userName={profile.userName}
+					userName={userName}
 					postsState={profilePostsState}
 					namespace={postsNamespaces.PROFILE}
 				/>
 			</>
 			break;
 		case "mentions":
-			content = <PostsList
-				mentionName={profile.userName}
+			content = !userName ? undefined : <PostsList
+				mentionName={userName}
 				postsState={mentionPostsState}
 				namespace={postsNamespaces.MENTIONS}
 			/>
@@ -42,14 +43,7 @@ const ProfilePage = () => {
 			content = <Settings/>;
 			break;
 		default:
-			content = <>
-				<CreatePost/>
-				<PostsList
-					userName={profile.userName}
-					postsState={profilePostsState}
-					namespace={postsNamespaces.PROFILE}
-				/>
-			</>
+			content = undefined;
 	}
 
 	return <>
@@ -61,7 +55,7 @@ const ProfilePage = () => {
 				<NavLinkProfile to="/profile/mentions">Mentions</NavLinkProfile>
 				<NavLinkProfile to="/profile/settings">Settings</NavLinkProfile>
 			</NavBarProfile>
-			{!profile.isLoading && content}
+			{content}
 		</MainWrapper>
 	</>
 };

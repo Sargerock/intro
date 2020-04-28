@@ -4,7 +4,6 @@ import {
 	CREATE_POST,
 	DELETE_POST,
 	EDIT_POST,
-	FETCH_MENTION_DATA,
 } from "./posts-actions";
 
 const initialState = {
@@ -12,9 +11,7 @@ const initialState = {
 	cursor: 0,
 	hasMore: true,
 	postsPerFetch: 5,
-	validationErrors: null,
 	isLoading: false,
-	mentionData: [],
 };
 
 export const createPostsReducer = (namespace = "") => (state = initialState, action) => {
@@ -37,7 +34,6 @@ export const createPostsReducer = (namespace = "") => (state = initialState, act
 		case EDIT_POST:
 			return {
 				...state,
-				validationErrors: null,
 				isLoading: true
 			};
 		case success(FETCH_POSTS):
@@ -73,14 +69,6 @@ export const createPostsReducer = (namespace = "") => (state = initialState, act
 				),
 				isLoading: false
 			};
-		case success(FETCH_MENTION_DATA):
-			return {
-				...state,
-				mentionData: action.payload.data.map((data) => ({
-					id: data.id,
-					display: data.userName || data.tag,
-				})),
-			};
 		case error(FETCH_POSTS):
 			return {
 				...state,
@@ -90,7 +78,6 @@ export const createPostsReducer = (namespace = "") => (state = initialState, act
 		case error(EDIT_POST):
 			return {
 				...state,
-				validationErrors: action.payload.errors,
 				isLoading: false,
 			};
 		default:

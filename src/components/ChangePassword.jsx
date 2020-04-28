@@ -2,11 +2,11 @@ import React from 'react';
 import {useDispatch} from "react-redux";
 import {ErrorMessage, Form, Formik} from "formik";
 import * as yup from "yup";
-
-import {ButtonStyled, ErrorMessages, FieldStyled} from "./styles";
+import {useAlert} from "react-alert";
 
 import {changePassword} from "../store/profile/profile-actions";
-import {useProfile} from "../store/profile/profile-selectors";
+
+import {ButtonStyled, ErrorMessages, FieldStyled} from "./styles";
 
 const validationSchema = yup.object().shape({
 	oldPassword: yup.string().required("Password is required."),
@@ -35,19 +35,23 @@ const initialValues = {
 
 const ChangePassword = () => {
 	const dispatch = useDispatch();
-	const {validationErrors} = useProfile();
+	const alert = useAlert();
+
 	return (
 		<>
 			<p>Change password</p>
 			<Formik
 				initialValues={initialValues}
 				validationSchema={validationSchema}
-				onSubmit={({oldPassword, newPassword}, {resetForm}) => {
-					dispatch(changePassword({oldPassword, newPassword}))
-					//resetForm();
+				onSubmit={async ({oldPassword, newPassword}, {resetForm, setErrors}) => {
+					try {
+						await dispatch(changePassword({oldPassword, newPassword}));
+						resetForm();
+						alert.show("Password successfully changed", {type: "success"});
+					} catch (action) {
+						setErrors(action.payload.response.data.errors);
+					}
 				}}
-				initialErrors={validationErrors}
-				enableReinitialize={true}
 			>
 				{({dirty, isValid}) => (
 					<Form>

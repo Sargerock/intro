@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
-import { Formik, ErrorMessage } from "formik";
+import {useDispatch} from "react-redux";
+import {Formik, ErrorMessage} from "formik";
 
-import { signUp, resetErrors } from "store/auth/auth-actions";
-import { useAuthorization } from "store/auth/auth-selectors";
+import {signUp} from "store/auth/auth-actions";
+import {useAuthorization} from "store/auth/auth-selectors";
 
 import {
 	FieldStyled,
@@ -54,73 +54,68 @@ const initialValues = {
 
 const SignUp = () => {
 	const dispatch = useDispatch();
-	const { validationErrors, isLoading } = useAuthorization();
+	const {isLoading} = useAuthorization();
 
-	useEffect(() => {
-		return () => {
-			dispatch(resetErrors());
-		};
-	}, [dispatch]);
-
-	const signUpHandleSubmit = ({ email, password, userName }) => {
-		dispatch(signUp({ email, password, userName }, { remember: true }));
-	};
 	return (
 		<>
-				<h2>Sign Up</h2>
-				<Formik
-					initialValues={initialValues}
-					initialErrors={validationErrors}
-					onSubmit={signUpHandleSubmit}
-					validationSchema={signUpValidationSchema}
-					enableReinitialize={true}
-				>
-					{({ dirty, isValid }) => (
-						<FormSign>
-							<FieldStyled
-								type="email"
-								name="email"
-								placeholder="Email address"
-								width="100%"
-								autoComplete="username"
-							/>
+			<h2>Sign Up</h2>
+			<Formik
+				initialValues={initialValues}
+				validationSchema={signUpValidationSchema}
+				onSubmit={async ({email, password, userName}, {setErrors}) => {
+					try {
+						await dispatch(signUp({email, password, userName}, {remember: true}));
+					} catch (action) {
+						setErrors(action.payload.response.data.errors);
+					}
+				}}
+			>
+				{({dirty, isValid}) => (
+					<FormSign>
+						<FieldStyled
+							type="email"
+							name="email"
+							placeholder="Email address"
+							width="100%"
+							autoComplete="username"
+						/>
 
-							<ErrorMessage name="email" component={ErrorMessages} />
-							<FieldStyled
-								type="userName"
-								name="userName"
-								placeholder="User name"
-								width="100%"
-							/>
-							<ErrorMessage name="userName" component={ErrorMessages} />
-							<FieldStyled
-								type="password"
-								name="password"
-								placeholder="Password"
-								width="100%"
-								autoComplete="new-password"
-							/>
-							<ErrorMessage name="password" component={ErrorMessages} />
-							<FieldStyled
-								type="password"
-								name="passwordConfirm"
-								placeholder="Confirm password"
-								width="100%"
-								autoComplete="new-password"
-							/>
-							<ErrorMessage name="passwordConfirm" />
-							<ButtonStyled
-								type="submit"
-								alignSelf={"flex-end"}
-								margin="10px 0"
-								disabled={isLoading || !dirty || !isValid}
-							>
-								Sign Up
-							</ButtonStyled>
-							<LinkSign to="/sign-in">or Sign In</LinkSign>
-						</FormSign>
-					)}
-				</Formik>
+						<ErrorMessage name="email" component={ErrorMessages}/>
+						<FieldStyled
+							type="userName"
+							name="userName"
+							placeholder="User name"
+							width="100%"
+						/>
+						<ErrorMessage name="userName" component={ErrorMessages}/>
+						<FieldStyled
+							type="password"
+							name="password"
+							placeholder="Password"
+							width="100%"
+							autoComplete="new-password"
+						/>
+						<ErrorMessage name="password" component={ErrorMessages}/>
+						<FieldStyled
+							type="password"
+							name="passwordConfirm"
+							placeholder="Confirm password"
+							width="100%"
+							autoComplete="new-password"
+						/>
+						<ErrorMessage name="passwordConfirm"/>
+						<ButtonStyled
+							type="submit"
+							alignSelf={"flex-end"}
+							margin="10px 0"
+							disabled={isLoading || !dirty || !isValid}
+						>
+							Sign Up
+						</ButtonStyled>
+						<LinkSign to="/sign-in">or Sign In</LinkSign>
+					</FormSign>
+				)}
+			</Formik>
 		</>
 	);
 };

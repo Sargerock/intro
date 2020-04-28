@@ -4,11 +4,10 @@ import stringReplace from "react-string-replace";
 import {Link} from "react-router-dom";
 import {useDispatch} from "react-redux";
 
-import Avatar from "./common/Avatar";
 import {useProfile} from "../store/profile/profile-selectors";
 import {deletePost} from "../store/posts/posts-actions";
 
-import {WrapperPost, PostBody, PostMessage, ButtonDeletePost, ButtonEditPost} from "./styles";
+import {WrapperPost, PostBody, PostMessage, ButtonDeletePost, ButtonEditPost, Avatar} from "./styles";
 
 const getTextWithLinks = (text) => {
 	let result = stringReplace(text, /\B@(\w+)/gim, (match, i) => (

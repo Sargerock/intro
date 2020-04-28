@@ -7,11 +7,11 @@ import {
 
 export const SIGN_IN = "SIGN_IN";
 export const signIn = (data, meta) =>
-	createRequestAction(SIGN_IN, "post", "/auth/sign-in", data, meta);
+	createRequestAction(SIGN_IN, "post", "/auth/sign-in", data, {...meta, asPromise: true});
 
 export const SIGN_UP = "SIGN_UP";
 export const signUp = (data, meta) =>
-	createRequestAction(SIGN_UP, "post", "/auth/sign-up", data, meta);
+	createRequestAction(SIGN_UP, "post", "/auth/sign-up", data, {...meta, asPromise: true});
 
 export const SIGN_OUT = "SIGN_OUT";
 export const signOut = () => {
@@ -31,11 +31,6 @@ export const checkToken = () => {
 		payload: {isAuthorized: !!accessToken},
 	};
 };
-
-export const RESET_ERRORS = "RESET_ERRORS";
-export const resetErrors = () => ({
-	type: RESET_ERRORS,
-});
 
 export const SET_ALERT_ERROR = "SET_ALERT_ERROR";
 export const setAlertMessage = (error) => ({

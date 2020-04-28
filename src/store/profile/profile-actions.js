@@ -23,5 +23,6 @@ export const fetchSelectedProfile = (userName, namespace) =>
 export const CHANGE_AVATAR = "CHANGE_AVATAR";
 export const changeAvatar = (data) =>
 	createRequestAction(CHANGE_AVATAR, "put", `/users/upload/avatar`, data, {
-		namespace: profileNamespaces.CURRENT
+		namespace: profileNamespaces.CURRENT,
+		asPromise: true
 	});

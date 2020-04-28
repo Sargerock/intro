@@ -5,8 +5,6 @@ import Modal from "react-modal";
 import {Link, NavLink} from "react-router-dom";
 import {Refresh} from "@styled-icons/foundation";
 
-import Avatar from "components/common/Avatar";
-
 export const MainWrapper = styled.div`
 	max-width: 1200px;
 	margin: 0 auto;
@@ -221,6 +219,21 @@ export const BackgroundImageProfile = styled.img`
 	width: 100%;
 	margin-bottom: 100px;
 `;
+
+export const Avatar = styled.img`
+	border-radius: 50%;
+	height: ${({ size }) => size};
+	width: ${({ size }) => size};
+	margin: ${({ margin }) => margin};
+`;
+Avatar.propTypes = {
+	size: PropTypes.string,
+	margin: PropTypes.string,
+};
+Avatar.defaultProps = {
+	size: "80px",
+	margin: "10px",
+};
 
 export const AvatarProfile = styled(Avatar)`
 	position: absolute;

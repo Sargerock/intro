@@ -2,16 +2,14 @@ import {setAlertMessage, signOut} from "../auth/auth-actions";
 
 export const authInterceptor = ({dispatch}) => (next) => (action) => {
 	if (!action.error) {
-		next(action);
-		return;
+		return next(action);
 	}
 	if (action.payload.message === "Network Error") {
 		dispatch(setAlertMessage(action.payload.message));
-		return;
+		return next(action);
 	}
 	if (action.payload.response?.status === 401) {
-		dispatch(signOut());
-		return;
+		return dispatch(signOut());
 	}
-	next(action);
+	return next(action);
 };

@@ -17,11 +17,12 @@ const Profile = ({profile}) => {
 				src="https://via.placeholder.com/1200x200/f98506/FFFFFF"
 				alt="profile background"
 			/>
-			<AvatarProfile
+			{avatarUrl && <AvatarProfile
 				src={process.env.REACT_APP_BASE_URL + avatarUrl}
 				alt="avatar"
 				size={120}
-			/>
+			/>}
+
 			<InnerWrapperProfile>
 				<h2>{userName}</h2>
 				<p>

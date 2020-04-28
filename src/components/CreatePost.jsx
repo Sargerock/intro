@@ -3,13 +3,12 @@ import {ErrorMessage, Formik} from "formik";
 import {useDispatch} from "react-redux";
 import * as yup from "yup";
 
-import Avatar from "components/common/Avatar";
 import {createPost} from "store/posts/posts-actions";
 import {usePosts} from "store/posts/posts-selectors";
 import PostMentionInput from "./post-mention-input";
-
-import {WrapperCreatePost, FormCreatePost, ButtonCreatePost} from "./styles";
 import {useProfile} from "../store/profile/profile-selectors";
+
+import {WrapperCreatePost, FormCreatePost, ButtonCreatePost, Avatar} from "./styles";
 
 const createPostValidationSchema = yup.object().shape({
 	text: yup
@@ -25,21 +24,23 @@ const createPostInitialValues = {
 
 const CreatePost = () => {
 	const dispatch = useDispatch();
-	const {validationErrors, isLoading} = usePosts();
+	const {isLoading} = usePosts();
 	const {avatarUrl} = useProfile();
 
 	return (
 		<WrapperCreatePost>
-			<Avatar src={process.env.REACT_APP_BASE_URL + avatarUrl} alt="avatar" size="50"/>
+			{avatarUrl && <Avatar src={process.env.REACT_APP_BASE_URL + avatarUrl} alt="avatar" size="50px"/>}
 			<Formik
 				initialValues={createPostInitialValues}
-				initialErrors={validationErrors}
 				validationSchema={createPostValidationSchema}
-				onSubmit={({text}, {resetForm}) => {
-					dispatch(createPost({text}));
-					resetForm();
+				onSubmit={async ({text}, {resetForm, setErrors}) => {
+					try {
+						await dispatch(createPost({text}));
+						resetForm();
+					} catch (action) {
+						setErrors(action.payload.response.data.errors);
+					}
 				}}
-				enableReinitialize={true}
 				validateOnBlur={false}
 			>
 				{({

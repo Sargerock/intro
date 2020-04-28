@@ -28,11 +28,11 @@ const reducers = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middleware = applyMiddleware(thunk, logger, authInterceptor, ...requestsMiddleware, sagaMiddleware);
+const middleware = [thunk, logger, authInterceptor, ...requestsMiddleware, sagaMiddleware];
 
 const store = createStore(
 	reducers,
-	middleware
+	applyMiddleware(...middleware)
 );
 
 sagaMiddleware.run(rootSaga);

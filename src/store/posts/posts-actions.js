@@ -30,7 +30,8 @@ export const fetchPosts = ({cursor, postsPerFetch, userName, tag, mentionName, i
 export const CREATE_POST = "CREATE_POST";
 export const createPost = (data) =>
 	createRequestAction(CREATE_POST, "post", "/posts", data, {
-		namespaces: [postsNamespaces.HOME, postsNamespaces.PROFILE]
+		namespaces: [postsNamespaces.HOME, postsNamespaces.PROFILE],
+		asPromise: true
 	});
 
 export const DELETE_POST = "DELETE_POST";
@@ -39,7 +40,7 @@ export const deletePost = (id) =>
 
 export const EDIT_POST = "EDIT_POST";
 export const editPost = (id, data) =>
-	createRequestAction(EDIT_POST, "put", `/posts/${id}`, data);
+	createRequestAction(EDIT_POST, "put", `/posts/${id}`, data, {asPromise: true});
 
 export const mentionTypes = {
 	TAG: "TAG",

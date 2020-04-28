@@ -12,8 +12,7 @@ const withErrorAlert = (Component) => (props) => {
 		if (error) {
 			alert.show(error, {type: "error"});
 		}
-		// eslint-disable-next-line
-	}, );
+	});
 
 	return <Component {...props} />;
 };

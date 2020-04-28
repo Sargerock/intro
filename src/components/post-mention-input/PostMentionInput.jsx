@@ -1,24 +1,29 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { MentionsInput, Mention } from "react-mentions";
+import {useDispatch} from "react-redux";
+import {MentionsInput, Mention} from "react-mentions";
 
-import { fetchMentionData, mentionTypes } from "store/posts/posts-actions";
-import { usePosts } from "store/posts/posts-selectors";
+import {fetchMentionData, mentionTypes} from "store/posts/posts-actions";
 
 import styles from "./mentions.module.css";
 
 const PostMentionInput = (props) => {
-	const { name, value, submitForm, handleChange, ...rest } = props;
+	const {name, value, submitForm, handleChange, ...rest} = props;
 	const dispatch = useDispatch();
-	const { mentionData } = usePosts();
 
-	const createDataFetcher = (type) => (query, callback) => {
+	const createDataFetcher = (type) => async (query, callback) => {
 		if (!query) {
 			return;
 		}
-		dispatch(fetchMentionData(query, type));
-		callback(mentionData);
+		try {
+			const action = await dispatch(fetchMentionData(query, type));
+			const mentionData = action.payload.data.map((data) => ({
+				id: data.id,
+				display: data.userName || data.tag,
+			}));
+			callback(mentionData);
+		} catch (e) {
+		}
 	};
 	return (
 		<MentionsInput

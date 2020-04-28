@@ -22,7 +22,7 @@ function App() {
 	const {isAuthorized, isInitialized} = useAuthorization();
 
 	useEffect(() => {
-		dispatch(checkToken());
+		dispatch(checkToken())
 	}, [dispatch]);
 
 	useEffect(() => {

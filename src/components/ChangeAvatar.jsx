@@ -2,9 +2,9 @@ import React, {useRef} from 'react';
 import {useDispatch} from "react-redux";
 import {ErrorMessage, Form, Formik} from "formik";
 import * as yup from "yup";
+import {useAlert} from "react-alert";
 
 import {changeAvatar} from "../store/profile/profile-actions";
-import {useProfile} from "../store/profile/profile-selectors";
 
 import {ButtonStyled, ErrorMessages, FileInputLabel} from "./styles";
 
@@ -20,27 +20,35 @@ const initialValues = {
 
 const ChangeAvatar = () => {
 	const dispatch = useDispatch();
-	const {validationErrors} = useProfile();
 	const fileInputRef = useRef(null);
+	const alert = useAlert();
+
+	const handleSubmit = async ({avatar}, {setErrors, setValues}) => {
+		const formData = new FormData();
+		formData.append("avatar", avatar);
+		try {
+			validationSchema.validateSync({size: avatar.size, type: avatar.type}, {abortEarly: false});
+			try {
+				await dispatch(changeAvatar(formData));
+				alert.show("Avatar successfully changed", {type: "success"});
+				fileInputRef.current.value = null;
+				setValues(initialValues);
+			} catch (action) {
+				const errors = Object.values(action.payload.response.data.errors)
+					.reduce((acc, cur) => ({...acc, avatar: [...acc.avatar || [], ...cur]}), {})
+				setErrors(errors);
+			}
+		} catch (e) {
+			setErrors({avatar: e.errors.map(message => message + "\n")});
+		}
+	}
 
 	return (
 		<>
 			<p>Change user photo</p>
 			<Formik
 				initialValues={initialValues}
-				initialErrors={validationErrors}
-				enableReinitialize={true}
-				onSubmit={({avatar}, {setErrors}) => {
-					const formData = new FormData();
-					formData.append("avatar", avatar);
-					try {
-						validationSchema.validateSync({size: avatar.size, type: avatar.type}, {abortEarly: false});
-						dispatch(changeAvatar(formData));
-						fileInputRef.current.value = null;
-					} catch (e) {
-						setErrors({avatar: e.errors.map(message => message + "\n")});
-					}
-				}}
+				onSubmit={handleSubmit}
 			>
 				{({setFieldValue, values}) => (
 					<Form>

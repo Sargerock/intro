@@ -5,8 +5,8 @@ import {useDispatch} from "react-redux";
 import * as yup from "yup";
 
 import {editPost} from "store/posts/posts-actions";
-import {usePosts} from "store/posts/posts-selectors";
 import PostMentionInput from "components/post-mention-input";
+import {usePosts} from "../store/posts/posts-selectors";
 
 import {WrapperEditPost, FormCreatePost, FlexWrapper, ButtonStyled} from "./styles";
 
@@ -20,19 +20,21 @@ const postValidationSchema = yup.object().shape({
 
 const EditPost = ({id, text, setModalOptions}) => {
 	const dispatch = useDispatch();
-	const {validationErrors} = usePosts();
+	const {isLoading} = usePosts()
 
 	return (
 		<WrapperEditPost>
 			<Formik
 				initialValues={{text}}
-				initialErrors={validationErrors}
 				validationSchema={postValidationSchema}
-				onSubmit={({text}) => {
-					dispatch(editPost(id, {text}));
-					setModalOptions({isVisible: false});
+				onSubmit={async ({text}, {setErrors}) => {
+					try {
+						await dispatch(editPost(id, {text}));
+						setModalOptions({isVisible: false});
+					} catch (action) {
+						setErrors(action.payload.response.data.errors)
+					}
 				}}
-				enableReinitialize={true}
 				validateOnBlur={false}
 			>
 				{({isValid, submitForm, handleChange, values}) => (
@@ -56,7 +58,7 @@ const EditPost = ({id, text, setModalOptions}) => {
 							<ButtonStyled
 								title="Ctrl + Enter"
 								type="submit"
-								disabled={!isValid}
+								disabled={isLoading || !isValid}
 							>
 								Save
 							</ButtonStyled>

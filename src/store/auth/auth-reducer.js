@@ -3,8 +3,9 @@ import {
 	SIGN_UP,
 	SIGN_OUT,
 	CHECK_TOKEN,
-	RESET_ERRORS, SET_ALERT_ERROR,
+	SET_ALERT_ERROR,
 } from "./auth-actions";
+
 import {success, error} from "redux-saga-requests";
 
 const initialState = {
@@ -12,7 +13,6 @@ const initialState = {
 	isLoading: true,
 	isInitialized: false,
 	error: "",
-	validationErrors: null,
 };
 
 export default (state = initialState, action) => {
@@ -21,7 +21,6 @@ export default (state = initialState, action) => {
 		case SIGN_UP:
 			return {
 				...state,
-				validationErrors: null,
 				isLoading: true
 			};
 		case success(SIGN_IN):
@@ -36,7 +35,6 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				isLoading: false,
-				validationErrors: action.payload.response.data.errors,
 			};
 
 		case SIGN_OUT:
@@ -47,11 +45,6 @@ export default (state = initialState, action) => {
 				isAuthorized: action.payload.isAuthorized,
 				isLoading: false,
 				isInitialized: true
-			};
-		case RESET_ERRORS:
-			return {
-				...state,
-				validationErrors: null,
 			};
 		case SET_ALERT_ERROR:
 			return {
