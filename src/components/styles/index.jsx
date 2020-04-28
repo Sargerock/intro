@@ -243,6 +243,12 @@ export const AvatarProfile = styled(Avatar)`
 	top: ${({size}) => 200 - size / 2}px;
 	left: 20px;
 `;
+AvatarProfile.propTypes = {
+	size: PropTypes.number
+};
+AvatarProfile.defaultProps = {
+	size: 80
+};
 
 export const WrapperPost = styled.div`
 	display: flex;

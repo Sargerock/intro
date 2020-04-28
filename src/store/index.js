@@ -7,11 +7,9 @@ import {requestsMiddleware, rootSaga} from "./sagas";
 
 import {createPostsReducer} from "./posts/posts-reducer";
 import auth from "./auth/auth-reducer";
-import {createProfileReducer} from "./profile/profile-reducer";
+import profile from "./profile/profile-reducer";
 import {authInterceptor} from "./middleware";
 import {postsNamespaces} from "./posts/posts-actions";
-import {profileNamespaces} from "./profile/profile-actions";
-
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL + "api";
 
@@ -22,8 +20,7 @@ const reducers = combineReducers({
 	mentionPosts: createPostsReducer(postsNamespaces.MENTIONS),
 	tagPosts: createPostsReducer(postsNamespaces.TAG),
 	auth,
-	profile: createProfileReducer(profileNamespaces.CURRENT),
-	selectedProfile: createProfileReducer(profileNamespaces.SELECTED)
+	profile
 });
 
 const sagaMiddleware = createSagaMiddleware();

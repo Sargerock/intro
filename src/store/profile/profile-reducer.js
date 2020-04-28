@@ -12,13 +12,10 @@ const initialState = {
 	userName: "",
 	avatarUrl: "",
 	isLoading: true,
+	byUsername: {}
 };
 
-export const createProfileReducer = (namespace = "") => (state = initialState, action) => {
-	if (action.meta?.namespace && action.meta?.namespace !== namespace) {
-		return state;
-	}
-
+export default (state = initialState, action) => {
 	switch (action.type) {
 		case FETCH_SELECTED_PROFILE:
 		case FETCH_PROFILE:
@@ -29,12 +26,24 @@ export const createProfileReducer = (namespace = "") => (state = initialState, a
 				isLoading: true
 			};
 		case success(FETCH_SELECTED_PROFILE):
+			return {
+				...state,
+				isLoading: false,
+				byUsername: {
+					...state.byUsername,
+					[action.payload.data.userName]: {...action.payload.data, userId: action.payload.data.id}
+				}
+			};
 		case success(FETCH_PROFILE):
 			return {
 				...state,
 				...action.payload.data,
 				userId: action.payload.data.id,
 				isLoading: false,
+				byUsername: {
+					...state.byUsername,
+					[action.payload.data.userName]: {...action.payload.data, userId: action.payload.data.id}
+				}
 			};
 		case success(CHANGE_PASSWORD):
 			return {

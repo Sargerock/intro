@@ -5,34 +5,42 @@ import {useParams} from "react-router-dom";
 import Profile from "components/Profile";
 import PostsList from "components/PostsList";
 import NavBar from "components/NavBar";
-import {fetchSelectedProfile, profileNamespaces} from "../store/profile/profile-actions";
+import {fetchSelectedProfile} from "../store/profile/profile-actions";
 import NotFound from "components/common/NotFound";
 import {fetchPosts, postsNamespaces} from "../store/posts/posts-actions";
 
 import {MainWrapper} from "components/styles";
+import {useProfile} from "../store/profile/profile-selectors";
 
 const UserPage = () => {
 	const dispatch = useDispatch();
 	const {userName} = useParams();
-	const profile = useSelector(state => state.selectedProfile);
+	const {isLoading} = useProfile();
+	const profile = useSelector(state => state.profile.byUsername[userName]);
 	const postsState = useSelector(state => state.selectedProfilePosts);
 
 	useEffect(() => {
-	 	dispatch(fetchSelectedProfile(userName, profileNamespaces.SELECTED));
-		dispatch(fetchPosts({
-			userName,
-			namespace: postsNamespaces.SELECTED_PROFILE,
-			cursor: 0,
-			postsPerFetch: postsState.postsPerFetch,
-			isInitial: true
-		}))
-	 }, [dispatch, userName, postsState.postsPerFetch]);
+		if (!profile) {
+			dispatch(fetchSelectedProfile(userName));
+		}
+		if (profile) {
+			dispatch(fetchPosts({
+				userName: profile.userName,
+				namespace: postsNamespaces.SELECTED_PROFILE,
+				cursor: 0,
+				postsPerFetch: postsState.postsPerFetch,
+				isInitial: true
+			}))
+		}
+
+	}, [dispatch, profile, userName, postsState.postsPerFetch]);
+
 	return (
 		<>
 			<NavBar/>
 			<MainWrapper>
-				{!profile.userName && !profile.isLoading && <NotFound message={"404 User not found"}/>}
-				{profile.userName && (
+				{!profile && !isLoading && <NotFound message={"404 User not found"}/>}
+				{profile && (
 					<>
 						<Profile profile={profile}/>
 						<PostsList
