@@ -1,8 +1,7 @@
 import axios from "axios";
-import {createStore, applyMiddleware, combineReducers} from "redux";
+import {createStore, applyMiddleware, combineReducers, compose} from "redux";
 import thunk from "redux-thunk";
 import createSagaMiddleware from "redux-saga";
-import logger from "redux-logger";
 import {requestsMiddleware, rootSaga} from "./sagas";
 
 import {createPostsReducer} from "./posts/posts-reducer";
@@ -25,11 +24,20 @@ const reducers = combineReducers({
 
 const sagaMiddleware = createSagaMiddleware();
 
-const middleware = [thunk, logger, authInterceptor, ...requestsMiddleware, sagaMiddleware];
+const middleware = [thunk, authInterceptor, ...requestsMiddleware, sagaMiddleware];
+
+const composeEnhancers =
+	typeof window === 'object' &&
+	window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
+
+const enhancer = composeEnhancers(
+	applyMiddleware(...middleware),
+);
 
 const store = createStore(
 	reducers,
-	applyMiddleware(...middleware)
+	enhancer
 );
 
 sagaMiddleware.run(rootSaga);
