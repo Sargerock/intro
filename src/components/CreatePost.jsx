@@ -29,7 +29,7 @@ const CreatePost = () => {
 
 	return (
 		<WrapperCreatePost>
-			{avatarUrl && <Avatar src={process.env.REACT_APP_BASE_URL + avatarUrl} alt="avatar" size="50px"/>}
+			{avatarUrl && <Avatar src={process.env.REACT_APP_BASE_URL + avatarUrl} alt="avatar" size={50}/>}
 			<Formik
 				initialValues={createPostInitialValues}
 				validationSchema={createPostValidationSchema}

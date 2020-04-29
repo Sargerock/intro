@@ -222,17 +222,17 @@ export const BackgroundImageProfile = styled.img`
 
 export const Avatar = styled.img`
 	border-radius: 50%;
-	height: ${({ size }) => size};
-	width: ${({ size }) => size};
-	margin: ${({ margin }) => margin};
+	height: ${({ size }) => size}px;
+	width: ${({ size }) => size}px;
+	margin: ${({ margin }) => margin}px;
 `;
 Avatar.propTypes = {
-	size: PropTypes.string,
-	margin: PropTypes.string,
+	size: PropTypes.number,
+	margin: PropTypes.number,
 };
 Avatar.defaultProps = {
-	size: "80px",
-	margin: "10px",
+	size: 80,
+	margin: 10,
 };
 
 export const AvatarProfile = styled(Avatar)`
